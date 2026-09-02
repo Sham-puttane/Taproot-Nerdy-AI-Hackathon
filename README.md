@@ -61,7 +61,9 @@ Day 1 of 16. Honest state:
 - [x] Math prerequisite DAG — 406 standards, 757 edges, verified acyclic
 - [x] Fractions cone extracted — **77 nodes, 142 edges, K→grade 5**, max depth 13
 - [x] 1,566 learning components attached
-- [ ] Eedi misconception mapping + ChromaDB index
+- [x] Eedi corpus loaded and cleaned - **234 elementary questions, 560 labelled
+      distractors, 253 named misconceptions, 106 constructs**
+- [ ] Construct to Learning Component mapping + ChromaDB index
 - [ ] Mastery engine (BKT + DAG propagation + info-gain selection)
 - [ ] Agents: retriever, generator, verifier, coach, planner
 - [ ] The game
