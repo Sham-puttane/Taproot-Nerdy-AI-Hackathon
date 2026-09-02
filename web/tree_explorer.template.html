@@ -1,0 +1,311 @@
+<title>The Fractions Cone</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#E9EAE4; --raised:#F1F2EC; --ink:#1F211C; --muted:#6E7268;
+    --hair:#C9CBC2; --chloro:#2E7D5B; --ochre:#B5722A; --dim:#9DA196;
+    --b0:#DCDDD4; --b1:#D4D5CB; --b2:#CCCDC2; --b3:#C3C5B9; --b4:#BABCAF; --b5:#B1B3A5;
+    --shadow:0 1px 2px rgba(31,33,28,.08),0 8px 24px rgba(31,33,28,.06);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#161813; --raised:#1D201A; --ink:#E6E8DF; --muted:#8D9184;
+      --hair:#2E3128; --chloro:#5FBF8E; --ochre:#D9954A; --dim:#6A6E62;
+      --b0:#1B1E17; --b1:#1F221A; --b2:#23261E; --b3:#272B22; --b4:#2B2F25; --b5:#2F3329;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#161813; --raised:#1D201A; --ink:#E6E8DF; --muted:#8D9184;
+    --hair:#2E3128; --chloro:#5FBF8E; --ochre:#D9954A; --dim:#6A6E62;
+    --b0:#1B1E17; --b1:#1F221A; --b2:#23261E; --b3:#272B22; --b4:#2B2F25; --b5:#2F3329;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    font-size:15px;line-height:1.55;margin:0}
+  header{padding:22px 26px 16px;border-bottom:1px solid var(--hair);
+    display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:29px;
+    letter-spacing:-.015em;margin:0;text-wrap:balance}
+  .sub{color:var(--muted);font-size:13.5px;margin:5px 0 0;max-width:62ch}
+  .stats{display:flex;gap:22px;flex-wrap:wrap}
+  .stat b{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:500;
+    display:block;font-variant-numeric:tabular-nums;line-height:1.2}
+  .stat span{font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+  .bar{display:flex;gap:9px;align-items:center;padding:11px 26px;
+    border-bottom:1px solid var(--hair);flex-wrap:wrap}
+  button{font:inherit;font-size:13px;padding:6px 13px;border-radius:5px;
+    border:1px solid var(--hair);background:var(--raised);color:var(--ink);cursor:pointer}
+  button:hover{border-color:var(--muted)}
+  button:focus-visible{outline:2px solid var(--chloro);outline-offset:2px}
+  button.on{background:var(--chloro);border-color:var(--chloro);color:var(--paper)}
+  .hint{color:var(--muted);font-size:12.5px;margin-left:auto}
+  .wrap{display:grid;grid-template-columns:1fr 318px;min-height:0}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr}}
+  .canvas{overflow:auto;padding:0}
+  svg{display:block}
+  .band{fill:var(--b0)}
+  .bandlabel{font-family:"IBM Plex Mono",monospace;font-size:10px;fill:var(--muted);
+    text-transform:uppercase;letter-spacing:.1em}
+  .edge{fill:none;stroke:var(--hair);stroke-width:1.1}
+  .edge.hi{stroke:var(--chloro);stroke-width:2.2}
+  .edge.path{stroke:var(--ochre);stroke-width:2.6}
+  .node rect{fill:var(--raised);stroke:var(--hair);stroke-width:1}
+  .node text{font-family:"IBM Plex Mono",monospace;font-size:9.5px;fill:var(--ink)}
+  .node{cursor:pointer}
+  .node:hover rect{stroke:var(--muted)}
+  .node.hi rect{stroke:var(--chloro);stroke-width:2}
+  .node.path rect{fill:var(--ochre);stroke:var(--ochre)}
+  .node.path text{fill:var(--paper)}
+  .node.sel rect{stroke:var(--ink);stroke-width:2.4}
+  .node.fade{opacity:.2}
+  .edge.fade{opacity:.12}
+  aside{border-left:1px solid var(--hair);padding:20px 22px;overflow:auto;
+    background:var(--raised)}
+  @media (max-width:900px){aside{border-left:none;border-top:1px solid var(--hair)}}
+  .code{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:500;
+    color:var(--chloro);margin:0}
+  .meta{font-size:11px;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--muted);margin:3px 0 13px}
+  .desc{font-size:14px;margin:0 0 20px}
+  h3{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted);margin:0 0 9px;font-weight:600}
+  ul{margin:0 0 20px;padding-left:17px}
+  li{font-size:13px;margin-bottom:7px}
+  .rel{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+  .chip{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:3px 7px;
+    border-radius:4px;background:var(--paper);border:1px solid var(--hair);cursor:pointer}
+  .chip:hover{border-color:var(--chloro)}
+  .empty{color:var(--muted);font-size:13.5px}
+  footer{padding:14px 26px;border-top:1px solid var(--hair);color:var(--muted);font-size:11.5px}
+  a{color:var(--chloro)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  .node,.edge{transition:opacity .25s ease}
+</style>
+
+<header>
+  <div>
+    <h1>The Fractions Cone</h1>
+    <p class="sub">Every prerequisite a fifth grader's fraction work rests on, drawn from Student Achievement Partners' Coherence Map. Depth is real: the roots reach down to kindergarten measurement.</p>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="s-nodes">0</b><span>skills</span></div>
+    <div class="stat"><b id="s-edges">0</b><span>prerequisites</span></div>
+    <div class="stat"><b id="s-depth">0</b><span>deepest chain</span></div>
+    <div class="stat"><b>K&ndash;5</b><span>grades spanned</span></div>
+  </div>
+</header>
+
+<div class="bar">
+  <button id="btn-path" class="on">Show the descent</button>
+  <button id="btn-reset">Clear selection</button>
+  <span class="hint">Click any skill to inspect it &middot; hover to trace what it depends on</span>
+</div>
+
+<div class="wrap">
+  <div class="canvas"><svg id="viz"></svg></div>
+  <aside id="panel"><p class="empty">Select a skill to see what it means and which granular sub-skills sit inside it.</p></aside>
+</div>
+
+<footer>
+  Prerequisite structure from the <a href="https://achievethecore.org/page/2801/learn-more-about-the-coherence-map">Coherence Map</a>, &copy; Student Achievement Partners, via the <a href="https://learningcommons.org/knowledge-graph/">CZI Learning Commons Knowledge Graph</a> (CC BY&#8209;4.0). Learning Components authored by Achievement Network.
+</footer>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var nodes = D.nodes, edges = D.edges, demo = D.demoPath.slice().reverse();
+  var byId = {}; nodes.forEach(function(n){ byId[n.id] = n; });
+
+  // adjacency
+  var up = {}, down = {};
+  nodes.forEach(function(n){ up[n.id]=[]; down[n.id]=[]; });
+  edges.forEach(function(e){ up[e[0]].push(e[1]); down[e[1]].push(e[0]); });
+
+  document.getElementById('s-nodes').textContent = nodes.length;
+  document.getElementById('s-edges').textContent = edges.length;
+  document.getElementById('s-depth').textContent =
+    nodes.reduce(function(m,n){ return Math.max(m,n.depth); },0);
+
+  // --- bands: grade 5 at the surface, K deepest ---
+  var order = ['5','4','3','2','1','K'];
+  var bands = order.map(function(g){
+    return { g:g, items:nodes.filter(function(n){ return n.grade===g; }) };
+  }).filter(function(b){ return b.items.length; });
+
+  // barycenter passes to reduce edge crossings
+  var slot = {};
+  bands.forEach(function(b){ b.items.forEach(function(n,i){ slot[n.id]=i; }); });
+  for (var pass=0; pass<14; pass++){
+    bands.forEach(function(b){
+      b.items.forEach(function(n){
+        var nb = up[n.id].concat(down[n.id]);
+        if (!nb.length) return;
+        var s=0, c=0;
+        nb.forEach(function(id){
+          var o = byId[id]; if(!o) return;
+          var ob = bands.filter(function(x){return x.g===o.grade;})[0];
+          if(!ob) return;
+          s += (slot[id]+0.5)/ob.items.length; c++;
+        });
+        if(c) n._bary = s/c;
+      });
+      b.items.sort(function(a,z){
+        return (a._bary==null?0.5:a._bary) - (z._bary==null?0.5:z._bary);
+      });
+      b.items.forEach(function(n,i){ slot[n.id]=i; });
+    });
+  }
+
+  var NW=54, NH=17, GAPX=13, BANDH=104, PADL=64, PADT=26;
+  var widest = Math.max.apply(null, bands.map(function(b){ return b.items.length; }));
+  var W = PADL + widest*(NW+GAPX) + 40;
+  var H = PADT + bands.length*BANDH + 30;
+
+  var pos = {};
+  bands.forEach(function(b, bi){
+    var y = PADT + bi*BANDH + BANDH/2;
+    var total = b.items.length*(NW+GAPX) - GAPX;
+    var x0 = PADL + (W - PADL - 40 - total)/2;
+    b.items.forEach(function(n,i){ pos[n.id] = { x: x0 + i*(NW+GAPX), y: y }; });
+  });
+
+  var svg = document.getElementById('viz');
+  svg.setAttribute('viewBox','0 0 '+W+' '+H);
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
+
+  function el(t,a){ var e=document.createElementNS('http://www.w3.org/2000/svg',t);
+    for(var k in a) e.setAttribute(k,a[k]); return e; }
+
+  // soil horizons
+  var shades=['--b5','--b4','--b3','--b2','--b1','--b0'];
+  bands.forEach(function(b, bi){
+    var y = PADT + bi*BANDH;
+    svg.appendChild(el('rect',{x:0,y:y,width:W,height:BANDH,
+      fill:'var('+shades[bi % shades.length]+')'}));
+    var lab = el('text',{x:14,y:y+BANDH/2+3,class:'bandlabel'});
+    lab.textContent = (b.g==='K'?'KINDER':'GRADE '+b.g);
+    svg.appendChild(lab);
+  });
+
+  // edges: prerequisite (lower) -> dependent (upper)
+  var edgeEls = {};
+  edges.forEach(function(e){
+    var a=pos[e[0]], z=pos[e[1]]; if(!a||!z) return;
+    var my=(a.y+z.y)/2;
+    var d='M'+a.x+','+(a.y-NH/2)+' C'+a.x+','+my+' '+z.x+','+my+' '+z.x+','+(z.y+NH/2);
+    var p=el('path',{d:d,class:'edge'});
+    svg.appendChild(p);
+    edgeEls[e[0]+'>'+e[1]]=p;
+  });
+
+  // nodes
+  var nodeEls = {};
+  nodes.forEach(function(n){
+    var p=pos[n.id]; if(!p) return;
+    var g=el('g',{class:'node',tabindex:'0',role:'button'});
+    g.appendChild(el('rect',{x:p.x-NW/2,y:p.y-NH/2,width:NW,height:NH,rx:4}));
+    var t=el('text',{x:p.x,y:p.y+3.4,'text-anchor':'middle'});
+    t.textContent=n.code;
+    g.appendChild(t);
+    var title=el('title'); title.textContent=n.code+' — '+n.text; g.appendChild(title);
+    g.addEventListener('click',function(){ select(n.id); });
+    g.addEventListener('keydown',function(ev){
+      if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); select(n.id); }});
+    g.addEventListener('mouseenter',function(){ if(!selected) trace(n.id); });
+    g.addEventListener('mouseleave',function(){ if(!selected) clearTrace(); });
+    svg.appendChild(g);
+    nodeEls[n.id]=g;
+  });
+
+  function ancestry(id){
+    var seen={}, stack=[id];
+    while(stack.length){ var c=stack.pop();
+      (down[c]||[]).forEach(function(p){ if(!seen[p]){seen[p]=1;stack.push(p);} }); }
+    return seen;
+  }
+  function clearTrace(){
+    nodes.forEach(function(n){ nodeEls[n.id].classList.remove('hi','fade'); });
+    edges.forEach(function(e){ var k=e[0]+'>'+e[1];
+      edgeEls[k] && edgeEls[k].classList.remove('hi','fade'); });
+    if(pathOn) paintPath();
+  }
+  function trace(id){
+    var anc=ancestry(id); anc[id]=1;
+    nodes.forEach(function(n){
+      nodeEls[n.id].classList.toggle('hi', !!anc[n.id]);
+      nodeEls[n.id].classList.toggle('fade', !anc[n.id]);
+    });
+    edges.forEach(function(e){
+      var k=e[0]+'>'+e[1], on=anc[e[0]]&&anc[e[1]];
+      edgeEls[k].classList.toggle('hi', !!on);
+      edgeEls[k].classList.toggle('fade', !on);
+    });
+  }
+
+  var pathOn=true, pathSet={};
+  demo.forEach(function(id){ pathSet[id]=1; });
+  function paintPath(){
+    demo.forEach(function(id){ nodeEls[id] && nodeEls[id].classList.add('path'); });
+    for(var i=0;i<demo.length-1;i++){
+      var k=demo[i+1]+'>'+demo[i];
+      edgeEls[k] && edgeEls[k].classList.add('path');
+    }
+  }
+  function unpaintPath(){
+    demo.forEach(function(id){ nodeEls[id] && nodeEls[id].classList.remove('path'); });
+    for(var i=0;i<demo.length-1;i++){
+      var k=demo[i+1]+'>'+demo[i];
+      edgeEls[k] && edgeEls[k].classList.remove('path');
+    }
+  }
+  paintPath();
+
+  var selected=null;
+  function select(id){
+    if(selected) nodeEls[selected].classList.remove('sel');
+    selected=id; nodeEls[id].classList.add('sel');
+    trace(id);
+    var n=byId[id];
+    var panel=document.getElementById('panel');
+    var pre=(down[id]||[]).map(function(x){return byId[x];}).filter(Boolean);
+    var post=(up[id]||[]).map(function(x){return byId[x];}).filter(Boolean);
+    var html='<p class="code">'+n.code+'</p>'+
+      '<p class="meta">'+(n.grade==='K'?'Kindergarten':'Grade '+n.grade)+
+      ' &middot; depth '+n.depth+'</p>'+
+      '<p class="desc">'+esc(n.text)+'</p>';
+    if(n.skills.length){
+      html+='<h3>Granular skills inside it</h3><ul>'+
+        n.skills.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>';
+    }
+    if(pre.length){
+      html+='<h3>Rests on</h3><div class="rel">'+pre.map(function(p){
+        return '<span class="chip" data-id="'+p.id+'">'+p.code+'</span>';}).join('')+'</div>';
+    }
+    if(post.length){
+      html+='<h3>Builds toward</h3><div class="rel">'+post.map(function(p){
+        return '<span class="chip" data-id="'+p.id+'">'+p.code+'</span>';}).join('')+'</div>';
+    }
+    panel.innerHTML=html;
+    panel.querySelectorAll('.chip').forEach(function(c){
+      c.addEventListener('click',function(){ select(c.getAttribute('data-id')); });
+    });
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  document.getElementById('btn-path').addEventListener('click',function(){
+    pathOn=!pathOn; this.classList.toggle('on',pathOn);
+    pathOn?paintPath():unpaintPath();
+  });
+  document.getElementById('btn-reset').addEventListener('click',function(){
+    if(selected) nodeEls[selected].classList.remove('sel');
+    selected=null; clearTrace();
+    document.getElementById('panel').innerHTML=
+      '<p class="empty">Select a skill to see what it means and which granular sub-skills sit inside it.</p>';
+  });
+})();
+</script>
