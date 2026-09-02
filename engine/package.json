@@ -1,0 +1,21 @@
+{
+  "name": "@taproot/engine",
+  "version": "0.1.0",
+  "description": "Mastery engine: BKT with prerequisite-graph propagation and information-gain item selection. Runs in the browser (offline play) and under Node (eval harness).",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "cli": "tsx src/cli.ts"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.8",
+    "tsx": "^4.19.2",
+    "@types/node": "^22.10.1"
+  },
+  "license": "MIT"
+}

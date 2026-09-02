@@ -1,0 +1,13 @@
+﻿networkx
+sentence-transformers
+chromadb
+duckdb
+sympy
+fastapi
+uvicorn[standard]
+pydantic
+python-dotenv
+anthropic
+langgraph
+kagglehub
+pytest

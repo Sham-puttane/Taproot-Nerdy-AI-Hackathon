@@ -1,9 +1,10 @@
 data/raw/
 data/processed/
+.cache/
+.venv/
 node_modules/
 __pycache__/
 *.pyc
 .env
-.venv/
 dist/
 .chroma/
