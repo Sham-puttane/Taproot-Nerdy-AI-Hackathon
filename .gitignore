@@ -1,0 +1,9 @@
+data/raw/
+data/processed/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.venv/
+dist/
+.chroma/
