@@ -75,3 +75,37 @@ out = {
 json.dump(out, open(f"{OUT}/cone_fractions.json", "w", encoding="utf-8"))
 n_comp = sum(len(n["components"]) for n in out["nodes"])
 print(f"\n-> {OUT}/cone_fractions.json  ({n_comp} learning components on cone nodes)")
+
+
+def emit(sub, path, label):
+    """Serialise a subgraph in the same shape as the fractions cone."""
+    payload = {
+        "nodes": [
+            {"id": n, "code": d["code"], "description": d["description"],
+             "grades": d["grades"], "depth": d["depth"],
+             "components": [kg["components"][c]["text"]
+                            for c in comp.get(n, []) if c in kg["components"]][:12]}
+            for n, d in sub.nodes(data=True)
+        ],
+        "edges": [{"from": s, "to": t} for s, t in sub.edges()],
+    }
+    json.dump(payload, open(path, "w", encoding="utf-8"))
+    print(f"-> {path}  ({label}: {sub.number_of_nodes()} nodes, "
+          f"{sub.number_of_edges()} edges)")
+
+
+def in_grades(grades):
+    return {n for n, d in G.nodes(data=True)
+            if (d.get("code") or "?").split(".")[0] in grades}
+
+
+# The fractions cone is where the ITEM BANK is deep, but the prerequisite
+# structure we hold is much wider. Emitting the full elementary and middle
+# graphs means "can you handle this worksheet?" is answered by real coverage
+# rather than by the scope of one demo.
+print()
+emit(G.subgraph(in_grades({"K", "1", "2", "3", "4", "5"})).copy(),
+     f"{OUT}/graph_k5.json", "full elementary")
+emit(G.subgraph(in_grades({"K", "1", "2", "3", "4", "5",
+                           "6", "7", "8"})).copy(),
+     f"{OUT}/graph_k8.json", "elementary + middle")

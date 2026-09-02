@@ -1,0 +1,100 @@
+{
+  "_doc": "Three registers for every skill. A standard code is an internal identifier and must never reach a child's eyes. `kid` is what an 8-11 year old sees; `teacher` is the professional label; `reteach` is what a teacher would actually DO about it in class, which is the only part of a diagnosis they can act on. Hand-authored for the fractions corridor; the rest of the 77-node cone still needs generating.",
+  "_registers": {
+    "kid": "Plain, concrete, no jargon. 'Bottom number', not 'denominator'.",
+    "teacher": "Precise professional wording. Jargon is correct here.",
+    "reteach": "A concrete classroom move, not a restatement of the standard."
+  },
+  "nodes": {
+    "5.NF.A.1": {
+      "kid": "Adding fractions with different bottom numbers",
+      "teacher": "Add and subtract fractions with unlike denominators",
+      "reteach": "Before any common-denominator procedure, check they can say WHY fourths and sixths cannot be counted together. Most who fail here can execute the algorithm but cannot explain it.",
+      "concrete": "3/4 + 1/6"
+    },
+    "5.NF.A.2": {
+      "kid": "Fraction word problems with different bottom numbers",
+      "teacher": "Solve word problems involving addition and subtraction of fractions with unlike denominators",
+      "reteach": "Have them estimate first: is the answer more or less than one? Catches the add-the-denominators error instantly."
+    },
+    "4.NF.B.3.d": {
+      "kid": "Fraction word problems where the bottoms match",
+      "teacher": "Solve word problems involving addition and subtraction of fractions with like denominators",
+      "reteach": "Keep the denominator fixed and vary the story. Isolates the language from the arithmetic."
+    },
+    "4.NF.B.3.b": {
+      "kid": "Breaking a fraction into smaller pieces",
+      "teacher": "Decompose a fraction into a sum of fractions with the same denominator",
+      "reteach": "3/4 = 1/4 + 1/4 + 1/4, with a bar model beside it. Decomposition is what makes addition make sense later.",
+      "concrete": "3/4 = 1/4 + 1/4 + 1/4"
+    },
+    "4.NF.B.3.a": {
+      "kid": "Adding fractions is joining pieces",
+      "teacher": "Understand addition and subtraction of fractions as joining and separating parts referring to the same whole",
+      "reteach": "Stress 'the same whole'. Half a small pizza and half a large one is where this breaks."
+    },
+    "4.NF.A.1": {
+      "kid": "Why 1/2 and 2/4 are the same amount",
+      "teacher": "Explain why a/b is equivalent to (n x a)/(n x b) using visual fraction models",
+      "reteach": "Fold the same strip twice. The amount did not change, only the number of cuts. Students who 'know' equivalence often think the fraction got bigger.",
+      "concrete": "1/2 = 2/4 = 3/6"
+    },
+    "4.NF.A.2": {
+      "kid": "Deciding which fraction is bigger",
+      "teacher": "Compare two fractions with different numerators and different denominators",
+      "reteach": "Benchmark against 1/2 before cross-multiplying. Procedure without benchmarks fails on 5/8 vs 4/7."
+    },
+    "3.NF.A.3": {
+      "kid": "Fractions that look different but are worth the same",
+      "teacher": "Explain equivalence of fractions in special cases, and compare fractions by reasoning about their size",
+      "reteach": "Same-size wholes, different cuts, side by side. Comparison is meaningless if the wholes differ."
+    },
+    "3.NF.A.2": {
+      "kid": "Finding fractions on a number line",
+      "teacher": "Understand a fraction as a number on the number line",
+      "reteach": "The jump from 'fraction as shaded pizza' to 'fraction as a number' is a real conceptual leap. Number lines are where fractions stop being pictures."
+    },
+    "3.NF.A.1": {
+      "kid": "Cutting a whole into equal parts",
+      "teacher": "Understand a fraction 1/b as one part when a whole is partitioned into b EQUAL parts",
+      "reteach": "Show a shape cut into 4 unequal pieces and ask if the shaded one is a quarter. The word 'equal' is doing all the work in this standard and is the single most-skipped idea in elementary fractions.",
+      "concrete": "1/4 means one of four SAME-SIZE parts"
+    },
+    "2.G.A.3": {
+      "kid": "Sharing shapes into equal pieces",
+      "teacher": "Partition circles and rectangles into two, three, or four equal shares",
+      "reteach": "Physical folding, not worksheets. This is where 'equal' first has to mean equal."
+    },
+    "2.G.A.2": {
+      "kid": "Splitting a rectangle into equal squares",
+      "teacher": "Partition a rectangle into rows and columns of same-size squares and count them",
+      "reteach": "Links partitioning to area and later to multiplication."
+    },
+    "2.MD.A.2": {
+      "kid": "Measuring the same thing with different rulers",
+      "teacher": "Measure the length of an object twice using different length units; describe how the measurements relate",
+      "reteach": "Bigger unit, smaller number. This inverse relationship IS the denominator idea, three years early, and almost nobody connects the two.",
+      "concrete": "Same desk: 4 hand-spans or 12 inches"
+    },
+    "2.MD.A.1": {
+      "kid": "Measuring with a ruler",
+      "teacher": "Measure the length of an object by selecting and using appropriate tools",
+      "reteach": "Watch for starting at 1 instead of 0."
+    },
+    "1.G.A.3": {
+      "kid": "Halves and quarters",
+      "teacher": "Partition circles and rectangles into two and four equal shares; describe using halves and fourths",
+      "reteach": "Vocabulary plus fair-sharing language: 'would that be fair?' is the most reliable prompt at this age."
+    },
+    "3.OA.A.1": {
+      "kid": "What multiplying means",
+      "teacher": "Interpret products of whole numbers as equal groups",
+      "reteach": "5 x 7 as five groups of seven. Equal groups is the same idea as equal parts, in a different costume."
+    },
+    "3.MD.C.5": {
+      "kid": "What area means",
+      "teacher": "Recognize area as an attribute of plane figures and understand concepts of area measurement",
+      "reteach": "Tiling with no gaps or overlaps. Same 'equal units' principle again."
+    }
+  }
+}
