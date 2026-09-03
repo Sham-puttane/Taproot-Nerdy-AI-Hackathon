@@ -1,6 +1,6 @@
 # Taproot — where things stand
 
-Working record for picking this up cold. Last updated at commit 25.
+Working record for picking this up cold. Last updated at commit 29.
 
 **Live:** https://sham-puttane.github.io/Taproot-Nerdy-AI-Hackathon/
 **Repo:** https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon
@@ -105,28 +105,41 @@ design/                   .dc.html artboards for the design canvas
   `app/src/game/db.ts` owns the database now.
 - **The Pages workflow cancels in-flight runs** (concurrency group), so a
   quick follow-up push can cancel the previous deploy. Check `gh run list`.
-- **The service worker caches hard** — a deploy isn't visible to a returning
-  visitor without a hard reload.
+- **The service worker used to serve a stale bundle forever.** Without
+  `skipWaiting`/`clientsClaim` a new worker sat in "waiting" until every tab
+  on the origin closed, and a hard reload did NOT help because the OLD worker
+  answered the request. Three shipped commits were invisible on the live site
+  while every push reported success. Fixed in `app/vite.config.ts`; a
+  returning visitor now needs one reload, then never again.
 - **Identical question stems across nodes read as a frozen app.** One stem
   appeared verbatim on ten skills.
 
 ## Open, in the order I'd do them
 
-1. **Play screen at full width** — left panel becomes the tree she is inside
-   (canopy, descent through strata, fruit per repaired stop). Designed in the
-   canvas as `PlayWide`, not yet ported.
-2. **Parent report at full width** — `ParentWide` designed, not ported.
-3. **A real measuring instrument.** MD skills currently serve whole-number
+1. **A real measuring instrument.** MD skills currently serve whole-number
    arithmetic as a placeholder — reachable, not right. `2.MD.A.2` deserves it
    most: "bigger unit, smaller number" is the denominator idea three years
    early.
-4. **More instruments** — Fold (equivalence), Groups, Balance, Blocks. 624 of
+2. **More instruments** — Fold (equivalence), Groups, Balance, Blocks. 624 of
    729 items are still multiple choice.
-5. **Climb cascade** — understated; should be light travelling up the chain.
-6. **Demo video + README** — the actual submission, and unstarted.
+3. **Climb cascade** — understated; should be light travelling up the chain.
+4. **Demo video + README** — the actual submission, and unstarted.
+
+## The four screens, all now full-bleed and in one visual language
+
+| | |
+|---|---|
+| `grove/GroveWide.tsx` | six trees over the ground they grow in |
+| `game/PickWide.tsx` | grade = the soil layer you tap; topic = the tree |
+| `game/Trail.tsx` | ONE svg: strata, a single root path, beads on it |
+| `parent/Brief.tsx` | a document, not a garden — dark header, two columns |
+
+`game/Reward.tsx` fires on every answer: a fruit in the colour of the grade it
+was earned in, never points and never a streak, because the same fruit is in
+the canopy and on the Grove tomorrow. A miss is acknowledged, never penalised.
 
 ## Feedback still unaddressed
 
-- Landing/Grove is done; **play and parent screens are still the old cream UI**
-  and inconsistent with the Grove.
 - The slicer only appears at Repair, so a casual play-through never sees it.
+- The bedrock screen ("Here's the tricky bit") is the emotional payoff of the
+  whole descent and is still a plain card in a wide empty column.
