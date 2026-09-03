@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
 import { useGame } from './game/useGame'
 import { Roots } from './Roots'
+import { Brief } from './parent/Brief'
 import { speak } from './game/tts'
 import { useOffline } from './game/useOffline'
 import { Cut } from './items/Cut'
@@ -66,6 +67,7 @@ function Preview({ pack, kind }: { pack: Pack; kind: string }) {
 function Game({ pack }: { pack: Pack }) {
   const g = useGame(pack)
   const [chosen, setChosen] = useState<number | null>(null)
+  const [showBrief, setShowBrief] = useState(false)
 
   useEffect(() => {
     g.start()
@@ -82,6 +84,16 @@ function Game({ pack }: { pack: Pack }) {
     // Long enough to see what happened, short enough not to feel punished.
     const pause = g.phase === 'descent' ? 420 : 900
     window.setTimeout(() => g.answer(i), pause)
+  }
+
+  if (showBrief) {
+    return (
+      <Brief
+        pack={pack}
+        data={{ ...g.brief(), wall: g.wallNode }}
+        onBack={() => setShowBrief(false)}
+      />
+    )
   }
 
   return (
@@ -153,6 +165,9 @@ function Game({ pack }: { pack: Pack }) {
               Fix it
             </button>
           )}
+          <button className="go quiet" onClick={() => setShowBrief(true)}>
+            For a grown-up
+          </button>
         </>
       )}
 
@@ -218,6 +233,9 @@ function Game({ pack }: { pack: Pack }) {
             here={undefined}
             masteryOf={g.masteryOf}
           />
+          <button className="go quiet" onClick={() => setShowBrief(true)}>
+            For a grown-up
+          </button>
         </>
       )}
     </div>

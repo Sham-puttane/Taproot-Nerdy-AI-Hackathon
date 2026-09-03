@@ -189,9 +189,32 @@ export function useGame(pack: Pack) {
     [pack],
   )
 
+  const brief = useCallback(() => {
+    const d = session.current.diagnosis()
+    return {
+      wallNode,
+      best: d?.best ? { nodeId: d.best.nodeId, confidence: d.best.confidence } : null,
+      runnersUp: (d?.top ?? [])
+        .slice(1)
+        .filter((t) => t.confidence > 0.02)
+        .map((t) => ({ nodeId: t.nodeId, confidence: t.confidence })),
+      path: climb.length
+        ? climb
+        : bedrock
+          ? session.current.climbPath(bedrock.nodeId, wallNode?.id ?? '')
+          : [],
+      asked: session.current.steps.map((st) => ({
+        nodeId: st.nodeId,
+        correct: st.correct,
+      })),
+      questionCount: session.current.steps.length,
+    }
+  }, [climb, bedrock, wallNode])
+
   return {
     phase,
     item,
+    brief,
     wallItem,
     firstAttempt,
     bedrock,
