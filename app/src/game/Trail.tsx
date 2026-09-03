@@ -70,9 +70,27 @@ export function Trail({
   const byId = useMemo(() => new Map(pack.nodes.map((n) => [n.id, n])), [pack])
 
   const layout = useMemo(() => {
-    const rows = stops
+    const raw = stops
       .map((s) => ({ ...s, node: byId.get(s.nodeId) }))
       .filter((r): r is typeof r & { node: NonNullable<typeof r.node> } => !!r.node)
+
+    // Re-testing a skill is allowed on purpose -- one answer is weak evidence
+    // against a 25% guess rate, and allowing it is worth half the engine's
+    // accuracy. But the trail is a PATH, not a log: the same skill asked three
+    // times is one place she stood, not three. Rendering it as three put three
+    // labels at the same height on top of each other.
+    const order: string[] = []
+    const seen = new Map<string, { correct: boolean | null; asked: number }>()
+    for (const r of raw) {
+      const prev = seen.get(r.nodeId)
+      if (!prev) { order.push(r.nodeId); seen.set(r.nodeId, { correct: r.correct, asked: 1 }) }
+      // keep the LATEST verdict: what she knows now, not what she knew first
+      else seen.set(r.nodeId, { correct: r.correct, asked: prev.asked + 1 })
+    }
+    const rows = order.map((id) => {
+      const v = seen.get(id)!
+      return { nodeId: id, correct: v.correct, asked: v.asked, node: byId.get(id)! }
+    })
 
     // Bands are sized by what they hold, which is what keeps every bead
     // sitting exactly on the root: both come out of these same offsets.
@@ -82,7 +100,7 @@ export function Trail({
       grade: number; top: number; height: number; reached: boolean
     }[] = []
     const beads: {
-      id: string; name: string; grade: number; row: number
+      id: string; name: string; grade: number; row: number; asked: number
       x: number; y: number; lit: boolean; now: boolean; missed: boolean
     }[] = []
 
@@ -101,6 +119,7 @@ export function Trail({
           name: kidName(r.node),
           grade: g,
           row,
+          asked: r.asked,
           x: rootX(row),
           y: yy,
           lit: r.correct === true || lit.has(r.node.id),
@@ -168,7 +187,7 @@ export function Trail({
               number, it is that the tree above her visibly gains something */}
           {fruit.map((b, i) => (
             <circle
-              key={b.id}
+              key={`${b.id}-${b.row}`}
               className="tr-fruit"
               cx={CX - 22 + (i % 3) * 22 + (i > 2 ? 11 : 0)}
               cy={SKY - 96 + Math.floor(i / 3) * 22}
@@ -230,7 +249,7 @@ export function Trail({
 
         {/* the beads */}
         {beads.map((b) => (
-          <g key={b.id} className={`tr-bead${b.now ? ' now' : ''}${b.lit ? ' lit' : ''}`}>
+          <g key={`${b.id}-${b.row}`} className={`tr-bead${b.now ? ' now' : ''}${b.lit ? ' lit' : ''}`}>
             <circle
               cx={b.x} cy={b.y} r={b.now ? 20 : 17}
               fill={b.lit ? HUE[b.grade] : b.missed ? '#fdf6e8' : '#e9dcc4'}
@@ -249,6 +268,16 @@ export function Trail({
             >
               {b.name.length > 38 ? `${b.name.slice(0, 37)}…` : b.name}
             </text>
+            {b.asked > 1 && (
+              <text
+                x={b.x + 30} y={b.y + (b.now ? 26 : 17)} fontSize="10"
+                fill="rgba(22,35,58,.55)"
+                fontFamily="'IBM Plex Mono', ui-monospace, monospace"
+                letterSpacing="0.8"
+              >
+                CHECKED {b.asked}×
+              </text>
+            )}
             {b.now && (
               <text x={b.x + 30} y={b.y + 14} fontSize="10.5"
                     fill="rgba(22,35,58,.62)"

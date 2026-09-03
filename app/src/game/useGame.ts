@@ -5,6 +5,7 @@
  * model call, nothing that can fail because a service is slow.
  */
 import { useCallback, useMemo, useRef, useState } from 'react'
+import { crossingNote } from './crossing'
 import { Session } from '@engine/session'
 import { DEFAULT_CONFIG } from '@engine/types'
 import type { Bedrock } from '@engine/types'
@@ -114,10 +115,16 @@ export function useGame(pack: Pack, wallCode?: string) {
         )
         if (from && to) {
           const name = (x: typeof to) => (x.kid ?? x.teacher)
+          // When the descent leaves the topic she picked, say why. A child who
+          // chose "big numbers" and lands in fractions is watching the app do
+          // the most interesting thing it knows -- and used to be told nothing.
+          const crossing = crossingNote(from.code, to.code)
           setWhy(
-            isBelow
-              ? `${name(from)} is built on ${name(to).toLowerCase()} — so let's check that.`
-              : `Let's try ${name(to).toLowerCase()} instead.`,
+            crossing
+              ? `${crossing}`
+              : isBelow
+                ? `${name(from)} is built on ${name(to).toLowerCase()} — so let's check that.`
+                : `Let's try ${name(to).toLowerCase()} instead.`,
           )
         }
       } else {
