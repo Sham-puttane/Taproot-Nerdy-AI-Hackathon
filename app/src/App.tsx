@@ -3,7 +3,7 @@ import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
 import { useGame } from './game/useGame'
 import { Trail } from './game/Trail'
 import { Brief } from './parent/Brief'
-import { Grove } from './grove/Grove'
+import { GroveWide } from './grove/GroveWide'
 import { Pick } from './game/Pick'
 import { Earned } from './grove/Earned'
 import { VoiceAnswer } from './game/VoiceAnswer'
@@ -41,7 +41,7 @@ export default function App() {
   }, [skin])
 
   return (
-    <div className="stage">
+    <div className={`stage${!wall && !picking && !showGrownup ? ' bleed' : ''}`}>
       <button
         className="skin-toggle"
         onClick={() => setSkin(skin === 'meadow' ? 'soil' : 'meadow')}
@@ -76,9 +76,9 @@ export default function App() {
         />
       )}
       {pack && !preview && progress && !showGrownup && !picking && !wall && (
-        <Grove
+        <GroveWide
+          pack={pack}
           progress={progress}
-          totalSkills={pack.nodes.length}
           onStart={() => setPicking(true)}
         />
       )}
