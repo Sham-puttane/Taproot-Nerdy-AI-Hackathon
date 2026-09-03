@@ -78,6 +78,7 @@ class Item:
     value: str | None = None         # place: the fraction to position
     max: int | None = None           # place: right-hand end of the line
     ticks: int | None = None         # place: how many divisions
+    shape: str | None = None         # partition: which shape to draw
 
     def to_dict(self) -> dict:
         # answer_index -1 marks a hands-on item with no option list; keep it
@@ -206,15 +207,37 @@ def gen_partition(node: str, grade: str, misconception: str,
         if len(out) >= limit - 2:
             break
 
-    # the equal-parts probe: no fraction is correct
-    for parts in (3, 4):
+    # The equal-parts probe: no fraction is correct.
+    #
+    # Varied per node, and that is not decoration. This exact stem previously
+    # appeared verbatim on ten different skills, so a child answering three in
+    # a row saw the same sentence three times and reasonably concluded the app
+    # was stuck. It was advancing; it just looked identical.
+    SHAPES = [
+        ("bar", "chocolate bar"), ("circle", "pizza"), ("square", "sandwich"),
+        ("rect", "cake"), ("strip", "ribbon"),
+    ]
+    ORDINAL = {2: "half", 3: "third", 4: "quarter", 5: "fifth",
+               6: "sixth", 8: "eighth"}
+    salt = sum(ord(ch) * (i + 1) for i, ch in enumerate(node))
+    for k, parts in enumerate((3, 4)):
+        shape, noun = SHAPES[(salt + k) % len(SHAPES)]
+        word = ORDINAL.get(parts, f"1/{parts}")
+        phrasings = [
+            f"This {noun} was cut into {parts} pieces that are NOT the same "
+            f"size. Is the shaded piece one {word}?",
+            f"Someone cut this {noun} into {parts} uneven pieces. Can we call "
+            f"the shaded one a {word}?",
+            f"These {parts} pieces of {noun} are different sizes. Is the "
+            f"shaded piece really one {word}?",
+        ]
         out.append(Item(
             kind="partition", grade=str(grade), node=node,
-            stem=f"This shape is split into {parts} pieces that are NOT the "
-                 f"same size. Is the shaded piece one {'third' if parts == 3 else 'quarter'}?",
+            stem=phrasings[(salt + k) % len(phrasings)],
             parts=parts, shaded=1, equal_parts=False,
             expects_none_correct=True,
             options=["Yes", "No"], answer_index=1,
+            shape=shape,
             misconception="Denominator used for other parts rather than total parts"))
     return out
 

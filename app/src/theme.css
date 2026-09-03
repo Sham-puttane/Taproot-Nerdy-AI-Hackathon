@@ -566,20 +566,20 @@ button.opt:disabled {
 
 .stop {
   position: relative;
-  display: flex;
+  display: grid;
+  /* Fixed columns rather than percentage padding: the label used to run
+     underneath the dot whenever the name was long, which is most of them. */
+  grid-template-columns: 1fr 46px 1fr;
   align-items: center;
-  gap: 10px;
-  min-height: 60px;
+  min-height: 62px;
   animation: rise 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-.stop.l { justify-content: flex-start; padding-right: 52%; }
-.stop.r { justify-content: flex-end; padding-left: 52%; text-align: right; }
-.stop.r .stop-label { order: -1; }
+.stop.l .stop-label { grid-column: 1; text-align: right; padding-right: 10px; }
+.stop.r .stop-label { grid-column: 3; text-align: left; padding-left: 10px; }
 
 .stop-dot {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  grid-column: 2;
+  justify-self: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -605,7 +605,7 @@ button.opt:disabled {
 }
 .stop.now .stop-dot {
   border-color: var(--gc);
-  transform: translateX(-50%) scale(1.16);
+  transform: scale(1.16);
   animation: beat 1.5s ease-in-out infinite;
 }
 @keyframes beat {
@@ -617,7 +617,7 @@ button.opt:disabled {
   font-size: 13.5px;
   line-height: 1.3;
   color: var(--ink-dim);
-  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .stop.lit .stop-label { color: var(--ink); }
 .stop.now .stop-label { color: var(--ink); font-weight: 500; }
