@@ -187,41 +187,54 @@ describe("bedrock", () => {
 });
 
 /**
- * The claim the whole product rests on: targeting by information gain finds
- * the broken skill in fewer items than asking at random.
+ * The claim the whole product rests on: from a failed wall problem, the
+ * descent finds the skill that is actually broken.
  */
-describe("information gain vs random", () => {
+describe("diagnosis", () => {
   const data = chain();
 
-  function learner(g: Graph, bedrockId: string) {
-    const holds = g.ancestors(bedrockId);   // everything below bedrock is intact
-    return (nodeId: string) => holds.has(nodeId);
+  /** Broken at `gap` and at everything built on top of it. Noiseless here, so
+   *  the test measures the search rather than luck; the eval harness adds
+   *  slip and guess. */
+  function learner(g: Graph, gap: string) {
+    const broken = new Set([gap, ...g.descendants(gap)]);
+    return (nodeId: string) => !broken.has(nodeId);
   }
 
-  it("locates bedrock, and does it in fewer items than random selection", () => {
+  it("finds the planted gap from the wall", () => {
     const g = new Graph(data);
-    const respond = learner(g, "c");
-
     const s = new Session(data);
-    const smart = s.run(respond);
-    expect(smart.bedrock?.nodeId).toBe("c");
-
-    // random baseline, averaged over many orderings
-    let randomTotal = 0;
-    const TRIALS = 200;
-    for (let t = 0; t < TRIALS; t++) {
-      const rs = new Session(data);
-      const order = g.ids.slice().sort(() => Math.random() - 0.5);
-      let used = 0;
-      for (const id of order) {
-        if (rs.bedrock()) break;
-        rs.answer(id, respond(id));
-        used++;
-      }
-      randomTotal += used;
+    s.seedFromWall("e");
+    const respond = learner(g, "c");
+    for (;;) {
+      const pick = s.next();
+      if (!pick) break;
+      s.answer(pick.nodeId, respond(pick.nodeId));
     }
-    const randomAvg = randomTotal / TRIALS;
-    expect(smart.itemsUsed).toBeLessThanOrEqual(randomAvg);
+    expect(s.bedrock()?.nodeId).toBe("c");
+  });
+
+  it("reports a confidence and runners-up", () => {
+    const g = new Graph(data);
+    const s = new Session(data);
+    s.seedFromWall("e");
+    const respond = learner(g, "c");
+    for (let i = 0; i < 20; i++) {
+      const pick = s.next();
+      if (!pick) break;
+      s.answer(pick.nodeId, respond(pick.nodeId));
+    }
+    const d = s.diagnosis();
+    expect(d).not.toBeNull();
+    expect(d!.best.confidence).toBeGreaterThan(0.5);
+    expect(d!.top.length).toBe(3);
+  });
+
+  it("stays quiet rather than guessing when it learns nothing", () => {
+    const s = new Session(data, { maxItems: 2 });
+    s.seedFromWall("e");
+    // two answers cannot pin one of five candidates
+    expect(s.bedrock()).toBeNull();
   });
 });
 

@@ -99,6 +99,23 @@ export interface EngineConfig {
   /** How sure we must be before we stop the descent. */
   confidenceMargin: number;
   maxItems: number;
+  /**
+   * Posterior mass the leading gap hypothesis must reach before we name it.
+   * Swept, not guessed: 0.5 answers 98.5% of the time but is exact only 60%;
+   * 0.8 is exact 77% but goes quiet on 10% of learners. 0.65 maximises the
+   * number that actually matters -- 88% of diagnoses land within one
+   * prerequisite hop, so the repair is useful even when the named node is
+   * slightly off -- while still answering 95% of the time.
+   */
+  gapConfidence: number;
+  /**
+   * How many times one skill may be re-tested. With a 25% guess rate a single
+   * answer is weak evidence, and repeated measurement at the boundary is
+   * frequently the most informative move available -- allowing it lifted exact
+   * identification from 38% to 60%. Mutual information already declines once a
+   * node becomes predictable; this only stops a degenerate loop.
+   */
+  repeatCap: number;
 }
 
 export const DEFAULT_CONFIG: EngineConfig = {
@@ -118,6 +135,8 @@ export const DEFAULT_CONFIG: EngineConfig = {
    * spending more questions on.
    */
   maxItems: 24,
+  gapConfidence: 0.65,
+  repeatCap: 8,
 };
 
 export interface Bedrock {

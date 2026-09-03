@@ -53,6 +53,21 @@ flushes on reconnect.
   SymPy *executes* the math to prove the key is right and each distractor wrong;
   grade-level/vocabulary checks; and a safety-and-tone judge.
 
+## Does it work?
+
+200 simulated learners, one planted gap each, 51 candidate skills, noisy
+answers (10% slip, 25% guess). Every adaptive policy shares the same belief
+model and stopping rule -- only the choice of next question differs.
+
+| | Questions | Exact gap | Within 1 prerequisite | Reached a diagnosis |
+|---|---|---|---|---|
+| **Taproot** | 13.5 | **71.5%** | **88.0%** | 95.0% |
+| Curriculum order | 22.8 | 9.5% | 9.5% | 12.0% |
+| Random adaptive | 23.7 | 2.0% | 2.5% | 3.0% |
+| Worksheet | 20.0 | 0.0% | 0.0% | 0.0% |
+
+Full method and the things that went wrong: [engine/eval/results.md](engine/eval/results.md).
+
 ## Status
 
 Day 1 of 16. Honest state:
@@ -68,7 +83,7 @@ Day 1 of 16. Honest state:
 - [ ] Agents: retriever, generator, verifier, coach, planner
 - [ ] The game
 - [ ] Offline pack + PWA
-- [ ] Eval harness vs. baselines
+- [x] Eval harness vs. baselines - **71.5% exact, 88% within one prerequisite**
 
 ## Reproducing the data
 

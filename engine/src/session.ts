@@ -5,11 +5,9 @@
  * browser (offline play) and the eval harness (200 simulated learners).
  */
 import { Graph } from "./graph";
+import { GapPosterior } from "./diagnosis";
 import { initBeliefs, applyObservation } from "./mastery";
-import {
-  selectNext, findBedrock, shouldStop, bedrockHypothesis, expectedGain,
-  MIN_EVIDENCE,
-} from "./selection";
+import { selectNext, findBedrock } from "./selection";
 import { DEFAULT_CONFIG } from "./types";
 import type {
   Beliefs, Bedrock, DescentStep, EngineConfig, SkillGraph,
@@ -38,6 +36,20 @@ export class Session {
   scope?: Set<string>;
   /** The wall problem, excluded from being its own diagnosis. */
   wall?: string;
+  /**
+   * Exact posterior over which skill is the gap. This, not the per-node BKT
+   * beliefs, is what decides the diagnosis. The learner's knowledge is
+   * monotone along the DAG, so a question at N is a noisy test of "is the gap
+   * in {N} u ancestors(N)?" -- which makes the posterior a plain categorical
+   * we can update in closed form instead of approximating with damped
+   * diffusion. Measured: 39% -> 71% exact identification.
+   *
+   * BKT beliefs are still maintained, because the repair bar and the lit roots
+   * need a per-skill number, and "how solid does this feel" is a different
+   * question from "where is the gap".
+   */
+  posterior?: GapPosterior;
+  private candidates: string[] = [];
 
   constructor(data: SkillGraph, cfg: Partial<EngineConfig> = {}) {
     this.graph = new Graph(data);
@@ -54,6 +66,10 @@ export class Session {
   seedFromWall(nodeId: string): void {
     this.scope = new Set([nodeId, ...this.graph.ancestors(nodeId)]);
     this.wall = nodeId;
+    this.candidates = [...this.scope].filter((id) => id !== nodeId);
+    this.posterior = new GapPosterior(
+      this.graph, this.candidates, this.cfg.bkt);
+    this.posterior.update(nodeId, false);   // the wall failure is evidence
     this.record(nodeId, false);
   }
 
@@ -62,6 +78,9 @@ export class Session {
     this.beliefs = applyObservation(
       this.graph, this.beliefs, { nodeId, correct },
       this.cfg.bkt, this.cfg.propagation, this.anchors);
+    if (this.posterior && nodeId !== this.wall) {
+      this.posterior.update(nodeId, correct);
+    }
     // anchor AFTER applying, so this observation is not damped by itself
     this.anchors[nodeId] = (this.anchors[nodeId] ?? 0) + 1;
     this.asked.add(nodeId);
@@ -72,54 +91,52 @@ export class Session {
   }
 
   next(): { nodeId: string; expectedGain: number } | null {
-    if (shouldStop(this.graph, this.beliefs, this.asked, this.cfg, this.scope,
-                   this.wall, this.anchors))
-      return null;
+    if (this.asked.size >= this.cfg.maxItems) return null;
+    if (this.bedrock()) return null;
 
-    // Confirm the leading suspect before anything else. Information gain will
-    // not do this on its own -- a node we already believe is broken has low
-    // entropy, so it scores as uninformative -- but we refuse to name a gap we
-    // never tested, so the hypothesis has to be probed deliberately.
-    const suspect = bedrockHypothesis(
-      this.graph, this.beliefs, this.cfg, this.asked, this.scope, this.wall);
-    // Confirm before committing: keep asking the suspect until it has enough
-    // direct evidence to be named. One answer can be a slip or a lucky guess,
-    // and this is the node we are about to tell a parent about.
-    if (suspect && (this.anchors[suspect] ?? 0) < MIN_EVIDENCE) {
-      return { nodeId: suspect, expectedGain: this.gain(suspect) };
-    }
-
-    // Suspect confirmed -- now check the floor directly beneath it. Left to
-    // general information gain the engine wanders the corridor until it
-    // happens to hit a support, which cost four items in testing. "Is the
-    // thing underneath actually solid?" is the question a teacher would ask
-    // next anyway.
-    if (suspect) {
-      const unprobed = (this.graph.prereqs.get(suspect) ?? [])
-        .filter((s) => !this.asked.has(s) && (!this.scope || this.scope.has(s)));
-      if (unprobed.length) {
-        return unprobed
-          .map((id) => ({ nodeId: id, expectedGain: this.gain(id) }))
-          .sort((a, b) => b.expectedGain - a.expectedGain)[0];
+    // Mutual information about the GAP's identity, not about per-node belief
+    // entropy. The old objective rewarded questions that settled skills nobody
+    // had asked about; this one only values questions that tell us where the
+    // gap is.
+    if (this.posterior) {
+      const exhausted = new Set(
+        Object.entries(this.anchors)
+          .filter(([, c]) => c >= this.cfg.repeatCap)
+          .map(([id]) => id),
+      );
+      const pick = this.posterior.choose(this.candidates, exhausted);
+      if (pick) {
+        return { nodeId: pick, expectedGain: this.posterior.expectedGain(pick) };
       }
     }
-
     return selectNext(
       this.graph, this.beliefs, this.asked, this.cfg, this.anchors, this.scope);
   }
 
-  private gain(nodeId: string): number {
-    return expectedGain(
-      this.graph, this.beliefs, nodeId, this.cfg, this.anchors);
-  }
 
   answer(nodeId: string, correct: boolean, gain = 0): void {
     this.record(nodeId, correct, gain);
   }
 
   bedrock(): Bedrock | null {
+    if (this.posterior) {
+      const best = this.posterior.best();
+      if (best.confidence < this.cfg.gapConfidence) return null;
+      return {
+        nodeId: best.nodeId,
+        supports: this.graph.prereqs.get(best.nodeId) ?? [],
+        belief: this.beliefs[best.nodeId] ?? this.cfg.bkt.prior,
+      };
+    }
     return findBedrock(this.graph, this.beliefs, this.cfg, this.asked,
                        this.scope, this.wall, this.anchors);
+  }
+
+  /** How sure we are about the gap, and the runners-up. For a tutor brief. */
+  diagnosis() {
+    return this.posterior
+      ? { best: this.posterior.best(), top: this.posterior.top(3) }
+      : null;
   }
 
   /** Run the whole descent against a responder. */

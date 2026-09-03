@@ -18,6 +18,7 @@ import { readFileSync } from 'node:fs'
 import { Graph } from '../src/graph'
 import { Session } from '../src/session'
 import { findBedrock, bedrockHypothesis, MIN_EVIDENCE } from '../src/selection'
+import { GapPosterior } from '../src/diagnosis'
 import { DEFAULT_CONFIG } from '../src/types'
 import type { SkillGraph } from '../src/types'
 
@@ -27,6 +28,8 @@ const data: SkillGraph = { nodes: raw.nodes, edges: raw.edges }
 
 const N = Number(process.argv[2] ?? 200)
 const MAX_ITEMS = Number(process.env.MAX_ITEMS ?? DEFAULT_CONFIG.maxItems)
+const CONFIDENCE_STOP = Number(process.env.CONF ?? 0.5)
+const BASELINE_REPEAT = Number(process.env.BASE_REPEAT ?? 4)
 const WALL = '5.NF.A.1'
 
 const graph = new Graph(data)
@@ -99,13 +102,36 @@ function hopsBetween(a: string, b: string): number | null {
 function run(policy: Policy, gapId: string, seed: number): Trial {
   const rand = rng(seed)
   const respond = learner(gapId, rand)
-  const s = new Session(data, { maxItems: MAX_ITEMS })
-  s.seedFromWall(wallId)
+  const cfg = { ...DEFAULT_CONFIG, maxItems: MAX_ITEMS }
 
-  // Curriculum order: most foundational first, which is what a worksheet
-  // pack or a textbook chapter would do.
-  const ordered = corridor
-    .filter((id) => id !== wallId)
+  const result = (found: string | null, items: number): Trial => ({
+    policy,
+    planted: graph.code(gapId),
+    found: found ? graph.code(found) : null,
+    items,
+    hit: found === gapId,
+    hops: found ? hopsBetween(found, gapId) : null,
+    depthBias: found ? graph.node(found).depth - graph.node(gapId).depth : null,
+    stopped: found ? 'bedrock' : 'budget',
+  })
+
+  // The honest real-world comparison. A child who fails her homework today
+  // does not get an adaptive algorithm -- she gets twenty more of the same
+  // problem, which is why she can do a whole page wrong and learn nothing
+  // about why. It cannot descend, so it can never name a cause.
+  if (policy === 'worksheet') {
+    return result(null, 20)
+  }
+
+  // Every adaptive policy shares the SAME belief model and the SAME stopping
+  // rule. Only the choice of what to ask next differs, which is the one thing
+  // we are trying to measure.
+  const candidates = corridor.filter((id) => id !== wallId)
+  const post = new GapPosterior(graph, candidates, cfg.bkt)
+  post.update(wallId, false)
+
+  const ordered = candidates
+    .slice()
     .sort((a, b) => graph.node(a).depth - graph.node(b).depth)
   const shuffled = ordered.slice()
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -113,68 +139,40 @@ function run(policy: Policy, gapId: string, seed: number): Trial {
     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
 
-  // The honest real-world comparison. A child who fails her homework today
-  // does not get an adaptive algorithm -- she gets more of the same problem.
-  // The worksheet asks only at the wall's own grade, never descends, and so
-  // can never name a cause. It is included because "we beat a shuffled
-  // adaptive search" is not the claim that matters; "we find something a
-  // worksheet structurally cannot" is.
-  if (policy === 'worksheet') {
-    // Twenty more of the same problem. That is not a strawman -- it is what
-    // the homework actually does, and it is why a child can do a page of
-    // fraction problems, get most of them wrong, and learn nothing about why.
-    for (let i = 0; i < 20; i++) s.answer(wallId, respond(wallId))
-    const bedW = findBedrock(
-      graph, s.beliefs, s.cfg, s.asked, s.scope, wallId, s.anchors)
-    const foundW = bedW?.nodeId ?? null
-    return {
-      policy, planted: graph.code(gapId),
-      found: foundW ? graph.code(foundW) : null,
-      items: s.steps.length, hit: foundW === gapId,
-      hops: foundW ? hopsBetween(foundW, gapId) : null,
-      depthBias: foundW
-        ? graph.node(foundW).depth - graph.node(gapId).depth : null,
-      stopped: bedW ? 'bedrock' : 'budget',
-    }
-  }
-
+  const count = new Map<string, number>()
+  let n = 1
   let cursor = 0
-  for (;;) {
-    if (s.asked.size >= MAX_ITEMS) break
-    if (findBedrock(graph, s.beliefs, s.cfg, s.asked, s.scope, wallId, s.anchors)) break
-
-    // Confirmation is SHARED protocol, not a Taproot advantage: whichever
-    // policy surfaces a suspect, it must be probed twice before it can be
-    // named. Otherwise the baselines are simply forbidden from ever
-    // diagnosing, and the comparison measures the rule rather than the search.
-    const suspect = bedrockHypothesis(
-      graph, s.beliefs, s.cfg, s.asked, s.scope, wallId)
-    let nodeId: string | undefined
-    if (suspect && (s.anchors[suspect] ?? 0) < MIN_EVIDENCE) {
-      nodeId = suspect
-    } else if (policy === 'taproot') {
-      nodeId = s.next()?.nodeId
+  while (n < cfg.maxItems) {
+    if (post.best().confidence >= cfg.gapConfidence) break
+    const exhausted = new Set(
+      [...count.entries()]
+        .filter(([, c]) => c >= cfg.repeatCap)
+        .map(([k]) => k),
+    )
+    let pick: string | null = null
+    if (policy === 'taproot') {
+      pick = post.choose(candidates, exhausted)
     } else {
+      // Baselines confirm as they go -- each node is asked BASELINE_REPEAT
+      // times before advancing. Asking once and moving on cannot beat a 25%
+      // guess rate, and beating a baseline that was never allowed to gather
+      // evidence would prove nothing.
       const list = policy === 'linear' ? ordered : shuffled
-      while (cursor < list.length && s.asked.has(list[cursor])) cursor++
-      nodeId = list[cursor]
+      while (cursor < list.length * BASELINE_REPEAT) {
+        const candidate = list[Math.floor(cursor / BASELINE_REPEAT)]
+        cursor++
+        if (!exhausted.has(candidate)) { pick = candidate; break }
+      }
     }
-    if (!nodeId) break
-    s.answer(nodeId, respond(nodeId))
+    if (!pick) break
+    post.update(pick, respond(pick))
+    count.set(pick, (count.get(pick) ?? 0) + 1)
+    n++
   }
 
-  const bed = findBedrock(graph, s.beliefs, s.cfg, s.asked, s.scope, wallId, s.anchors)
-  const found = bed?.nodeId ?? null
-  return {
-    policy,
-    planted: graph.code(gapId),
-    found: found ? graph.code(found) : null,
-    items: s.steps.length,
-    hit: found === gapId,
-    hops: found ? hopsBetween(found, gapId) : null,
-    depthBias: found ? graph.node(found).depth - graph.node(gapId).depth : null,
-    stopped: bed ? 'bedrock' : 'budget',
-  }
+  const b = post.best()
+  const ok = b.confidence >= cfg.gapConfidence
+  return result(ok ? b.nodeId : null, n)
 }
 
 // Plant gaps only where a gap can plausibly BE: a node with something above it
@@ -226,6 +224,8 @@ console.log(
       plantableNodes: plantable.length,
       learners: N,
       maxItems: MAX_ITEMS,
+      gapConfidence: DEFAULT_CONFIG.gapConfidence,
+      repeatCap: DEFAULT_CONFIG.repeatCap,
       summary: (['taproot', 'linear', 'random', 'worksheet'] as Policy[])
         .map(summarise),
       trials,
