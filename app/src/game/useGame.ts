@@ -38,7 +38,7 @@ export interface Attempt {
 /** Mastery is a belief, not a tally -- three lucky answers cannot clear it. */
 const MASTERED = DEFAULT_CONFIG.masteryThreshold + DEFAULT_CONFIG.confidenceMargin
 
-export function useGame(pack: Pack) {
+export function useGame(pack: Pack, wallCode?: string) {
   const graph = useMemo(() => toGraph(pack), [pack])
   const session = useRef<Session>(new Session(graph))
   const seen = useRef<Set<string>>(new Set())
@@ -54,9 +54,10 @@ export function useGame(pack: Pack) {
   const [asked, setAsked] = useState<string[]>([])
   const [tick, setTick] = useState(0)   // forces re-render on belief change
 
+  // The chosen wall, falling back to the pack's own if none was picked.
   const wallNode = useMemo(
-    () => nodeByCode(pack, pack.wall),
-    [pack],
+    () => nodeByCode(pack, wallCode ?? pack.wall) ?? nodeByCode(pack, pack.wall),
+    [pack, wallCode],
   )
 
   const take = useCallback(

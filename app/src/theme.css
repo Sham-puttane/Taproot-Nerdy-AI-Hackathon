@@ -297,6 +297,64 @@ button.opt:disabled {
   transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.grades {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+.grade {
+  --tint: var(--glow);
+  aspect-ratio: 1;
+  font: inherit;
+  font-size: 24px;
+  font-weight: 500;
+  border-radius: 18px;
+  border: 2px solid color-mix(in srgb, var(--tint) 42%, transparent);
+  background: color-mix(in srgb, var(--tint) 14%, var(--card));
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.09s ease, box-shadow 0.15s ease;
+}
+.grades > .grade:nth-child(1) { --tint: var(--g-1); }
+.grades > .grade:nth-child(2) { --tint: var(--g-2); }
+.grades > .grade:nth-child(3) { --tint: var(--g-3); }
+.grades > .grade:nth-child(4) { --tint: var(--g-4); }
+.grades > .grade:nth-child(5) { --tint: var(--g-5); }
+.grade:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+.grade:active { transform: scale(0.96); }
+.grade:focus-visible { outline: 3px solid var(--glow-soft); outline-offset: 3px; }
+
+.tile {
+  --tint: var(--glow);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  font: inherit;
+  font-size: 17px;
+  text-align: left;
+  padding: 15px 16px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: 2px solid color-mix(in srgb, var(--tint) 40%, transparent);
+  background: color-mix(in srgb, var(--tint) 13%, var(--card));
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.09s ease, box-shadow 0.15s ease;
+  animation: rise 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.tile:nth-of-type(1) { --tint: var(--g-5); animation-delay: 0.02s; }
+.tile:nth-of-type(2) { --tint: var(--g-3); animation-delay: 0.06s; }
+.tile:nth-of-type(3) { --tint: var(--g-1); animation-delay: 0.1s; }
+.tile:nth-of-type(4) { --tint: var(--plum); animation-delay: 0.14s; }
+.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+.tile:active { transform: scale(0.985); }
+.tile:focus-visible { outline: 3px solid var(--glow-soft); outline-offset: 3px; }
+.tile-icon { font-size: 26px; line-height: 1; }
+
 .tree {
   width: 100%;
   max-width: 300px;

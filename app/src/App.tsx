@@ -4,6 +4,7 @@ import { useGame } from './game/useGame'
 import { Roots } from './Roots'
 import { Brief } from './parent/Brief'
 import { Grove } from './grove/Grove'
+import { Pick } from './game/Pick'
 import { Earned } from './grove/Earned'
 import { VoiceAnswer } from './game/VoiceAnswer'
 import {
@@ -26,7 +27,8 @@ export default function App() {
   const offline = useOffline()
 
   const [progress, setProgress] = useState<Progress | null>(null)
-  const [playing, setPlaying] = useState(false)
+  const [wall, setWall] = useState<string | null>(null)
+  const [picking, setPicking] = useState(false)
 
   useEffect(() => {
     loadPack().then(setPack).catch((e) => setErr(String(e)))
@@ -53,23 +55,35 @@ export default function App() {
       {err && <p className="lede">Could not load: {err}</p>}
       {!pack && !err && <p className="lede">Loading…</p>}
       {pack && preview && <Preview pack={pack} kind={preview} />}
-      {pack && !preview && progress && !playing && (
+      {pack && !preview && progress && !picking && !wall && (
         <Grove
           progress={progress}
           totalSkills={pack.nodes.length}
-          onStart={() => setPlaying(true)}
+          onStart={() => setPicking(true)}
         />
       )}
-      {pack && !preview && progress && playing && (
-        <Game
+      {pack && !preview && progress && picking && (
+        <Pick
           pack={pack}
+          onPick={(code) => {
+            setWall(code)
+            setPicking(false)
+          }}
+          onBack={() => setPicking(false)}
+        />
+      )}
+      {pack && !preview && progress && wall && (
+        <Game
+          key={wall}
+          pack={pack}
+          wallCode={wall}
           progress={progress}
           onFinish={(beliefs, keystone) => {
             const next = fold(progress, beliefs, keystone)
             setProgress(next)
             void saveProgress(next)
           }}
-          onHome={() => setPlaying(false)}
+          onHome={() => setWall(null)}
         />
       )}
     </div>
@@ -95,16 +109,18 @@ function Preview({ pack, kind }: { pack: Pack; kind: string }) {
 
 function Game({
   pack,
+  wallCode,
   progress,
   onFinish,
   onHome,
 }: {
   pack: Pack
+  wallCode: string
   progress: Progress
   onFinish: (beliefs: Record<string, number>, k: Keystone | null) => void
   onHome: () => void
 }) {
-  const g = useGame(pack)
+  const g = useGame(pack, wallCode)
   const [chosen, setChosen] = useState<number | null>(null)
   const [showBrief, setShowBrief] = useState(false)
   const [saved, setSaved] = useState(false)

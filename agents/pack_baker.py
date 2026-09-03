@@ -90,13 +90,26 @@ def corridor(root: str, prereqs) -> set[str]:
     return seen
 
 
-def bake(wall_code: str, per_node: int = 8) -> dict:
+def bake(wall_codes, per_node: int = 8) -> dict:
+    """Bake one pack covering EVERY wall the picker can offer.
+
+    One pack per wall would mean a download each time a child changes topic,
+    and the corridors overlap heavily anyway -- fractions and word problems
+    share most of their floor. The union is barely larger than the largest
+    single corridor and it means every topic works offline from the moment the
+    app is installed, which is the promise we actually made.
+    """
+    if isinstance(wall_codes, str):
+        wall_codes = [wall_codes]
     data, nodes, prereqs = load_graph(f"{OUT}/cone_viz.json")
     by_code = {n["code"]: n["id"] for n in data["nodes"]}
-    if wall_code not in by_code:
-        sys.exit(f"wall {wall_code} is not in the cone")
+    missing = [w for w in wall_codes if w not in by_code]
+    if missing:
+        sys.exit(f"walls not in the cone: {missing}")
 
-    ids = corridor(by_code[wall_code], prereqs)
+    ids = set()
+    for w in wall_codes:
+        ids |= corridor(by_code[w], prereqs)
     items, covered, uncovered, rejected = [], [], [], 0
 
     for nid in sorted(ids, key=lambda i: nodes[i]["depth"]):
@@ -109,7 +122,10 @@ def bake(wall_code: str, per_node: int = 8) -> dict:
         grade = n["grade"] if n["grade"] != "K" else "1"
         got = []
         for template in templates:
-            ok, bad = generate(n["code"], grade, template, misconception, per_node)
+            # The standard's own wording decides the operation: "Add and
+            # subtract within 20" must not serve multiplication.
+            ok, bad = generate(n["code"], grade, template, misconception,
+                               per_node, n.get("text", ""))
             rejected += len(bad)
             got.extend(ok)
         if not got:
@@ -121,7 +137,8 @@ def bake(wall_code: str, per_node: int = 8) -> dict:
         covered.append(n["code"])
 
     pack = {
-        "wall": wall_code,
+        "wall": wall_codes[0],
+        "walls": list(wall_codes),
         "corridor": sorted(nodes[i]["code"] for i in ids),
         "nodes": [
             {k: nodes[i][k] for k in
@@ -145,17 +162,27 @@ def bake(wall_code: str, per_node: int = 8) -> dict:
     return pack, uncovered
 
 
+# Every wall the picker can offer. Kept here so the pack and the picker
+# cannot drift apart -- a topic the app offers but the pack does not cover
+# would be a dead end for a child with no network.
+ALL_WALLS = [
+    "5.NF.A.1", "4.NF.B.3.d", "3.NF.A.3",
+    "4.NF.A.1", "3.NF.A.1",
+    "2.OA.A.1", "1.NBT.C.4", "1.OA.C.6",
+]
+
+
 def main():
-    wall = sys.argv[1] if len(sys.argv) > 1 else "5.NF.A.1"
-    pack, uncovered = bake(wall)
-    path = f"{OUT}/pack_{wall.replace('.', '_')}.json"
+    walls = sys.argv[1:] or ALL_WALLS
+    pack, uncovered = bake(walls)
+    path = f"{OUT}/pack.json"
     json.dump(pack, io.open(path, "w", encoding="utf-8"), ensure_ascii=False)
     s = pack["_stats"]
 
     # every item in a baked pack must carry a passing verification
     bad = [i for i in pack["items"] if not verify(i).ok]
 
-    print(f"wall                {wall}")
+    print(f"walls               {len(pack['walls'])}: {', '.join(pack['walls'])}")
     print(f"corridor nodes      {s['corridor_nodes']}")
     print(f"nodes with items    {s['nodes_with_items']}")
     print(f"nodes WITHOUT items {s['nodes_without_items']}")

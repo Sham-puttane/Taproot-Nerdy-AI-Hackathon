@@ -22,6 +22,7 @@ allowed into a pack. Generated does not mean trusted.
 from __future__ import annotations
 
 import itertools
+import re
 from dataclasses import dataclass
 from fractions import Fraction
 from typing import Callable, Iterable
@@ -243,13 +244,38 @@ def gen_compare(node: str, grade: str, misconception: str,
 
 
 def gen_whole(node: str, grade: str, misconception: str,
-              limit: int = 12) -> list[Item]:
-    """Whole-number addition and multiplication (OA, NBT).
+              limit: int = 12, standard_text: str = "") -> list[Item]:
+    """Whole-number arithmetic (OA, NBT).
 
-    Covers most of the corridor floor. Distractors are the classic slips --
-    off-by-one from counting the starting number, the other operation, and a
-    digit-wise result -- all computed, none invented.
+    The OPERATION comes from the standard, not from the template. "Add and
+    subtract within 20" is a first-grade standard; serving multiplication under
+    it -- which is what happened before this -- tests something nobody taught
+    her, and looks to a child like the app does not know what it is asking.
+
+    Distractors are the classic slips: off-by-one from counting the starting
+    number, reaching for the other operation, and a digit-wise result. All
+    computed, none invented.
     """
+    # Word-boundary matching, because "a multiple of 10" is not multiplication
+    # -- that false positive was serving times tables under an addition
+    # standard. When a standard names neither operation ("Count to 120"),
+    # default to addition: it is the safer thing to put in front of a
+    # six-year-old.
+    t = (standard_text or "").lower()
+    mult = bool(re.search(
+        r"\b(multiply|multiplying|multiplication|multiplies|product|products"
+        r"|times|divide|dividing|division|quotient|quotients|array|arrays)\b",
+        t))
+    addsub = bool(re.search(
+        r"\b(add|adds|adding|addition|subtract|subtracts|subtracting"
+        r"|subtraction|sum|sums|difference|plus|minus)\b", t))
+    if mult and not addsub:
+        ops = (("*", "×"),)
+    elif mult and addsub:
+        ops = (("+", "+"), ("*", "×"))
+    else:
+        ops = (("+", "+"),)
+
     from verifier import GRADE_MAX_WHOLE
     cap = min(GRADE_MAX_WHOLE.get(str(grade), 100), 100)
     out: list[Item] = []
@@ -263,7 +289,7 @@ def gen_whole(node: str, grade: str, misconception: str,
     combos = [(a, b, op, sym)
               for a in range(2, hi + 1)
               for b in range(2, hi + 1)
-              for op, sym in (("+", "+"), ("*", "×"))]
+              for op, sym in ops]
     off = (sum(ord(c) * (i + 1) for i, c in enumerate(node))) % max(len(combos), 1)
     combos = combos[off:] + combos[:off]
     for a, b, op, sym in combos:
@@ -354,14 +380,18 @@ TEMPLATES = {
 
 
 def generate(node: str, grade: str, template: str, misconception: str,
-             limit: int = 12) -> tuple[list[dict], list[tuple[dict, list[str]]]]:
+             limit: int = 12, standard_text: str = ""
+             ) -> tuple[list[dict], list[tuple[dict, list[str]]]]:
     """Generate, then gate. Returns (accepted, rejected_with_reasons)."""
     fn = TEMPLATES.get(template)
     if not fn:
         raise ValueError(f"unknown template {template!r} "
                          f"(known: {sorted(TEMPLATES)})")
     accepted, rejected = [], []
-    for item in fn(node, grade, misconception, limit):
+    items = (fn(node, grade, misconception, limit, standard_text)
+             if template == "whole"
+             else fn(node, grade, misconception, limit))
+    for item in items:
         d = item.to_dict()
         v = verify(d)
         (accepted.append(d) if v.ok else rejected.append((d, v.reasons)))
