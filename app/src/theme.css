@@ -682,14 +682,17 @@ button.opt:disabled {
 .grove-wide {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: #16233a;
   color: #fdf6e8;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .gw-sky {
   position: relative;
-  height: 340px;
+  flex: 0 0 auto;
+  height: clamp(190px, 30vh, 340px);
   background: linear-gradient(#63bdf3 0%, #a5dcf8 72%, #cfeaf3 100%);
 }
 .gw-sky-art { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -737,10 +740,17 @@ button.opt:disabled {
 .gw-tree-note { font-size: 12.5px; color: #9fe0c4; }
 
 /* the ground, cut open */
-.gw-under { position: relative; }
-.gw-band { position: relative; height: 76px; }
-.gw-band:nth-child(3) { height: 84px; }
-.gw-band:last-child { height: 104px; }
+.gw-under {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+/* Bands share the leftover height rather than being fixed, so the ground
+   reaches the bottom of any viewport instead of stopping short or overflowing. */
+.gw-band { position: relative; flex: 1 1 0; min-height: 44px; }
+.gw-band:last-child { flex: 1.4 1 0; }
 .gw-band-label {
   position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
@@ -761,22 +771,55 @@ button.opt:disabled {
 .gw-cta:focus-visible { outline: 3px solid #fdf6e8; outline-offset: 3px; }
 
 @media (max-width: 900px) {
-  .gw-head { padding: 24px 20px 0; }
-  .gw-stats { position: static; padding: 14px 20px 0; }
+  /* leave a lane for the floating grown-up control at the top */
+  .gw-head { padding: 54px 18px 0; }
+  .gw-title { font-size: clamp(22px, 6.4vw, 30px); }
+  .gw-sub { font-size: 14px; }
+  .gw-stats {
+    position: static;
+    padding: 12px 18px 0;
+  }
+  .gw-chip { padding: 9px 14px; min-width: 70px; }
+  .gw-chip b { font-size: 21px; }
   .gw-trees {
-    margin-top: -90px;
+    margin-top: -58px;
     grid-auto-flow: row;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: 4px;
+    row-gap: 2px;
     background: #16233a;
+    padding: 0 10px 6px;
   }
-  /* The grass line is a single curve behind one ROW of trees. With two rows it
-     lands between them and reads as a stray band, so it is dropped on narrow
-     screens and the dark ground carries the boundary instead. */
+  /* One grass curve behind one ROW lands between two rows and reads as a stray
+     band, so the dark ground carries the boundary on narrow screens instead. */
   .gw-trees::after { display: none; }
-  .gw-tree-art { height: 108px; }
-  .gw-cta { position: static; width: calc(100% - 40px); margin: 20px; }
+  .gw-tree-art { height: 84px; }
+  .gw-tree-name { font-size: 12.5px; }
+  .gw-tree-note { font-size: 10.5px; }
+  .gw-band-label { left: 10px; font-size: 9px; letter-spacing: .1em; }
+  .gw-cta {
+    position: static;
+    margin: 0;
+    border-radius: 0;
+    padding: 18px;
+    width: 100%;
+    box-shadow: none;
+  }
 }
+
+/* Two rows of three, never three rows of two: the extra row is what pushed the
+   button below the fold and made the whole thing scroll. */
+@media (max-width: 460px) {
+  .gw-tree-art { height: 62px; }
+  /* The trees pull up over the grass; too far and they clip the stat chips. */
+  .gw-stats { padding: 10px 18px 0; }
+  .gw-tree-name { font-size: 11.5px; }
+  .gw-tree-note { font-size: 10px; }
+  .gw-trees { margin-top: -16px; padding: 0 6px 4px; }
+  .gw-sky { height: clamp(150px, 26vh, 200px); }
+  .gw-band { min-height: 34px; }
+  .gw-band-label { font-size: 8.5px; }
+}
+
 
 .skin-toggle {
   position: fixed;
@@ -811,4 +854,12 @@ button.opt:disabled {
     transition: none !important;
     animation: none !important;
   }
+}
+
+
+/* The Grove's own call to action is a full-width bar at the bottom on a phone,
+   so the floating grown-up control has to get out of its way rather than
+   landing on top of it. */
+@media (max-width: 900px) {
+  .grownup { bottom: auto; top: 12px; right: 78px; }
 }
