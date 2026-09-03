@@ -46,6 +46,14 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,json}'],
+        // Without these a new service worker sits in "waiting" until every tab
+        // on the origin is closed, so a returning visitor keeps getting the
+        // build they first saw -- a hard reload does not help, because the old
+        // worker answers the request. That is how three shipped commits stayed
+        // invisible on the live site. Take over on the next load instead.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         // A pack can be a few hundred KB; the default cap would silently skip
         // it and the app would look installed while being unable to ask a
         // single question offline.
