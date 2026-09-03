@@ -1,6 +1,6 @@
 # Taproot — where things stand
 
-Working record for picking this up cold. Last updated at commit 29.
+Working record for picking this up cold. Last updated at commit 33.
 
 **Live:** https://sham-puttane.github.io/Taproot-Nerdy-AI-Hackathon/
 **Repo:** https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon
@@ -114,6 +114,38 @@ design/                   .dc.html artboards for the design canvas
 - **Identical question stems across nodes read as a frozen app.** One stem
   appeared verbatim on ten skills.
 
+## Every section measured, not just the fraction wall
+
+`cd engine && npx tsx eval/sections.ts 150 > eval/sections.json`, written up in
+`eval/sections.md`. All 16 offerable walls, 150 trials each:
+
+| | exact | within 1 | diagnosed | questions |
+|---|---|---|---|---|
+| mean across sections | **73.2%** | **84.1%** | 96% | 10.9 |
+| range | 69–78% | 79–88% | 91–100% | 7.0–14.7 |
+
+No section is carried by another. **Crossings are the demo:** Big numbers gr5
+enters Fractions 100% of the time (5.NBT.B.7 is decimals, and a decimal IS a
+fraction — 4.NF.C.6); Fractions gr3 enters Shapes 100%; Measuring gr5 enters
+Fractions 100%. **Shapes gr5 crosses into nothing (0%)** — that is the control
+proving the crossings are structure, not an artefact of the search.
+`game/crossing.ts` names the reason at the moment it happens.
+
+## Why the game is built the way it is
+
+The evidence is unkind to the obvious moves. A systematic review of K-12 maths
+games finds they beat conventional instruction on learning but shows **no
+evidence they are more motivating**; a gamification meta-analysis finds lifts
+to autonomy and relatedness and **minimal impact on competence**; Ryan & Deci
+show extrinsic rewards shift the locus of causality outward and can undermine
+intrinsic motivation.
+
+Competence is the need everyone else misses and the one an adaptive
+diagnostic can actually serve, because competence is met by **optimal
+challenge** — which is precisely what the engine computes. Hence: no points,
+no XP, no streak, no timer, no shop. The rewards are a fruit that persists on
+the Grove, and the Cascade, whose content is real graph structure.
+
 ## Open, in the order I'd do them
 
 1. **A real measuring instrument.** MD skills currently serve whole-number
@@ -132,6 +164,7 @@ design/                   .dc.html artboards for the design canvas
 | `grove/GroveWide.tsx` | six trees over the ground they grow in |
 | `game/PickWide.tsx` | grade = the soil layer you tap; topic = the tree |
 | `game/Trail.tsx` | ONE svg: strata, a single root path, beads on it |
+| `game/Cascade.tsx` | what one repair was holding up, lit bottom-up |
 | `parent/Brief.tsx` | a document, not a garden — dark header, two columns |
 
 `game/Reward.tsx` fires on every answer: a fruit in the colour of the grade it
