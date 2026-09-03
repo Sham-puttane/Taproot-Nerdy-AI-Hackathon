@@ -34,6 +34,13 @@ GOOD = [
         "stem": "How much of the bar is shaded?",
         "parts": 4, "shaded": 2,
         "options": ["2/4", "2/2", "4/2", "1/4"], "answer_index": 0}),
+    ("cut into equal pieces", {
+        "kind": "cut", "grade": "3", "stem": "Cut this bar into 4 equal pieces.",
+        "options": [], "answer_index": -1, "target": 4, "tolerance": 0.06}),
+    ("place a fraction on the line", {
+        "kind": "place", "grade": "3", "stem": "Put 3/4 on the line.",
+        "options": [], "answer_index": -1,
+        "value": "3/4", "max": 1, "ticks": 4}),
     ("unequal parts, no fraction is right", {
         "kind": "partition", "grade": "3",
         "stem": "Is the shaded piece one quarter?",
@@ -118,6 +125,23 @@ BROKEN = [
         "kind": "partition", "grade": "3", "stem": "How much is shaded?",
         "parts": 4, "shaded": 2,
         "options": ["2/4", "2/8"], "answer_index": 1}),
+    ("cut: target below two pieces", {
+        "kind": "cut", "grade": "3", "stem": "Cut this bar into 1 equal piece.",
+        "options": [], "answer_index": -1, "target": 1, "tolerance": 0.06}),
+    ("cut: off-grade target (sevenths at grade 3)", {
+        "kind": "cut", "grade": "3", "stem": "Cut this bar into 7 equal pieces.",
+        "options": [], "answer_index": -1, "target": 7, "tolerance": 0.06}),
+    ("cut: absurd tolerance makes anything 'equal'", {
+        "kind": "cut", "grade": "3", "stem": "Cut this bar into 4 equal pieces.",
+        "options": [], "answer_index": -1, "target": 4, "tolerance": 0.9}),
+    ("place: target does not land on a tick", {
+        "kind": "place", "grade": "4", "stem": "Put 1/3 on the line.",
+        "options": [], "answer_index": -1,
+        "value": "1/3", "max": 1, "ticks": 4}),
+    ("place: value outside the line", {
+        "kind": "place", "grade": "4", "stem": "Put 5/4 on the line.",
+        "options": [], "answer_index": -1,
+        "value": "5/4", "max": 1, "ticks": 4}),
     ("decimal distractor equal to the key (0.75 == 3/4)", {
         "kind": "arithmetic", "grade": "5", "stem": "1/4 + 1/2 = ?",
         "expression": "1/4 + 1/2",

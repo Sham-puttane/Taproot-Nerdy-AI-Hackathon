@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
-import { loadPack, kidName, type Pack, type Item } from './game/pack'
+import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
 import { useGame } from './game/useGame'
 import { Roots } from './Roots'
 import { speak } from './game/tts'
+import { Cut } from './items/Cut'
+import { Place } from './items/Place'
 import './theme.css'
 
 export default function App() {
   const [pack, setPack] = useState<Pack | null>(null)
   const [err, setErr] = useState<string | null>(null)
   const [skin, setSkin] = useState<'meadow' | 'soil'>('meadow')
+  // Dev affordance: ?preview=cut shows one instrument on its own, so a
+  // manipulative can be worked on without playing through to reach it.
+  const preview = new URLSearchParams(location.search).get('preview')
 
   useEffect(() => {
     loadPack().then(setPack).catch((e) => setErr(String(e)))
@@ -28,7 +33,25 @@ export default function App() {
       </button>
       {err && <p className="lede">Could not load: {err}</p>}
       {!pack && !err && <p className="lede">Loading…</p>}
-      {pack && <Game pack={pack} />}
+      {pack && preview && <Preview pack={pack} kind={preview} />}
+      {pack && !preview && <Game pack={pack} />}
+    </div>
+  )
+}
+
+function Preview({ pack, kind }: { pack: Pack; kind: string }) {
+  const items = pack.items.filter((i) => i.kind === kind)
+  const [n, setN] = useState(0)
+  const item = items[n % Math.max(items.length, 1)]
+  if (!item) return <p className="lede">No {kind} items in this pack.</p>
+  return (
+    <div className="frame">
+      <div className="kicker">preview &middot; {kind} &middot; {items.length} items</div>
+      <h1 className="say">{item.stem}</h1>
+      <Question item={item} chosen={null} onChoose={() => setN(n + 1)} />
+      <button className="go quiet" onClick={() => setN(n + 1)}>
+        Next item
+      </button>
     </div>
   )
 }
@@ -203,6 +226,9 @@ function Question({
   chosen: number | null
   onChoose: (i: number) => void
 }) {
+  // Hands-on items decide their own correctness, so they signal through the
+  // answer_index channel: -1 for wrong, answer_index for right.
+  const handsOn = isHandsOn(item)
   const wordy = item.stem.length > 28
   return (
     <>
@@ -238,6 +264,24 @@ function Question({
       )}
       </div>
 
+      {handsOn && item.kind === 'cut' && item.target != null && (
+        <Cut
+          key={item.stem}
+          target={item.target}
+          tolerance={item.tolerance}
+          onDone={(ok) => onChoose(ok ? 0 : 1)}
+        />
+      )}
+      {handsOn && item.kind === 'place' && item.value && item.ticks != null && (
+        <Place
+          key={item.stem}
+          value={item.value}
+          ticks={item.ticks}
+          onDone={(ok) => onChoose(ok ? 0 : 1)}
+        />
+      )}
+
+      {!handsOn && (
       <div className={`opts${item.options.length === 2 ? ' single' : ''}`}>
         {item.options.map((o, i) => {
           const state =
@@ -262,6 +306,7 @@ function Question({
           )
         })}
       </div>
+      )}
     </>
   )
 }

@@ -7,7 +7,7 @@
  */
 import type { SkillGraph } from '@engine/types'
 
-export type ItemKind = 'arithmetic' | 'compare' | 'partition'
+export type ItemKind = 'arithmetic' | 'compare' | 'partition' | 'cut' | 'place'
 
 export interface Item {
   kind: ItemKind
@@ -25,6 +25,16 @@ export interface Item {
   shaded?: number
   equal_parts?: boolean
   expects_none_correct?: boolean
+  target?: number      // cut: how many equal pieces
+  tolerance?: number   // cut: how close counts as equal
+  value?: string       // place: the fraction to position
+  max?: number         // place: right end of the line
+  ticks?: number       // place: how many divisions
+}
+
+/** Hands-on items have no option list; they report correctness themselves. */
+export function isHandsOn(i: Item): boolean {
+  return i.kind === 'cut' || i.kind === 'place'
 }
 
 export interface PackNode {

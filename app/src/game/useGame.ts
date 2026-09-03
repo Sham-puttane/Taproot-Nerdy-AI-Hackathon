@@ -9,6 +9,7 @@ import { Session } from '@engine/session'
 import { DEFAULT_CONFIG } from '@engine/types'
 import type { Bedrock } from '@engine/types'
 import {
+  isHandsOn,
   type Item,
   type Pack,
   type PackNode,
@@ -100,7 +101,11 @@ export function useGame(pack: Pack) {
   const answer = useCallback(
     (chosen: number) => {
       if (!item) return
-      const correct = chosen === item.answer_index
+      // A hands-on item has no option list and no answer_index; the
+      // manipulative decides for itself and signals 0 for right, 1 for wrong.
+      const correct = isHandsOn(item)
+        ? chosen === 0
+        : chosen === item.answer_index
 
       if (phase === 'wall') {
         setFirstAttempt({ item, chosen, correct })

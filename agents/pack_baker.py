@@ -25,8 +25,12 @@ from verifier import verify               # noqa: E402
 OUT = os.environ.get("TAPROOT_OUT", "D:/taproot/data/processed")
 
 # node code -> (template, default misconception)
+# Where a manipulative teaches the idea and multiple choice cannot, use the
+# manipulative. 3.NF.A.1 is "equal parts", which is a thing you DO; 3.NF.A.2 is
+# where a fraction becomes a point on a line, which is spatial.
 EXPLICIT = {
-    "3.NF.A.1": ("partition", "Denominator used for other parts rather than total parts"),
+    "3.NF.A.1": ("cut", "Denominator used for other parts rather than total parts"),
+    "3.NF.A.2": ("place", "Denominator used for other parts rather than total parts"),
     "2.G.A.3":  ("partition", "Denominator used for other parts rather than total parts"),
     "2.G.A.2":  ("partition", "Denominator used for other parts rather than total parts"),
     "1.G.A.3":  ("partition", "Denominator used for other parts rather than total parts"),

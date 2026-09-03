@@ -214,10 +214,50 @@ def verify_partition(item: dict) -> Verdict:
     return _check_grade(v, item.get("grade"), [truth])
 
 
+def verify_cut(item: dict) -> Verdict:
+    """Hands-on: cut a bar into `target` equal pieces yourself.
+
+    There is no option list, because the point is that the child performs the
+    partition rather than recognising one. Multiple choice cannot teach
+    3.NF.A.1 -- "equal parts" is a thing you do, and a child can pick the right
+    picture while still believing four pieces of any size make quarters.
+    """
+    v = Verdict(ok=True)
+    target = item.get("target")
+    if not isinstance(target, int) or not (2 <= target <= 12):
+        return v.fail("target must be an integer between 2 and 12")
+    tol = item.get("tolerance", 0.06)
+    if not isinstance(tol, (int, float)) or not (0.01 <= tol <= 0.2):
+        return v.fail("tolerance must be between 0.01 and 0.2")
+    return _check_grade(v, item.get("grade"), [Rational(1, target)])
+
+
+def verify_place(item: dict) -> Verdict:
+    """Hands-on: drag a marker to where a fraction sits on a number line."""
+    v = Verdict(ok=True)
+    val = parse_value(item.get("value"))
+    if val is None:
+        return v.fail(f"value not parseable: {item.get('value')!r}")
+    hi = item.get("max", 1)
+    if not isinstance(hi, int) or hi < 1:
+        return v.fail("max must be a positive integer")
+    if not (0 < val <= hi):
+        return v.fail(f"value {val} outside 0..{hi}")
+    ticks = item.get("ticks")
+    if not isinstance(ticks, int) or ticks < 2:
+        return v.fail("ticks must be an integer >= 2")
+    # the target must actually land on a tick, or it is unanswerable
+    if (val * ticks).q != 1:
+        return v.fail(f"{val} does not sit on any of {ticks} ticks")
+    return _check_grade(v, item.get("grade"), [val])
+
+
 KINDS = {
     "arithmetic": verify_arithmetic,
     "compare": verify_compare,
     "partition": verify_partition,
+    "cut": verify_cut,
+    "place": verify_place,
 }
 
 

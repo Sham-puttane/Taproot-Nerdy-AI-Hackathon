@@ -72,10 +72,16 @@ class Item:
     shaded: int | None = None
     equal_parts: bool = True
     expects_none_correct: bool = False
+    target: int | None = None        # cut: how many equal pieces
+    tolerance: float | None = None   # cut: how close counts as equal
+    value: str | None = None         # place: the fraction to position
+    max: int | None = None           # place: right-hand end of the line
+    ticks: int | None = None         # place: how many divisions
 
     def to_dict(self) -> dict:
-        d = {k: v for k, v in self.__dict__.items() if v is not None}
-        return d
+        # answer_index -1 marks a hands-on item with no option list; keep it
+        # so the verifier's leak check can still see there is nothing to leak.
+        return {k: v for k, v in self.__dict__.items() if v is not None}
 
 
 def _fmt(f: Fraction) -> str:
@@ -288,9 +294,59 @@ def gen_whole(node: str, grade: str, misconception: str,
     return out
 
 
+def gen_cut(node: str, grade: str, misconception: str,
+            limit: int = 12) -> list[Item]:
+    """Cut the bar into n equal pieces -- with your hands, not from a list.
+
+    This is the instrument 3.NF.A.1 actually asks for. A child can pick the
+    correct picture out of four while still believing that any four pieces
+    make quarters; she cannot fake it while dragging the cuts herself.
+    """
+    out: list[Item] = []
+    for n in _legal_denominators(grade):
+        if n < 2 or n > 8:
+            continue
+        out.append(Item(
+            kind="cut", grade=str(grade), node=node,
+            stem=f"Cut this bar into {n} equal pieces.",
+            options=[], answer_index=-1,
+            target=n, tolerance=0.06,
+            misconception=misconception))
+        if len(out) >= limit:
+            break
+    return out
+
+
+def gen_place(node: str, grade: str, misconception: str,
+              limit: int = 12) -> list[Item]:
+    """Drag a marker to where a fraction sits between 0 and 1.
+
+    3.NF.A.2 is the moment a fraction stops being a shaded pizza and becomes a
+    NUMBER. That shift is spatial, so the item should be too.
+    """
+    out: list[Item] = []
+    for den in _legal_denominators(grade):
+        if den < 2 or den > 10:
+            continue
+        for num in range(1, den):
+            if Fraction(num, den).denominator != den:
+                continue          # reduces -- the marker would sit on a coarser tick
+            out.append(Item(
+                kind="place", grade=str(grade), node=node,
+                stem=f"Put {num}/{den} on the line.",
+                options=[], answer_index=-1,
+                value=f"{num}/{den}", max=1, ticks=den,
+                misconception=misconception))
+            if len(out) >= limit:
+                return out
+    return out
+
+
 TEMPLATES = {
     "partition": gen_partition,
     "whole": gen_whole,
+    "cut": gen_cut,
+    "place": gen_place,
     "addition_unlike": lambda n, g, m, limit=12: gen_addition(n, g, m, True, limit),
     "addition_like": lambda n, g, m, limit=12: gen_addition(n, g, m, False, limit),
     "compare": gen_compare,
