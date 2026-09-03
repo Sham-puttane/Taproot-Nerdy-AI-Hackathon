@@ -7,6 +7,7 @@ import { GroveWide } from './grove/GroveWide'
 import { PickWide } from './game/PickWide'
 import { Earned } from './grove/Earned'
 import { VoiceAnswer } from './game/VoiceAnswer'
+import { Reward } from './game/Reward'
 import {
   fold, loadProgress, saveProgress,
   type Keystone, type Progress,
@@ -151,6 +152,11 @@ function Game({
 }) {
   const g = useGame(pack, wallCode)
   const [chosen, setChosen] = useState<number | null>(null)
+  // The verdict is held separately from `chosen` because `chosen` is cleared
+  // the moment the next item arrives, and the reward has to outlive that.
+  const [verdict, setVerdict] = useState<{
+    correct: boolean; grade: number; nth: number
+  } | null>(null)
   const [showBrief, setShowBrief] = useState(false)
   // The App-level button and the in-session one open the same report.
   useEffect(() => {
@@ -197,8 +203,20 @@ function Game({
   function choose(i: number) {
     if (chosen !== null) return
     setChosen(i)
+
+    // Hands-on instruments signal through this channel too: they pass their
+    // own answer_index for right and -1 for wrong, so the same test holds.
+    const right = g.item ? i === g.item.answer_index : false
+    const here = g.item ? g.nodeOf(g.item.node_id) : undefined
+    setVerdict((v) => ({
+      correct: right,
+      grade: here ? (here.grade === 'K' ? 0 : Number(here.grade) || 0) : 5,
+      nth: (v?.nth ?? 0) + 1,
+    }))
+
     // Long enough to see what happened, short enough not to feel punished.
-    const pause = g.phase === 'descent' ? 420 : 900
+    // A correct answer gets longer, because there is now something to watch.
+    const pause = g.phase === 'descent' ? (right ? 760 : 460) : 900
     window.setTimeout(() => g.answer(i), pause)
   }
 
@@ -226,6 +244,13 @@ function Game({
         </aside>
       )}
       <div className="play">
+      {/* Inside the play column, not the board: centred on the viewport it
+          landed on the answer buttons rather than over the question. */}
+      <Reward
+        correct={verdict ? verdict.correct : null}
+        grade={verdict?.grade ?? 5}
+        nth={verdict?.nth ?? 0}
+      />
       <div className="frame">
       {g.phase === 'wall' && g.item && (
         <>

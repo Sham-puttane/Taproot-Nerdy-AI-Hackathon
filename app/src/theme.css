@@ -511,6 +511,7 @@ button.opt:disabled {
 .board > .rail .tr-count { color: #fdf6e8; }
 .board > .rail .tr-head { color: #7f93b4; }
 .board > .play {
+  position: relative;          /* the reward is centred on this, not the page */
   padding: 24px 26px 30px;
   display: flex;
   flex-direction: column;
@@ -1121,3 +1122,99 @@ button.opt:disabled {
 }
 .pr-promise li { margin-bottom: 9px; }
 .pr-promise b { color: var(--ink); font-weight: 600; }
+
+/* ---- the trail, rewritten as one root -----------------------------------
+   The strata, the root and the beads are all one SVG, so a bead can never
+   drift off the root: they are computed from the same offsets. */
+.tr { display: flex; flex-direction: column; height: 100%; }
+.tr-head { margin-bottom: 12px; }
+.tr-kicker {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #7f93b4; margin-bottom: 4px;
+}
+.tr-count { display: flex; align-items: baseline; gap: 9px; }
+.tr-count b { font-size: 34px; font-weight: 600; color: #fdf6e8; line-height: 1; }
+.tr-count span { font-size: 13px; color: #9db1cf; }
+.tr-svg { width: 100%; height: auto; display: block; border-radius: 14px; }
+
+/* the root draws itself downward as she descends */
+.tr-root {
+  stroke-dasharray: 1400;
+  animation: rootgrow 0.75s cubic-bezier(0.3, 0.9, 0.4, 1) both;
+}
+@keyframes rootgrow {
+  from { stroke-dashoffset: 1400; }
+  to { stroke-dashoffset: 0; }
+}
+.tr-bead.lit circle { animation: beadpop 0.42s cubic-bezier(0.2, 1.5, 0.4, 1) both; }
+@keyframes beadpop {
+  0% { transform: scale(0.4); transform-origin: center; }
+  100% { transform: scale(1); transform-origin: center; }
+}
+.tr-bead.now circle:first-of-type {
+  animation: beadhere 1.7s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes beadhere {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.09); }
+}
+.tr-fruit { animation: fruitdrop 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) both; }
+@keyframes fruitdrop {
+  0% { transform: translateY(-14px) scale(0.2); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.tr-why {
+  margin: 14px 2px 0;
+  font-size: 13.5px; line-height: 1.5;
+  color: #cfe0f5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tr-root, .tr-bead.lit circle, .tr-bead.now circle:first-of-type,
+  .tr-fruit, .rw, .rw-ray, .rw-fruit { animation: none !important; }
+}
+
+/* ---- the reward -------------------------------------------------------- */
+.rw {
+  position: absolute;
+  left: 50%; top: 30%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  pointer-events: none;
+  animation: rwin 0.24s ease-out both;
+}
+@keyframes rwin {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.9); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.rw-art { width: 128px; height: 128px; }
+.rw-ray {
+  animation: ray 0.5s cubic-bezier(0.2, 1, 0.4, 1) both;
+  transform-box: fill-box; transform-origin: center;
+}
+@keyframes ray {
+  0% { opacity: 0; transform: scale(0.2); }
+  60% { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+.rw-fruit, .rw-leaf {
+  animation: fruitpop 0.46s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+  transform-box: fill-box; transform-origin: center bottom;
+}
+@keyframes fruitpop {
+  0% { transform: scale(0.2); }
+  100% { transform: scale(1); }
+}
+.rw-say {
+  text-align: center;
+  background: #16233a; color: #fdf6e8;
+  border-radius: 16px; padding: 9px 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+.rw-say b { display: block; font-size: 19px; font-weight: 600; }
+.rw-say span { font-size: 12.5px; color: #9db1cf; }
+.rw-no .rw-say { background: #6b4520; }
+.rw-no .rw-say span { color: #e8d0a8; }
