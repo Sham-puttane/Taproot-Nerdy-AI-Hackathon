@@ -827,3 +827,139 @@ button.opt:disabled {
 @media (max-width: 900px) {
   .grownup { bottom: auto; top: 12px; right: 78px; }
 }
+
+/* ---- the picker, at full width -----------------------------------------
+   The grade question is the ground she saw on the home screen and the topic
+   question is the row of trees, so the two taps that start a session also
+   teach the metaphor the whole product runs on. */
+.pw {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: linear-gradient(#bfe6ff, #dff3ff 62%, #eaf7e2);
+}
+.pw-sky { position: relative; padding: 30px 40px 22px; }
+.pw-sky-art {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none;
+}
+.pw-head { position: relative; max-width: 720px; }
+.pw-title {
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 2px 0 8px;
+  color: #14324a;
+}
+.pw-sub { font-size: 16px; color: #2c5872; margin: 0; max-width: 620px; }
+.pw-standing {
+  position: relative;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #2c5872;
+  display: flex; align-items: center; gap: 10px;
+}
+.pw-change {
+  font: inherit; font-size: 13px;
+  border: 2px solid #2c5872; background: transparent; color: #14324a;
+  border-radius: 999px; padding: 3px 12px; cursor: pointer;
+}
+.pw-change:hover { background: #ffffff; }
+
+/* step 1: the strata are the buttons */
+.pw-ground { flex: 1; display: flex; flex-direction: column; }
+.pw-band {
+  flex: 1;
+  position: relative;
+  border: none;
+  font: inherit;
+  text-align: left;
+  padding: 0 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  transition: filter 0.14s ease, transform 0.14s ease;
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.09);
+}
+.pw-band-name {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 15px; letter-spacing: 0.14em; font-weight: 600;
+  min-width: 110px;
+}
+.pw-band-hint { font-size: 15px; opacity: 0.78; }
+.pw-band-go {
+  margin-left: auto;
+  font-size: 15px; font-weight: 600;
+  opacity: 0; transform: translateX(-8px);
+  transition: opacity 0.14s ease, transform 0.14s ease;
+}
+.pw-band:hover { filter: brightness(1.07); }
+.pw-band:hover .pw-band-go { opacity: 1; transform: translateX(0); }
+.pw-band:focus-visible { outline: 3px solid #14324a; outline-offset: -6px; }
+.pw-band:active { filter: brightness(0.97); }
+
+/* step 2: the trees, with the ground they stand on visible beneath */
+.pw-orchard { flex: 1; display: flex; flex-direction: column; }
+.pw-trees {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 2.5vw, 46px);
+  padding: 10px 40px 0;
+  background: linear-gradient(transparent, #cdefb4);
+}
+.pw-tree {
+  border: none; background: transparent; font: inherit;
+  cursor: pointer; text-align: center;
+  padding: 0 4px 10px;
+  display: flex; flex-direction: column; align-items: center;
+  border-radius: 20px;
+  transition: transform 0.12s ease;
+  animation: rise 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  max-width: 220px;
+}
+.pw-tree-art { width: 100%; max-width: 175px; height: 165px; }
+.pw-tree-icon { font-size: 30px; line-height: 1; margin-top: -8px; }
+.pw-tree-name {
+  font-size: 16px; font-weight: 600; color: #1c4a2e;
+  margin-top: 4px; line-height: 1.2;
+}
+.pw-tree:hover { transform: translateY(-8px) scale(1.03); }
+.pw-tree:active { transform: translateY(-2px) scale(0.99); }
+.pw-tree:focus-visible { outline: 3px solid #1c4a2e; outline-offset: 4px; }
+
+.pw-under { display: flex; flex-direction: column; }
+.pw-under-band {
+  padding: 7px 40px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px; letter-spacing: 0.14em; font-weight: 600;
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.09);
+}
+
+.pw-back {
+  /* Was fixed to the bottom-left, where it sat on top of the grade strata --
+     a button overlapping the thing it is not about. It belongs in the sky
+     with the rest of the chrome. */
+  position: relative;
+  margin-bottom: 10px;
+  font: inherit; font-size: 14px;
+  border: 2px solid rgba(20, 50, 74, 0.35);
+  background: rgba(255, 255, 255, 0.86);
+  color: #14324a;
+  border-radius: 999px; padding: 7px 16px; cursor: pointer;
+  z-index: 20;
+}
+.pw-back:hover { background: #ffffff; }
+
+@media (max-width: 720px) {
+  .pw-sky { padding: 22px 18px 16px; }
+  .pw-band { padding: 0 18px; gap: 12px; }
+  .pw-band-hint, .pw-band-go { display: none; }
+  .pw-trees { flex-wrap: wrap; gap: 10px; padding: 10px 14px 0; }
+  .pw-tree-art { max-width: 110px; height: 105px; }
+  .pw-under-band { padding: 6px 18px; }
+}

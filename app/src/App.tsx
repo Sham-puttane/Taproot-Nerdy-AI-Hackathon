@@ -4,7 +4,7 @@ import { useGame } from './game/useGame'
 import { Trail } from './game/Trail'
 import { Brief } from './parent/Brief'
 import { GroveWide } from './grove/GroveWide'
-import { Pick } from './game/Pick'
+import { PickWide } from './game/PickWide'
 import { Earned } from './grove/Earned'
 import { VoiceAnswer } from './game/VoiceAnswer'
 import {
@@ -41,7 +41,11 @@ export default function App() {
   }, [skin])
 
   return (
-    <div className={`stage${!wall && !picking && !showGrownup ? ' bleed' : ''}`}>
+    <div
+      className={`stage${
+        (!wall && !showGrownup) || picking ? ' bleed' : ''
+      }`}
+    >
       <button
         className="skin-toggle"
         onClick={() => setSkin(skin === 'meadow' ? 'soil' : 'meadow')}
@@ -83,7 +87,7 @@ export default function App() {
         />
       )}
       {pack && !preview && progress && picking && (
-        <Pick
+        <PickWide
           pack={pack}
           onPick={(code) => {
             setWall(code)
