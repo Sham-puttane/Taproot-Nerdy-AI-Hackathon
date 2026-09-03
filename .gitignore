@@ -8,3 +8,6 @@ __pycache__/
 .env
 dist/
 .chroma/
+app/node_modules/
+app/dist/
+app/public/pack.json

@@ -248,33 +248,43 @@ def gen_whole(node: str, grade: str, misconception: str,
     cap = min(GRADE_MAX_WHOLE.get(str(grade), 100), 100)
     out: list[Item] = []
     hi = 12 if cap >= 100 else max(5, cap // 4)
-    for a in range(2, hi + 1):
-        for b in range(2, hi + 1):
-            for op, sym in (("+", "+"), ("*", "×")):
-                truth = a + b if op == "+" else a * b
-                if truth > cap:
-                    continue
-                cands = [truth,
-                         truth + 1,                       # counted the start
-                         (a * b if op == "+" else a + b),  # other operation
-                         abs(a - b) or truth + 2]
-                opts, seen = [], set()
-                for c in cands:
-                    if c > 0 and c not in seen:
-                        seen.add(c)
-                        opts.append(c)
-                if len(opts) < 4:
-                    continue
-                order = sorted(opts[:4])
-                out.append(Item(
-                    kind="arithmetic", grade=str(grade), node=node,
-                    stem=f"{a} {sym} {b} = ?",
-                    expression=f"{a} {op} {b}",
-                    options=[str(o) for o in order],
-                    answer_index=order.index(truth),
-                    misconception=misconception))
-                if len(out) >= limit:
-                    return out
+    # Rotate the whole (a, b, op) cross-product by a node-derived offset.
+    # Offsetting only the start index leaves too few distinct orderings --
+    # grade 1 allows about ten, across twenty-odd OA/NBT nodes -- so the
+    # corridor still served "3 + 3 = ?" for several different skills. A child
+    # seeing the same question twice for two different skills reads the app as
+    # broken, and is right to.
+    combos = [(a, b, op, sym)
+              for a in range(2, hi + 1)
+              for b in range(2, hi + 1)
+              for op, sym in (("+", "+"), ("*", "×"))]
+    off = (sum(ord(c) * (i + 1) for i, c in enumerate(node))) % max(len(combos), 1)
+    combos = combos[off:] + combos[:off]
+    for a, b, op, sym in combos:
+        truth = a + b if op == "+" else a * b
+        if truth > cap:
+            continue
+        cands = [truth,
+                 truth + 1,                        # counted the starting number
+                 (a * b if op == "+" else a + b),  # reached for the other operation
+                 abs(a - b) or truth + 2]
+        opts, seen = [], set()
+        for c in cands:
+            if c > 0 and c not in seen:
+                seen.add(c)
+                opts.append(c)
+        if len(opts) < 4:
+            continue
+        order = sorted(opts[:4])
+        out.append(Item(
+            kind="arithmetic", grade=str(grade), node=node,
+            stem=f"{a} {sym} {b} = ?",
+            expression=f"{a} {op} {b}",
+            options=[str(o) for o in order],
+            answer_index=order.index(truth),
+            misconception=misconception))
+        if len(out) >= limit:
+            return out
     return out
 
 

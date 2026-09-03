@@ -1,0 +1,286 @@
+/* Two skins, one token set. `data-skin` on <html> swaps the whole game.
+   Every colour below is a token: nothing in a component references a literal,
+   so choosing between these later costs one attribute, not a rewrite. */
+
+/* Default: warm and bright. Cards on cream, soft yellow as the primary,
+   mint for "solid", lavender for the quiet accents. Deliberately NOT the
+   scoreboard language of the reference apps -- no timer rings, no trophy
+   counts -- because a countdown measures anxiety rather than mastery. */
+:root,
+[data-skin='meadow'] {
+  --ground: #fdf6e8;
+  --ground-2: #f6ead2;
+  --card: #ffffff;
+  --raised: #fff5dd;
+  --raised-2: #ffe9b8;
+  --edge: #f0dcae;
+  --ink: #2f2a1f;
+  --ink-dim: #6b6151;
+  --ink-faint: #9c917c;
+  --glow: #f5b625;
+  --glow-soft: #b3790a;
+  --leaf: #4fb083;
+  --leaf-soft: #d8f0e3;
+  --lilac: #b9a7e6;
+  --wrong: #e0654a;
+  --wrong-soft: #ffe0d8;
+  --root-dead: #e4d9be;
+  --root-line: #ecdfc4;
+  --sky: linear-gradient(180deg, #fffdf7 0%, var(--ground) 55%, var(--ground-2) 100%);
+  --shadow: 0 1px 2px rgba(120, 92, 32, 0.06), 0 8px 20px rgba(120, 92, 32, 0.08);
+  --shadow-lift: 0 2px 4px rgba(120, 92, 32, 0.08), 0 14px 30px rgba(120, 92, 32, 0.12);
+}
+
+[data-skin='soil'] {
+  --ground: #17211f;
+  --ground-2: #0f1817;
+  --card: #1e2a27;
+  --raised: rgba(255, 255, 255, 0.06);
+  --raised-2: rgba(255, 255, 255, 0.1);
+  --edge: rgba(255, 255, 255, 0.12);
+  --ink: #f3eee2;
+  --ink-dim: #b9c6c0;
+  --ink-faint: #7e8f88;
+  --glow: #e8a33d;
+  --glow-soft: #f5c877;
+  --leaf: #5cbf8e;
+  --leaf-soft: rgba(92, 191, 142, 0.18);
+  --lilac: #a894dc;
+  --wrong: #d2694e;
+  --wrong-soft: rgba(210, 105, 78, 0.2);
+  --root-dead: #33443e;
+  --root-line: #2c3b36;
+  --sky: radial-gradient(120% 80% at 50% 0%, #20302c 0%, var(--ground) 45%, var(--ground-2) 100%);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.25);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.35), 0 14px 30px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: Fredoka, ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage {
+  min-height: 100%;
+  background: var(--sky);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 28px;
+}
+
+.frame {
+  width: 100%;
+  max-width: 460px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.kicker {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 10px;
+}
+
+h1.say {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+
+p.lede {
+  font-size: 15px;
+  color: var(--ink-dim);
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: 20px 18px;
+  margin-bottom: 16px;
+}
+
+.prob {
+  font-size: clamp(34px, 11vw, 46px);
+  text-align: center;
+  margin: 6px 0;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.opts.single {
+  grid-template-columns: 1fr;
+}
+
+/* 44px is the accessible minimum; 60 because an 8-year-old is aiming with a
+   thumb on a shared tablet, often in a moving car. */
+button.opt {
+  min-height: 64px;
+  font: inherit;
+  font-weight: 500;
+  font-size: 23px;
+  color: var(--ink);
+  background: var(--raised);
+  border: 2px solid var(--edge);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.08s ease, border-color 0.15s ease, background 0.15s ease,
+    box-shadow 0.15s ease;
+  font-variant-numeric: tabular-nums;
+}
+button.opt:hover:not(:disabled) {
+  border-color: var(--glow);
+  box-shadow: var(--shadow-lift);
+}
+button.opt:active:not(:disabled) {
+  transform: scale(0.97);
+}
+button.opt:focus-visible {
+  outline: 3px solid var(--glow-soft);
+  outline-offset: 3px;
+}
+button.opt.chosen-right {
+  border-color: var(--leaf);
+  background: var(--leaf-soft);
+}
+button.opt.chosen-wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-soft);
+}
+button.opt:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.coach {
+  background: var(--card);
+  border-left: 4px solid var(--glow);
+  border-radius: 6px 18px 18px 6px;
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  font-size: 15px;
+  color: var(--ink-dim);
+  line-height: 1.5;
+  margin-top: 16px;
+}
+.coach b {
+  color: var(--ink);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.go {
+  font: inherit;
+  font-weight: 500;
+  font-size: 18px;
+  box-shadow: var(--shadow-lift);
+  padding: 15px 20px;
+  width: 100%;
+  border-radius: 18px;
+  border: none;
+  background: var(--glow);
+  color: #2f2a1f;
+  cursor: pointer;
+  margin-top: 16px;
+}
+.go:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+.go.quiet {
+  background: var(--raised-2);
+  color: var(--ink);
+}
+
+.badge {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  background: var(--raised-2);
+  border: 1px solid var(--edge);
+  color: var(--glow-soft);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+.bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--raised-2);
+  overflow: hidden;
+  margin-top: 6px;
+}
+.bar i {
+  display: block;
+  height: 100%;
+  background: var(--leaf);
+  border-radius: 4px;
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skin-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  font: inherit;
+  font-size: 12px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--edge);
+  background: var(--raised);
+  color: var(--ink-dim);
+  cursor: pointer;
+}
+
+.speak {
+  border: none;
+  background: none;
+  color: var(--ink-faint);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+.speak:focus-visible {
+  outline: 2px solid var(--glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

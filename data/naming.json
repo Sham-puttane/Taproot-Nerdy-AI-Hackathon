@@ -95,6 +95,196 @@
       "kid": "What area means",
       "teacher": "Recognize area as an attribute of plane figures and understand concepts of area measurement",
       "reteach": "Tiling with no gaps or overlaps. Same 'equal units' principle again."
+    },
+    "1.G.A.2": {
+      "kid": "Building shapes out of other shapes",
+      "teacher": "Compose 2-D shapes",
+      "reteach": ""
+    },
+    "1.MD.A.1": {
+      "kid": "Putting things in order by length",
+      "teacher": "Order three objects by length; compare indirectly",
+      "reteach": ""
+    },
+    "1.MD.A.2": {
+      "kid": "Measuring by lining up units",
+      "teacher": "Express length as a whole number of length units",
+      "reteach": ""
+    },
+    "1.NBT.A.1": {
+      "kid": "Counting all the way to 120",
+      "teacher": "Count to 120 from any starting number",
+      "reteach": ""
+    },
+    "1.NBT.B.2": {
+      "kid": "Tens and ones",
+      "teacher": "Two-digit numbers as tens and ones",
+      "reteach": ""
+    },
+    "1.NBT.C.4": {
+      "kid": "Adding numbers up to 100",
+      "teacher": "Add within 100 using place value",
+      "reteach": ""
+    },
+    "1.NBT.C.5": {
+      "kid": "Ten more, ten less",
+      "teacher": "Mentally find 10 more or 10 less",
+      "reteach": ""
+    },
+    "1.NBT.C.6": {
+      "kid": "Taking away tens",
+      "teacher": "Subtract multiples of 10 within 10-90",
+      "reteach": ""
+    },
+    "1.OA.A.1": {
+      "kid": "Addition and subtraction stories",
+      "teacher": "Word problems within 20",
+      "reteach": ""
+    },
+    "1.OA.B.3": {
+      "kid": "Adding in any order",
+      "teacher": "Properties of operations as strategies",
+      "reteach": ""
+    },
+    "1.OA.B.4": {
+      "kid": "Subtraction as a missing piece",
+      "teacher": "Subtraction as an unknown-addend problem",
+      "reteach": ""
+    },
+    "1.OA.C.5": {
+      "kid": "Counting on to add",
+      "teacher": "Relate counting to addition and subtraction",
+      "reteach": ""
+    },
+    "1.OA.C.6": {
+      "kid": "Adding and subtracting up to 20",
+      "teacher": "Fluency within 20",
+      "reteach": ""
+    },
+    "1.OA.D.7": {
+      "kid": "What the equals sign really means",
+      "teacher": "Meaning of the equal sign",
+      "reteach": ""
+    },
+    "1.OA.D.8": {
+      "kid": "Finding the missing number",
+      "teacher": "Determine the unknown in an equation",
+      "reteach": ""
+    },
+    "2.MD.A.3": {
+      "kid": "Guessing how long something is",
+      "teacher": "Estimate lengths using standard units",
+      "reteach": ""
+    },
+    "2.MD.B.6": {
+      "kid": "Numbers on a number line",
+      "teacher": "Whole numbers as lengths on a number line",
+      "reteach": ""
+    },
+    "2.OA.A.1": {
+      "kid": "Two-step word problems",
+      "teacher": "Add and subtract within 100 in word problems",
+      "reteach": ""
+    },
+    "2.OA.C.3": {
+      "kid": "Odd and even",
+      "teacher": "Odd and even numbers up to 20",
+      "reteach": ""
+    },
+    "2.OA.C.4": {
+      "kid": "Counting things in rows",
+      "teacher": "Rectangular arrays and repeated addition",
+      "reteach": ""
+    },
+    "3.OA.A.2": {
+      "kid": "What dividing means",
+      "teacher": "Interpret whole-number quotients",
+      "reteach": ""
+    },
+    "3.OA.A.3": {
+      "kid": "Times and sharing word problems",
+      "teacher": "Multiplication and division word problems within 100",
+      "reteach": ""
+    },
+    "4.NF.B.3.c": {
+      "kid": "Adding mixed numbers",
+      "teacher": "Add and subtract mixed numbers with like denominators",
+      "reteach": ""
+    },
+    "4.OA.A.2": {
+      "kid": "How many times bigger?",
+      "teacher": "Multiplicative comparison word problems",
+      "reteach": ""
+    },
+    "K.CC.A.1": {
+      "kid": "Counting to 100",
+      "teacher": "Count to 100 by ones and tens",
+      "reteach": ""
+    },
+    "K.CC.B.4.c": {
+      "kid": "Each number is one more",
+      "teacher": "Successive number names increase by one",
+      "reteach": ""
+    },
+    "K.G.A.1": {
+      "kid": "Naming shapes around you",
+      "teacher": "Describe shapes and relative positions",
+      "reteach": ""
+    },
+    "K.G.A.2": {
+      "kid": "Shapes stay the same when you turn them",
+      "teacher": "Name shapes regardless of orientation or size",
+      "reteach": ""
+    },
+    "K.G.A.3": {
+      "kid": "Flat shapes and solid shapes",
+      "teacher": "Two-dimensional versus three-dimensional",
+      "reteach": ""
+    },
+    "K.G.B.6": {
+      "kid": "Putting shapes together",
+      "teacher": "Compose simple shapes into larger shapes",
+      "reteach": ""
+    },
+    "K.MD.A.1": {
+      "kid": "What you can measure about something",
+      "teacher": "Describe measurable attributes",
+      "reteach": ""
+    },
+    "K.MD.A.2": {
+      "kid": "Which one is bigger?",
+      "teacher": "Directly compare two objects by a shared attribute",
+      "reteach": ""
+    },
+    "K.NBT.A.1": {
+      "kid": "Ten and some more",
+      "teacher": "Compose and decompose 11-19 as ten and ones",
+      "reteach": ""
+    },
+    "K.OA.A.1": {
+      "kid": "Showing adding and taking away",
+      "teacher": "Represent addition and subtraction",
+      "reteach": ""
+    },
+    "K.OA.A.2": {
+      "kid": "Adding and taking away up to 10",
+      "teacher": "Solve word problems within 10",
+      "reteach": ""
+    },
+    "K.OA.A.3": {
+      "kid": "Breaking numbers apart",
+      "teacher": "Decompose numbers up to 10 in more than one way",
+      "reteach": ""
+    },
+    "K.OA.A.4": {
+      "kid": "What makes ten",
+      "teacher": "Find the number that makes 10",
+      "reteach": ""
+    },
+    "K.OA.A.5": {
+      "kid": "Adding and taking away up to 5",
+      "teacher": "Fluently add and subtract within 5",
+      "reteach": ""
     }
   }
 }
