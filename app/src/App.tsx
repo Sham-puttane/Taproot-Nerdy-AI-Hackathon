@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
 import { useGame } from './game/useGame'
-import { Roots } from './Roots'
+import { Trail } from './game/Trail'
 import { Brief } from './parent/Brief'
 import { Grove } from './grove/Grove'
 import { Pick } from './game/Pick'
@@ -28,6 +28,7 @@ export default function App() {
 
   const [progress, setProgress] = useState<Progress | null>(null)
   const [wall, setWall] = useState<string | null>(null)
+  const [showGrownup, setShowGrownup] = useState(false)
   const [picking, setPicking] = useState(false)
 
   useEffect(() => {
@@ -47,6 +48,15 @@ export default function App() {
       >
         {skin === 'meadow' ? 'soil' : 'meadow'}
       </button>
+      {pack && progress && (
+        <button
+          className="grownup"
+          onClick={() => setShowGrownup(true)}
+          title="A report for a parent or tutor"
+        >
+          For grown-ups
+        </button>
+      )}
       {offline && (
         <div className="offline" role="status">
           No internet &mdash; everything still works
@@ -55,7 +65,17 @@ export default function App() {
       {err && <p className="lede">Could not load: {err}</p>}
       {!pack && !err && <p className="lede">Loading…</p>}
       {pack && preview && <Preview pack={pack} kind={preview} />}
-      {pack && !preview && progress && !picking && !wall && (
+      {pack && !preview && progress && showGrownup && !wall && (
+        <Brief
+          pack={pack}
+          data={{
+            wall: undefined, best: null, runnersUp: [], path: [],
+            asked: [], questionCount: 0,
+          }}
+          onBack={() => setShowGrownup(false)}
+        />
+      )}
+      {pack && !preview && progress && !showGrownup && !picking && !wall && (
         <Grove
           progress={progress}
           totalSkills={pack.nodes.length}
@@ -78,6 +98,8 @@ export default function App() {
           pack={pack}
           wallCode={wall}
           progress={progress}
+          grownupOpen={showGrownup}
+          onGrownupClose={() => setShowGrownup(false)}
           onFinish={(beliefs, keystone) => {
             const next = fold(progress, beliefs, keystone)
             setProgress(next)
@@ -111,18 +133,26 @@ function Game({
   pack,
   wallCode,
   progress,
+  grownupOpen,
+  onGrownupClose,
   onFinish,
   onHome,
 }: {
   pack: Pack
   wallCode: string
   progress: Progress
+  grownupOpen: boolean
+  onGrownupClose: () => void
   onFinish: (beliefs: Record<string, number>, k: Keystone | null) => void
   onHome: () => void
 }) {
   const g = useGame(pack, wallCode)
   const [chosen, setChosen] = useState<number | null>(null)
   const [showBrief, setShowBrief] = useState(false)
+  // The App-level button and the in-session one open the same report.
+  useEffect(() => {
+    if (grownupOpen) setShowBrief(true)
+  }, [grownupOpen])
   const [saved, setSaved] = useState(false)
   const [lastKeystone, setLastKeystone] = useState<Keystone | null>(null)
   const [litBefore] = useState(
@@ -174,13 +204,26 @@ function Game({
       <Brief
         pack={pack}
         data={{ ...g.brief(), wall: g.wallNode }}
-        onBack={() => setShowBrief(false)}
+        onBack={() => {
+          setShowBrief(false)
+          onGrownupClose()
+        }}
       />
     )
   }
 
+  const inSession = ['wall', 'descent', 'bedrock', 'repair', 'climb', 'return']
+    .includes(g.phase)
+
   return (
-    <div className="frame">
+    <div className="board">
+      {inSession && (
+        <aside className="rail">
+          <Trail pack={pack} stops={g.trail} lit={g.lit} reason={g.why} />
+        </aside>
+      )}
+      <div className="play">
+      <div className="frame">
       {g.phase === 'wall' && g.item && (
         <>
           <div className="kicker">let&rsquo;s see where you are</div>
@@ -209,13 +252,6 @@ function Game({
           </div>
           <h1 className="say">Okay. Let&rsquo;s find out why.</h1>
           <Question item={g.item} chosen={chosen} onChoose={choose} />
-          <Roots
-            pack={pack}
-            path={g.asked}
-            lit={g.lit}
-            here={g.item.node_id}
-            masteryOf={g.masteryOf}
-          />
         </>
       )}
 
@@ -281,13 +317,6 @@ function Game({
           ) : (
             <p className="lede">Almost there…</p>
           )}
-          <Roots
-            pack={pack}
-            path={g.climb}
-            lit={g.lit}
-            here={g.climb[g.climbAt]}
-            masteryOf={g.masteryOf}
-          />
         </>
       )}
 
@@ -307,6 +336,8 @@ function Game({
           onHome={onHome}
         />
       )}
+      </div>
+      </div>
     </div>
   )
 }

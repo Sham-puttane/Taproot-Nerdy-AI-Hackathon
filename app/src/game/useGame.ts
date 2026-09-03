@@ -52,6 +52,8 @@ export function useGame(pack: Pack, wallCode?: string) {
   const [climbAt, setClimbAt] = useState(0)
   const [lit, setLit] = useState<Set<string>>(new Set())
   const [asked, setAsked] = useState<string[]>([])
+  const [trail, setTrail] = useState<{ nodeId: string; correct: boolean | null }[]>([])
+  const [why, setWhy] = useState<string | null>(null)
   const [tick, setTick] = useState(0)   // forces re-render on belief change
 
   // The chosen wall, falling back to the pack's own if none was picked.
@@ -75,6 +77,7 @@ export function useGame(pack: Pack, wallCode?: string) {
     const first = take(wallNode.id)
     setWallItem(first)
     setItem(first)
+    setTrail([{ nodeId: wallNode.id, correct: null }])
     setPhase('wall')
   }, [wallNode, take])
 
@@ -97,6 +100,31 @@ export function useGame(pack: Pack, wallCode?: string) {
       advanceDescent()
       return
     }
+    // Explain the move using where we are ACTUALLY going, not a guess at a
+    // prerequisite. The graph has always known why it descends; this is the
+    // first time it says so, which is what turns "more questions" into "we are
+    // following something".
+    setTrail((t) => {
+      const prev = t[t.length - 1]
+      if (prev && prev.correct === false) {
+        const from = pack.nodes.find((n) => n.id === prev.nodeId)
+        const to = pack.nodes.find((n) => n.id === pick.nodeId)
+        const isBelow = (pack.edges as [string, string][]).some(
+          ([f, tt]) => f === pick.nodeId && tt === prev.nodeId,
+        )
+        if (from && to) {
+          const name = (x: typeof to) => (x.kid ?? x.teacher)
+          setWhy(
+            isBelow
+              ? `${name(from)} is built on ${name(to).toLowerCase()} — so let's check that.`
+              : `Let's try ${name(to).toLowerCase()} instead.`,
+          )
+        }
+      } else {
+        setWhy(null)
+      }
+      return [...t, { nodeId: pick.nodeId, correct: null }]
+    })
     setItem(next)
     setAsked((a) => [...a, pick.nodeId])
   }, [take])
@@ -117,6 +145,9 @@ export function useGame(pack: Pack, wallCode?: string) {
           setPhase('nowall')
           return
         }
+        setTrail((t) =>
+          t.map((s2, i) => (i === t.length - 1 ? { ...s2, correct: false } : s2)),
+        )
         session.current.seedFromWall(item.node_id)
         setPhase('descent')
         setTick((t) => t + 1)
@@ -126,6 +157,9 @@ export function useGame(pack: Pack, wallCode?: string) {
 
       if (phase === 'descent') {
         session.current.answer(item.node_id, correct)
+        setTrail((t) =>
+          t.map((s2, i) => (i === t.length - 1 ? { ...s2, correct } : s2)),
+        )
         setTick((t) => t + 1)
         advanceDescent()
         return
@@ -223,6 +257,8 @@ export function useGame(pack: Pack, wallCode?: string) {
     climbAt,
     lit,
     asked,
+    trail,
+    why,
     beliefs: session.current.beliefs,
     itemsUsed: session.current.asked.size,
     wallNode,
