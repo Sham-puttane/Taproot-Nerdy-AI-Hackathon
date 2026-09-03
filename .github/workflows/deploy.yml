@@ -12,7 +12,11 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  # Deploys QUEUE, they do not cancel each other. With cancel-in-progress a
+  # rapid follow-up push kills the previous build, and if that happens a few
+  # times in a row the live site silently stays several commits behind while
+  # every push looks successful. Which is exactly what happened.
+  cancel-in-progress: false
 
 jobs:
   build:
