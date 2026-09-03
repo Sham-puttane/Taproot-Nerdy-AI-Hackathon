@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+  <style>
+    body { margin: 0; font-family: Fredoka, ui-rounded, system-ui, sans-serif; }
+    a { color: #ffc94a; } a:hover { color: #ffd97a; }
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #16233a; position: relative; overflow: hidden; color: #fdf6e8;">
+
+  <!-- pattern blocks, reference-style -->
+  <div style="position: absolute; top: 0; left: 0; width: 118px; height: 96px; background: #ffc94a; border-bottom-right-radius: 40px;"></div>
+  <div style="position: absolute; top: 0; left: 118px; width: 78px; height: 52px; background: #46c9a4;"></div>
+  <div style="position: absolute; top: 0; right: 0; width: 96px; height: 118px; background: #a97ff0; border-bottom-left-radius: 48px;"></div>
+  <svg viewBox="0 0 96 96" style="position: absolute; top: 52px; left: 122px; width: 70px; height: 70px; opacity: .55;">
+    <g fill="#57b6f0">
+      <circle cx="10" cy="10" r="5"/><circle cx="34" cy="10" r="5"/><circle cx="58" cy="10" r="5"/>
+      <circle cx="10" cy="34" r="5"/><circle cx="34" cy="34" r="5"/><circle cx="58" cy="34" r="5"/>
+    </g>
+  </svg>
+
+  <!-- header -->
+  <div style="position: relative; padding: 118px 24px 0;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; color: #7f93b4;">YOUR GROVE</div>
+    <div style="font-size: 38px; font-weight: 600; line-height: 1.05; margin-top: 6px;">9 roots<br>are lit.</div>
+    <div style="font-size: 15px; color: #a9bcd8; margin-top: 10px; max-width: 30ch;">You found one keystone. Everything above it just got easier.</div>
+  </div>
+
+  <!-- the tree -->
+  <svg viewBox="0 0 300 220" style="position: absolute; top: 268px; left: 45px; width: 300px; height: 220px;">
+    <defs>
+      <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#22344f"/><stop offset="1" stop-color="#16233a"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="86" width="300" height="134" rx="18" fill="url(#soil)"/>
+    <!-- canopy -->
+    <circle cx="150" cy="46" r="34" fill="#46c9a4"/>
+    <circle cx="118" cy="62" r="24" fill="#3bb694"/>
+    <circle cx="182" cy="62" r="24" fill="#57d3ae"/>
+    <circle cx="150" cy="30" r="9" fill="#ffc94a"/>
+    <circle cx="126" cy="48" r="6" fill="#ff7d6b"/>
+    <circle cx="176" cy="44" r="6" fill="#ffc94a"/>
+    <!-- trunk -->
+    <rect x="142" y="70" width="16" height="34" rx="7" fill="#c98a3a"/>
+    <!-- taproot -->
+    <path d="M150 96 L150 206" stroke="#ffc94a" stroke-width="8" stroke-linecap="round"/>
+    <!-- lateral roots, lit ones bright -->
+    <path d="M150 116 L96 140" stroke="#ff7d6b" stroke-width="6" stroke-linecap="round"/>
+    <path d="M150 128 L206 152" stroke="#ffc94a" stroke-width="6" stroke-linecap="round"/>
+    <path d="M150 150 L88 178" stroke="#46c9a4" stroke-width="6" stroke-linecap="round"/>
+    <path d="M150 162 L214 186" stroke="#57b6f0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M150 182 L104 204" stroke="#a97ff0" stroke-width="6" stroke-linecap="round"/>
+    <path d="M150 190 L196 208" stroke="#31456a" stroke-width="5" stroke-linecap="round"/>
+    <path d="M150 138 L200 128" stroke="#31456a" stroke-width="5" stroke-linecap="round"/>
+  </svg>
+
+  <!-- stat chips -->
+  <div style="position: absolute; top: 500px; left: 24px; right: 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+    <div style="background: #ffc94a; color: #16233a; border-radius: 20px; padding: 14px 10px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 600; line-height: 1;">9</div>
+      <div style="font-size: 11px; margin-top: 3px;">roots lit</div>
+    </div>
+    <div style="background: #ff7d6b; color: #16233a; border-radius: 20px; padding: 14px 10px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 600; line-height: 1;">1</div>
+      <div style="font-size: 11px; margin-top: 3px;">keystone</div>
+    </div>
+    <div style="background: #57b6f0; color: #16233a; border-radius: 20px; padding: 14px 10px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 600; line-height: 1;">2</div>
+      <div style="font-size: 11px; margin-top: 3px;">grades deep</div>
+    </div>
+  </div>
+
+  <!-- keystone card -->
+  <div style="position: absolute; top: 604px; left: 24px; right: 24px; background: #fdf6e8; color: #16233a; border-radius: 24px; padding: 16px; display: flex; gap: 14px; align-items: center;">
+    <div style="flex: none; width: 54px; height: 54px; border-radius: 18px; background: #46c9a4; display: grid; place-items: center;">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#16233a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3 20 9v12H4V9z"/><path d="M9 21v-6h6v6"/>
+      </svg>
+    </div>
+    <div>
+      <div style="font-size: 16px; font-weight: 500;">Cutting a whole into equal parts</div>
+      <div style="font-size: 12px; color: #6b7a90; margin-top: 2px;">Grade 3 &middot; found under fractions</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div style="position: absolute; left: 24px; right: 24px; bottom: 28px;">
+    <div style="background: #ffc94a; color: #16233a; border-radius: 22px; padding: 19px; text-align: center; font-size: 20px; font-weight: 600;">
+      Dig again
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

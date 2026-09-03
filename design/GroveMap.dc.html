@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+  <style>
+    body { margin: 0; font-family: Fredoka, ui-rounded, system-ui, sans-serif; }
+    a { color: #ffc94a; } a:hover { color: #ffd97a; }
+  </style>
+</helmet>
+
+<!-- OPTION B — the grove as a WORLD you walk around.
+     Each tree is a topic; its roots light as you fix things under it. Reads as
+     level-select, which is the most familiar game grammar there is for this age. -->
+<div style="width: 390px; height: 844px; background: #1a6b4f; position: relative; overflow: hidden; color: #fdf6e8;">
+
+  <!-- sky -->
+  <div style="position: absolute; top: 0; left: 0; right: 0; height: 260px; background: linear-gradient(#57b6f0, #8fd0f5);"></div>
+  <circle style="display:none"></circle>
+  <svg viewBox="0 0 390 260" style="position: absolute; top: 0; left: 0; width: 390px; height: 260px;">
+    <circle cx="330" cy="52" r="30" fill="#ffc94a"/>
+    <g fill="#ffffff" opacity=".9">
+      <ellipse cx="88" cy="70" rx="38" ry="20"/><ellipse cx="120" cy="62" rx="26" ry="18"/>
+      <ellipse cx="250" cy="112" rx="30" ry="16"/>
+    </g>
+    <path d="M0 210 Q 90 178 190 208 T 390 196 L390 260 L0 260Z" fill="#2a8a63"/>
+  </svg>
+
+  <div style="position: relative; padding: 22px 24px 0;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; color: #16233a; opacity: .65;">YOUR GROVE</div>
+    <div style="font-size: 30px; font-weight: 600; color: #16233a; line-height: 1.1; margin-top: 4px;">Three trees<br>growing.</div>
+  </div>
+
+  <!-- the world: one tree per topic -->
+  <svg viewBox="0 0 390 470" style="position: absolute; top: 232px; left: 0; width: 390px; height: 470px;">
+    <path d="M0 0 Q 100 40 200 8 T 390 22 L390 470 L0 470Z" fill="#2a8a63"/>
+    <path d="M0 150 Q 120 120 240 160 T 390 140 L390 470 L0 470Z" fill="#1a6b4f"/>
+
+    <!-- fractions: healthiest -->
+    <g>
+      <rect x="88" y="60" width="12" height="34" rx="5" fill="#8a5a28"/>
+      <circle cx="94" cy="48" r="27" fill="#46c9a4"/>
+      <circle cx="76" cy="58" r="17" fill="#3bb694"/>
+      <circle cx="112" cy="58" r="17" fill="#57d3ae"/>
+      <circle cx="94" cy="34" r="6" fill="#ff7d6b"/>
+      <circle cx="80" cy="46" r="5" fill="#ffc94a"/>
+      <ellipse cx="94" cy="98" rx="34" ry="8" fill="#16233a" opacity=".18"/>
+      <text x="94" y="122" text-anchor="middle" font-family="Fredoka" font-size="14" font-weight="500" fill="#fdf6e8">Fractions</text>
+      <text x="94" y="139" text-anchor="middle" font-family="Fredoka" font-size="11.5" fill="#a9e0c9">6 roots lit</text>
+    </g>
+
+    <!-- times tables: mid -->
+    <g>
+      <rect x="266" y="112" width="11" height="30" rx="5" fill="#8a5a28"/>
+      <circle cx="271" cy="102" r="21" fill="#3fae8c"/>
+      <circle cx="257" cy="110" r="13" fill="#349b7c"/>
+      <circle cx="286" cy="110" r="13" fill="#48bd98"/>
+      <ellipse cx="271" cy="146" rx="27" ry="7" fill="#16233a" opacity=".18"/>
+      <text x="271" y="168" text-anchor="middle" font-family="Fredoka" font-size="14" font-weight="500" fill="#fdf6e8">Times tables</text>
+      <text x="271" y="185" text-anchor="middle" font-family="Fredoka" font-size="11.5" fill="#a9e0c9">2 roots lit</text>
+    </g>
+
+    <!-- big numbers: a sapling, not started -->
+    <g opacity=".72">
+      <rect x="160" y="268" width="9" height="24" rx="4" fill="#7a4f22"/>
+      <circle cx="164" cy="262" r="13" fill="#2f7d5d"/>
+      <ellipse cx="164" cy="296" rx="20" ry="6" fill="#16233a" opacity=".2"/>
+      <text x="164" y="318" text-anchor="middle" font-family="Fredoka" font-size="14" font-weight="500" fill="#fdf6e8">Big numbers</text>
+      <text x="164" y="335" text-anchor="middle" font-family="Fredoka" font-size="11.5" fill="#8fc7ad">not planted</text>
+    </g>
+
+    <!-- keystones lying about like finds -->
+    <g>
+      <rect x="46" y="196" width="26" height="26" rx="8" fill="#ffc94a" transform="rotate(-12 59 209)"/>
+      <rect x="312" y="238" width="22" height="22" rx="7" fill="#ff7d6b" transform="rotate(9 323 249)"/>
+    </g>
+  </svg>
+
+  <div style="position: absolute; left: 24px; right: 24px; bottom: 26px;">
+    <div style="background: #ffc94a; color: #16233a; border-radius: 22px; padding: 19px; text-align: center; font-size: 20px; font-weight: 600;">
+      Pick a tree
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

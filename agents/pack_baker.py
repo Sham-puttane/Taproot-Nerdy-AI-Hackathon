@@ -67,6 +67,13 @@ def pick_template(code: str):
                 "Denominator used for other parts rather than total parts")
     if ".OA" in code or ".NBT" in code or ".CC" in code:
         return (["whole"], "Counts the starting number when counting on")
+    if ".MD" in code:
+        # Measurement has no instrument of its own yet. Whole-number arithmetic
+        # is a stand-in so these skills are at least reachable; a proper
+        # two-rulers instrument is still owed, and 2.MD.A.2 in particular
+        # deserves one -- "bigger unit, smaller number" IS the denominator idea
+        # three years early.
+        return (["whole"], "Counts the starting number when counting on")
     return None                     # no instrument yet -- reported, not faked
 
 
@@ -166,9 +173,16 @@ def bake(wall_codes, per_node: int = 8) -> dict:
 # cannot drift apart -- a topic the app offers but the pack does not cover
 # would be a dead end for a child with no network.
 ALL_WALLS = [
-    "5.NF.A.1", "4.NF.B.3.d", "3.NF.A.3",
-    "4.NF.A.1", "3.NF.A.1",
-    "2.OA.A.1", "1.NBT.C.4", "1.OA.C.6",
+    # Fractions
+    "5.NF.A.1", "4.NF.B.3.d", "3.NF.A.3", "3.NF.A.1",
+    # Times tables & word problems
+    "4.OA.A.3", "3.OA.D.8", "2.OA.A.1", "1.OA.C.6",
+    # Big numbers & place value
+    "5.NBT.B.7", "4.NBT.B.5", "2.NBT.B.5", "1.NBT.C.4",
+    # Measuring & data
+    "5.MD.A.1", "4.MD.A.2", "3.MD.D.8",
+    # Shapes
+    "5.G.B.4", "3.G.A.2",
 ]
 
 

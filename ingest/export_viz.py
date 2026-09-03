@@ -4,7 +4,9 @@ sys.path.insert(0, os.path.dirname(__file__))
 from textclean import clean
 
 OUT = os.environ.get("TAPROOT_OUT", "D:/taproot/data/processed")
-c = json.load(open(f"{OUT}/cone_fractions.json", encoding="utf-8"))
+SRC = os.environ.get("TAPROOT_CONE", f"{OUT}/graph_k5.json")
+DST = os.environ.get("TAPROOT_VIZ", f"{OUT}/cone_viz.json")
+c = json.load(open(SRC, encoding="utf-8"))
 short = {n["id"]: n["id"][:8] for n in c["nodes"]}
 
 nodes = [{
@@ -21,12 +23,14 @@ edges = [[short[e["from"]], short[e["to"]]] for e in c["edges"]]
 # the canonical descent: deepest chain from a 5.NF target down to a root
 G = nx.DiGraph(edges)
 by_code = {n["code"]: n["id"] for n in nodes}
-target, bedrock = by_code["5.NF.A.1"], by_code["3.NF.A.1"]
-paths = list(nx.all_simple_paths(G, bedrock, target))
-demo = max(paths, key=len) if paths else []
+target, bedrock = by_code.get("5.NF.A.1"), by_code.get("3.NF.A.1")
+demo = []
+if target and bedrock and G.has_node(bedrock) and G.has_node(target):
+    paths = list(nx.all_simple_paths(G, bedrock, target))
+    demo = max(paths, key=len) if paths else []
 
 json.dump({"nodes": nodes, "edges": edges, "demoPath": demo},
-          open(f"{OUT}/cone_viz.json", "w", encoding="utf-8"))
+          open(DST, "w", encoding="utf-8"))
 
 codes = {n["id"]: n["code"] for n in nodes}
 print(f"nodes {len(nodes)}  edges {len(edges)}")

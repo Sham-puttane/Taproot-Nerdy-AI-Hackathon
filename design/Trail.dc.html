@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+  <style>
+    body { margin: 0; font-family: Fredoka, ui-rounded, system-ui, sans-serif; }
+    a { color: #c98a3a; } a:hover { color: #a86f26; }
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #fdf6e8; position: relative; overflow: hidden; color: #16233a;">
+
+  <!-- the trail: a board-game path you climb DOWN -->
+  <div style="position: absolute; top: 0; left: 0; width: 148px; height: 844px; background: #16233a; padding: 22px 14px; box-sizing: border-box;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #7f93b4;">YOUR PATH</div>
+    <div style="color: #fdf6e8; font-size: 30px; font-weight: 600; line-height: 1; margin-top: 4px;">4</div>
+    <div style="color: #7f93b4; font-size: 11px; margin-bottom: 14px;">steps down</div>
+
+    <svg viewBox="0 0 120 620" style="width: 120px; height: 620px;">
+      <path d="M60 20 C 20 70, 100 110, 60 160 C 20 210, 100 250, 60 300 C 20 350, 100 390, 60 440 C 20 490, 100 530, 60 580"
+            fill="none" stroke="#2b3f5e" stroke-width="16" stroke-linecap="round"/>
+      <path d="M60 20 C 20 70, 100 110, 60 160 C 20 210, 100 250, 60 300"
+            fill="none" stroke="#ffc94a" stroke-width="16" stroke-linecap="round"/>
+
+      <g>
+        <circle cx="60" cy="20" r="19" fill="#ff7d6b" stroke="#fdf6e8" stroke-width="4"/>
+        <text x="60" y="26" text-anchor="middle" font-family="Fredoka" font-size="15" font-weight="600" fill="#16233a">5</text>
+      </g>
+      <g>
+        <circle cx="60" cy="160" r="19" fill="#ffc94a" stroke="#fdf6e8" stroke-width="4"/>
+        <text x="60" y="166" text-anchor="middle" font-family="Fredoka" font-size="15" font-weight="600" fill="#16233a">4</text>
+      </g>
+      <g>
+        <circle cx="60" cy="300" r="22" fill="#46c9a4" stroke="#fdf6e8" stroke-width="5"/>
+        <text x="60" y="307" text-anchor="middle" font-family="Fredoka" font-size="15" font-weight="600" fill="#16233a">3</text>
+      </g>
+      <circle cx="60" cy="440" r="16" fill="#22344f" stroke="#33496c" stroke-width="4"/>
+      <circle cx="60" cy="580" r="16" fill="#22344f" stroke="#33496c" stroke-width="4"/>
+    </svg>
+
+    <div style="color: #7f93b4; font-size: 10px; font-family: 'IBM Plex Mono', monospace; letter-spacing: .14em; text-align: center;">KEEP DIGGING</div>
+  </div>
+
+  <!-- the question -->
+  <div style="position: absolute; left: 148px; right: 0; top: 0; bottom: 0; padding: 26px 20px; box-sizing: border-box;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .16em; color: #9a8f78;">QUESTION 4</div>
+    <div style="font-size: 22px; font-weight: 600; margin-top: 6px; line-height: 1.15;">Cut the cake into 4 fair pieces.</div>
+
+    <!-- the slicer, front and centre -->
+    <div style="margin-top: 18px; background: #fff; border-radius: 22px; padding: 16px; box-shadow: 0 8px 22px rgba(22,35,58,.10);">
+      <svg viewBox="0 0 200 90" style="width: 100%; height: 90px;">
+        <rect x="2" y="14" width="46" height="62" rx="8" fill="#ffc94a"/>
+        <rect x="52" y="14" width="46" height="62" rx="8" fill="#ffe0a0"/>
+        <rect x="102" y="14" width="46" height="62" rx="8" fill="#ffe0a0"/>
+        <rect x="152" y="14" width="46" height="62" rx="8" fill="#ffe0a0"/>
+        <g stroke="#16233a" stroke-width="4" stroke-linecap="round">
+          <path d="M50 8 L50 82"/><path d="M100 8 L100 82"/><path d="M150 8 L150 82"/>
+        </g>
+        <g fill="#16233a">
+          <circle cx="50" cy="45" r="7"/><circle cx="100" cy="45" r="7"/><circle cx="150" cy="45" r="7"/>
+        </g>
+      </svg>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#46c9a4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span style="font-size: 14px; color: #46801f;">Those look equal.</span>
+      </div>
+    </div>
+
+    <!-- why we came here -->
+    <div style="margin-top: 16px; background: #16233a; color: #d7e2f2; border-radius: 20px; padding: 14px 16px; font-size: 13.5px; line-height: 1.5;">
+      <span style="color: #ffc94a; font-weight: 500;">Why here?</span>
+      Adding fractions is built on cutting into equal parts &mdash; so we came to look.
+    </div>
+
+    <div style="position: absolute; left: 20px; right: 20px; bottom: 26px; background: #46c9a4; color: #16233a; border-radius: 20px; padding: 17px; text-align: center; font-size: 18px; font-weight: 600;">
+      Done
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

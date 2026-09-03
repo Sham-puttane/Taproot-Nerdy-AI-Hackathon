@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+  <style>
+    body { margin: 0; font-family: Fredoka, ui-rounded, system-ui, sans-serif; }
+    a { color: #ffc94a; } a:hover { color: #ffd97a; }
+  </style>
+</helmet>
+
+<!-- B + C combined, at desktop width.
+     ONE cross-section: six trees above ground (B, one per topic family), the
+     same ground cut open below (C, strata banded by grade) so every tree's
+     roots are visibly reaching down through the grades. This is the version
+     that needs the width - at 390px you can show the trees or the strata, not
+     the relationship between them, which is the whole idea.
+     Fruit appears in a canopy when a skill is repaired; roots light downward. -->
+<div style="width: 1440px; height: 900px; background: #16233a; position: relative; overflow: hidden; color: #fdf6e8; font-family: Fredoka, sans-serif;">
+
+  <!-- ================= SKY ================= -->
+  <div style="position: absolute; inset: 0 0 auto 0; height: 330px; background: linear-gradient(#63bdf3 0%, #a5dcf8 72%, #cfeaf3 100%);"></div>
+  <svg viewBox="0 0 1440 330" style="position: absolute; top: 0; left: 0; width: 1440px; height: 330px;">
+    <circle cx="1290" cy="64" r="34" fill="#ffc94a"/>
+    <g fill="#ffffff" opacity=".85">
+      <ellipse cx="200" cy="72" rx="52" ry="22"/><ellipse cx="244" cy="62" rx="34" ry="20"/>
+      <ellipse cx="880" cy="54" rx="44" ry="19"/><ellipse cx="920" cy="46" rx="28" ry="16"/>
+    </g>
+  </svg>
+
+  <!-- header -->
+  <div style="position: absolute; top: 26px; left: 40px; z-index: 3;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; color: #1d3a52; opacity: .7;">YOUR GROVE</div>
+    <div style="font-size: 40px; font-weight: 600; color: #16233a; line-height: 1.04; margin-top: 4px;">Six trees. Twenty&#8209;three roots lit.</div>
+    <div style="font-size: 15.5px; color: #234b66; margin-top: 6px; max-width: 46ch;">Every root you light feeds the tree above it. Fruit means that idea is solid.</div>
+  </div>
+
+  <div style="position: absolute; top: 30px; right: 40px; display: flex; gap: 10px; z-index: 3;">
+    <div style="background: #ffc94a; color: #16233a; border-radius: 18px; padding: 12px 18px; text-align: center;">
+      <div style="font-size: 26px; font-weight: 600; line-height: 1;">4</div><div style="font-size: 11px;">keystones</div>
+    </div>
+    <div style="background: #ff7d6b; color: #16233a; border-radius: 18px; padding: 12px 18px; text-align: center;">
+      <div style="font-size: 26px; font-weight: 600; line-height: 1;">3</div><div style="font-size: 11px;">grades deep</div>
+    </div>
+  </div>
+
+  <!-- ================= GROUND LINE ================= -->
+  <svg viewBox="0 0 1440 60" style="position: absolute; top: 302px; left: 0; width: 1440px; height: 60px;">
+    <path d="M0 34 Q 180 18 360 32 T 720 30 T 1080 34 T 1440 26 L1440 60 L0 60Z" fill="#3d9c6e"/>
+    <path d="M0 44 Q 180 30 360 42 T 720 40 T 1080 44 T 1440 36 L1440 60 L0 60Z" fill="#2f7d5d"/>
+  </svg>
+
+  <!-- ================= SIX TREES ================= -->
+  <svg viewBox="0 0 1440 250" style="position: absolute; top: 110px; left: 0; width: 1440px; height: 250px;">
+    <!-- 1 Fractions — thriving, fruit -->
+    <g>
+      <rect x="152" y="168" width="17" height="46" rx="7" fill="#8a5a28"/>
+      <circle cx="160" cy="150" r="42" fill="#46c9a4"/><circle cx="128" cy="166" r="27" fill="#3bb694"/><circle cx="192" cy="166" r="27" fill="#57d3ae"/>
+      <circle cx="146" cy="134" r="8" fill="#ff7d6b"/><circle cx="176" cy="146" r="8" fill="#ff7d6b"/><circle cx="160" cy="168" r="7" fill="#ffc94a"/>
+    </g>
+    <!-- 2 Times tables — good -->
+    <g>
+      <rect x="392" y="176" width="15" height="38" rx="6" fill="#8a5a28"/>
+      <circle cx="400" cy="158" r="35" fill="#42bf9b"/><circle cx="374" cy="172" r="22" fill="#38ab8b"/><circle cx="426" cy="172" r="22" fill="#4fcda8"/>
+      <circle cx="388" cy="146" r="7" fill="#ffc94a"/><circle cx="414" cy="156" r="7" fill="#ff7d6b"/>
+    </g>
+    <!-- 3 Shapes — flowering, not fruiting yet -->
+    <g>
+      <rect x="632" y="184" width="13" height="30" rx="6" fill="#8a5a28"/>
+      <circle cx="639" cy="168" r="28" fill="#3cb391"/><circle cx="619" cy="180" r="17" fill="#33a082"/><circle cx="659" cy="180" r="17" fill="#48c39f"/>
+      <g fill="#f7a8d8"><circle cx="628" cy="158" r="5"/><circle cx="650" cy="166" r="5"/></g>
+    </g>
+    <!-- 4 Big numbers — young -->
+    <g>
+      <rect x="872" y="190" width="12" height="24" rx="5" fill="#7a4f22"/>
+      <circle cx="878" cy="176" r="22" fill="#35a582"/><circle cx="862" cy="186" r="13" fill="#2d9273"/>
+      <g fill="#f7a8d8"><circle cx="871" cy="168" r="4.5"/></g>
+    </g>
+    <!-- 5 Measuring — sapling -->
+    <g opacity=".92">
+      <rect x="1104" y="194" width="10" height="20" rx="4" fill="#7a4f22"/>
+      <circle cx="1109" cy="184" r="16" fill="#2f9a76"/>
+    </g>
+    <!-- 6 Counting — seed, dashed outline -->
+    <g opacity=".6">
+      <circle cx="1330" cy="196" r="15" fill="none" stroke="#2f7d5d" stroke-width="3" stroke-dasharray="5 5"/>
+      <path d="M1330 190 v12 M1324 196 h12" stroke="#2f7d5d" stroke-width="3" stroke-linecap="round"/>
+    </g>
+  </svg>
+
+  <!-- labels sit on the grass -->
+  <div style="position: absolute; top: 358px; left: 0; right: 0; display: grid; grid-template-columns: repeat(6, 1fr); text-align: center; z-index: 3;">
+    <div><div style="font-size: 16px; font-weight: 600;">Fractions</div><div style="font-size: 12.5px; color: #9fe0c4;">11 of 23 lit</div></div>
+    <div><div style="font-size: 16px; font-weight: 600;">Times tables</div><div style="font-size: 12.5px; color: #9fe0c4;">7 of 34 lit</div></div>
+    <div><div style="font-size: 16px; font-weight: 600;">Shapes</div><div style="font-size: 12.5px; color: #9fe0c4;">3 of 21 lit</div></div>
+    <div><div style="font-size: 16px; font-weight: 600;">Big numbers</div><div style="font-size: 12.5px; color: #9fe0c4;">2 of 32 lit</div></div>
+    <div><div style="font-size: 16px; font-weight: 600;">Measuring</div><div style="font-size: 12.5px; color: #7f93b4;">just planted</div></div>
+    <div><div style="font-size: 16px; font-weight: 600; opacity: .7;">Counting</div><div style="font-size: 12.5px; color: #7f93b4;">not planted</div></div>
+  </div>
+
+  <!-- ================= UNDERGROUND: STRATA + ROOTS ================= -->
+  <div style="position: absolute; top: 404px; left: 0; right: 0; bottom: 0;">
+    <!-- strata bands, one per grade -->
+    <div style="position: absolute; inset: 0;">
+      <div style="height: 74px; background: #ffe0a0;"></div>
+      <div style="height: 74px; background: #f0c477;"></div>
+      <div style="height: 84px; background: #d9a758;"></div>
+      <div style="height: 78px; background: #b8863c;"></div>
+      <div style="height: 78px; background: #8a5a28;"></div>
+      <div style="height: 108px; background: #6b4520;"></div>
+    </div>
+
+    <!-- grade labels down the left gutter -->
+    <div style="position: absolute; left: 18px; top: 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .12em;">
+      <div style="height: 74px; line-height: 74px; color: #8a7440;">GRADE 5</div>
+      <div style="height: 74px; line-height: 74px; color: #7a6330;">GRADE 4</div>
+      <div style="height: 84px; line-height: 84px; color: #5a4118;">GRADE 3</div>
+      <div style="height: 78px; line-height: 78px; color: #f0dcbc;">GRADE 2</div>
+      <div style="height: 78px; line-height: 78px; color: #e8d7b8;">GRADE 1</div>
+      <div style="height: 108px; line-height: 108px; color: #d9bd93;">KINDER</div>
+    </div>
+
+    <!-- the roots: each tree reaches down through the grades -->
+    <svg viewBox="0 0 1440 496" style="position: absolute; inset: 0; width: 1440px; height: 496px;">
+      <!-- fractions: deep, lit to grade 3, keystone embedded -->
+      <path d="M160 0 C160 90, 128 130, 132 236" stroke="#ffc94a" stroke-width="9" fill="none" stroke-linecap="round"/>
+      <path d="M160 46 C196 78, 214 118, 208 168" stroke="#ffc94a" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M132 236 C128 300, 150 340, 142 410" stroke="#5a4118" stroke-width="7" fill="none" stroke-linecap="round" opacity=".55"/>
+      <g>
+        <rect x="112" y="212" width="40" height="40" rx="13" fill="#ff7d6b" stroke="#16233a" stroke-width="3" transform="rotate(-8 132 232)"/>
+        <text x="132" y="239" text-anchor="middle" font-size="17" font-weight="600" fill="#16233a" font-family="Fredoka" transform="rotate(-8 132 232)">3</text>
+      </g>
+
+      <!-- times tables -->
+      <path d="M400 0 C400 70, 372 108, 378 190" stroke="#ffc94a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M400 40 C436 66, 448 108, 442 150" stroke="#e0a63a" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M378 190 C372 250, 392 300, 386 396" stroke="#5a4118" stroke-width="6" fill="none" stroke-linecap="round" opacity=".5"/>
+      <g>
+        <rect x="358" y="168" width="36" height="36" rx="12" fill="#ffc94a" stroke="#16233a" stroke-width="3" transform="rotate(6 376 186)"/>
+        <text x="376" y="193" text-anchor="middle" font-size="16" font-weight="600" fill="#16233a" font-family="Fredoka" transform="rotate(6 376 186)">4</text>
+      </g>
+
+      <!-- shapes -->
+      <path d="M639 0 C639 62, 616 96, 622 148" stroke="#57b6f0" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M622 148 C616 220, 636 280, 630 372" stroke="#5a4118" stroke-width="6" fill="none" stroke-linecap="round" opacity=".5"/>
+      <g>
+        <rect x="604" y="128" width="34" height="34" rx="11" fill="#57b6f0" stroke="#16233a" stroke-width="3"/>
+        <text x="621" y="152" text-anchor="middle" font-size="15" font-weight="600" fill="#16233a" font-family="Fredoka">2</text>
+      </g>
+
+      <!-- big numbers: shallow -->
+      <path d="M878 0 C878 48, 862 74, 866 112" stroke="#a97ff0" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M866 112 C860 190, 880 250, 874 350" stroke="#5a4118" stroke-width="5" fill="none" stroke-linecap="round" opacity=".45"/>
+
+      <!-- measuring: barely started -->
+      <path d="M1109 0 C1109 34, 1098 52, 1101 76" stroke="#f7a8d8" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M1101 76 C1096 160, 1114 220, 1108 320" stroke="#5a4118" stroke-width="5" fill="none" stroke-linecap="round" opacity=".4"/>
+
+      <!-- counting: nothing yet -->
+      <path d="M1330 0 C1330 120, 1318 200, 1324 300" stroke="#5a4118" stroke-width="4" fill="none" stroke-linecap="round" opacity=".35" stroke-dasharray="8 10"/>
+
+      <!-- a couple of undug finds -->
+      <g opacity=".5" fill="#4a3410">
+        <circle cx="980" cy="300" r="10"/><circle cx="1220" cy="392" r="8"/><circle cx="520" cy="430" r="9"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- CTA -->
+  <div style="position: absolute; right: 40px; bottom: 34px; z-index: 4;">
+    <div style="background: #ffc94a; color: #16233a; border-radius: 22px; padding: 18px 40px; font-size: 20px; font-weight: 600; box-shadow: 0 12px 28px rgba(0,0,0,.28);">
+      Dig under fractions
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

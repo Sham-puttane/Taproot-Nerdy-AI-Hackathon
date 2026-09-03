@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+  <style>
+    body { margin: 0; font-family: Fredoka, ui-rounded, system-ui, sans-serif; }
+    a { color: #ffc94a; } a:hover { color: #ffd97a; }
+  </style>
+</helmet>
+
+<!-- OPTION C — the ground cut open.
+     Soil strata by grade, deepest at the bottom, keystones embedded like
+     fossils you dug out. The one option where the SCREEN ITSELF teaches the
+     idea: grade 5 sits on grade 4 sits on grade 3, visibly. -->
+<div style="width: 390px; height: 844px; background: #fdf6e8; position: relative; overflow: hidden; color: #16233a;">
+
+  <div style="padding: 22px 24px 0;">
+    <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; color: #9a8f78;">YOUR GROUND</div>
+    <div style="font-size: 30px; font-weight: 600; line-height: 1.08; margin-top: 4px;">Dug down to<br>grade three.</div>
+  </div>
+
+  <!-- surface + tree -->
+  <svg viewBox="0 0 390 120" style="position: absolute; top: 108px; left: 0; width: 390px; height: 120px;">
+    <circle cx="196" cy="52" r="30" fill="#46c9a4"/>
+    <circle cx="170" cy="64" r="20" fill="#3bb694"/>
+    <circle cx="222" cy="64" r="20" fill="#57d3ae"/>
+    <circle cx="196" cy="38" r="7" fill="#ffc94a"/>
+    <rect x="189" y="76" width="14" height="30" rx="6" fill="#c98a3a"/>
+  </svg>
+
+  <!-- the strata -->
+  <div style="position: absolute; top: 216px; left: 0; right: 0;">
+    <div style="height: 96px; background: #ffe0a0; position: relative; display: flex; align-items: center; padding: 0 22px;">
+      <div style="width: 42px; height: 42px; border-radius: 14px; background: #ff7d6b; display: grid; place-items: center; font-size: 17px; font-weight: 600;">5</div>
+      <div style="margin-left: 14px;">
+        <div style="font-size: 15px; font-weight: 500;">Adding unlike fractions</div>
+        <div style="font-size: 12px; color: #8a7440;">where the homework was</div>
+      </div>
+    </div>
+
+    <div style="height: 96px; background: #f6cf7e; display: flex; align-items: center; padding: 0 22px;">
+      <div style="width: 42px; height: 42px; border-radius: 14px; background: #ffc94a; display: grid; place-items: center; font-size: 17px; font-weight: 600;">4</div>
+      <div style="margin-left: 14px;">
+        <div style="font-size: 15px; font-weight: 500;">Breaking fractions up</div>
+        <div style="font-size: 12px; color: #8a7440;">2 of 3 lit</div>
+      </div>
+    </div>
+
+    <div style="height: 118px; background: #d9a758; display: flex; align-items: center; padding: 0 22px; position: relative;">
+      <div style="width: 48px; height: 48px; border-radius: 16px; background: #16233a; color: #ffc94a; display: grid; place-items: center; font-size: 18px; font-weight: 600;">3</div>
+      <div style="margin-left: 14px;">
+        <div style="font-size: 16px; font-weight: 600;">Cutting into equal parts</div>
+        <div style="font-size: 12.5px; color: #4a3410;">the keystone you dug out</div>
+      </div>
+      <!-- the fossil -->
+      <svg viewBox="0 0 40 40" style="position: absolute; right: 22px; width: 40px; height: 40px;">
+        <path d="M20 3 34 12v18L20 37 6 30V12z" fill="#ffc94a" stroke="#16233a" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div style="height: 84px; background: #b8863c; display: flex; align-items: center; padding: 0 22px; opacity: .95;">
+      <div style="width: 38px; height: 38px; border-radius: 13px; background: #8a5a28; color: #e8d7b8; display: grid; place-items: center; font-size: 15px; font-weight: 600;">2</div>
+      <div style="margin-left: 14px; color: #3a2a10;">
+        <div style="font-size: 14px; font-weight: 500;">Sharing shapes equally</div>
+        <div style="font-size: 12px; opacity: .75;">solid &mdash; nothing to fix</div>
+      </div>
+    </div>
+
+    <div style="height: 74px; background: #8a5a28; display: flex; align-items: center; padding: 0 22px;">
+      <div style="width: 34px; height: 34px; border-radius: 12px; background: #6b4520; color: #d9bd93; display: grid; place-items: center; font-size: 14px; font-weight: 600;">1</div>
+      <div style="margin-left: 14px; color: #e8d7b8; font-size: 13.5px;">Counting on &mdash; solid</div>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 24px; right: 24px; bottom: 26px;">
+    <div style="background: #16233a; color: #ffc94a; border-radius: 22px; padding: 19px; text-align: center; font-size: 20px; font-weight: 600;">
+      Dig again
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

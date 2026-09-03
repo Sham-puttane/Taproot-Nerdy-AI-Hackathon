@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+  <style>
+    body { margin: 0; font-family: Fredoka, ui-rounded, system-ui, sans-serif; }
+    a { color: #c15a3f; } a:hover { color: #9c452f; }
+  </style>
+</helmet>
+
+<!-- OPTION B for parents — one card, phone-sized, meant to be SCREENSHOTTED and
+     sent to a tutor. The full report is a document; this is the thing a parent
+     actually forwards at 8pm. -->
+<div style="width: 390px; height: 700px; background: #16233a; padding: 26px 22px; box-sizing: border-box; color: #fdf6e8;">
+
+  <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .16em; color: #7f93b4;">SOFIA &middot; TUESDAY &middot; 12 MIN</div>
+  <div style="font-size: 27px; font-weight: 600; line-height: 1.12; margin-top: 8px;">Not behind on<br>fractions.</div>
+  <div style="font-size: 15px; color: #a9bcd8; margin-top: 8px;">Missing one grade&nbsp;3 idea underneath them.</div>
+
+  <!-- the ladder, vertical, unmissable -->
+  <svg viewBox="0 0 340 300" style="width: 100%; height: 300px; margin-top: 18px;">
+    <line x1="60" y1="34" x2="60" y2="266" stroke="#2b3f5e" stroke-width="6" stroke-linecap="round"/>
+
+    <circle cx="60" cy="44" r="24" fill="#57b6f0"/>
+    <text x="60" y="51" text-anchor="middle" font-family="Fredoka" font-size="17" font-weight="600" fill="#16233a">5</text>
+    <text x="102" y="40" font-family="Fredoka" font-size="15" font-weight="500" fill="#fdf6e8">Adding unlike fractions</text>
+    <text x="102" y="59" font-family="Fredoka" font-size="12.5" fill="#7f93b4">the homework she brought</text>
+
+    <circle cx="60" cy="150" r="22" fill="#ffc94a"/>
+    <text x="60" y="157" text-anchor="middle" font-family="Fredoka" font-size="16" font-weight="600" fill="#16233a">4</text>
+    <text x="102" y="147" font-family="Fredoka" font-size="14.5" fill="#d7e2f2">Breaking fractions up</text>
+    <text x="102" y="165" font-family="Fredoka" font-size="12.5" fill="#7f93b4">wobbly</text>
+
+    <circle cx="60" cy="256" r="28" fill="#ff7d6b"/>
+    <text x="60" y="264" text-anchor="middle" font-family="Fredoka" font-size="19" font-weight="600" fill="#16233a">3</text>
+    <text x="102" y="250" font-family="Fredoka" font-size="16" font-weight="600" fill="#fdf6e8">Cutting into equal parts</text>
+    <text x="102" y="270" font-family="Fredoka" font-size="12.5" fill="#ffb4a4">this is the one &middot; 71% sure</text>
+  </svg>
+
+  <div style="background: #ffc94a; color: #16233a; border-radius: 22px; padding: 18px 20px; margin-top: 8px;">
+    <div style="font-size: 17px; font-weight: 600;">Worth 30 minutes with a tutor</div>
+    <div style="font-size: 13.5px; margin-top: 6px; line-height: 1.5;">
+      It is a concept, not a habit &mdash; more practice tends to make a
+      misunderstanding faster rather than fixing it.
+    </div>
+  </div>
+
+  <div style="margin-top: 14px; font-size: 13px; color: #7f93b4; line-height: 1.5;">
+    Tonight: cut something into four <em>uneven</em> pieces and ask if the big
+    one is a quarter.
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

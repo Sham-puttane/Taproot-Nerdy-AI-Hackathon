@@ -1,0 +1,31 @@
+{
+  "pages": [
+    { "id": "page-1", "name": "Full screen" },
+    { "id": "page-2", "name": "Mobile (fallback)" },
+    { "id": "page-3", "name": "Earlier options" }
+  ],
+  "artboards": [
+    { "file": "GroveWide.dc.html",  "x": 0,    "y": 0,    "w": 1440, "h": 900,  "title": "Grove — B + C combined", "page": "page-1" },
+    { "file": "PlayWide.dc.html",   "x": 1560, "y": 0,    "w": 1440, "h": 900,  "title": "In play — split screen", "page": "page-1" },
+    { "file": "ParentWide.dc.html", "x": 3120, "y": 0,    "w": 1440, "h": 900,  "title": "Parent report", "page": "page-1" },
+
+    { "file": "Main.dc.html",         "x": 0,    "y": 0, "w": 390, "h": 844,  "title": "Grove", "page": "page-2" },
+    { "file": "Trail.dc.html",        "x": 510,  "y": 0, "w": 390, "h": 844,  "title": "In play", "page": "page-2" },
+    { "file": "ParentReport.dc.html", "x": 1020, "y": 0, "w": 900, "h": 1180, "title": "Parent report", "page": "page-2" },
+
+    { "file": "GroveMap.dc.html",     "x": 0,    "y": 0, "w": 390, "h": 844, "title": "B · world", "page": "page-3" },
+    { "file": "GroveStrata.dc.html",  "x": 510,  "y": 0, "w": 390, "h": 844, "title": "C · strata", "page": "page-3" },
+    { "file": "PlayDig.dc.html",      "x": 1020, "y": 0, "w": 390, "h": 844, "title": "B · underground", "page": "page-3" },
+    { "file": "ParentCard.dc.html",   "x": 1530, "y": 0, "w": 390, "h": 700, "title": "B · parent card", "page": "page-3" },
+    { "file": "ParentHistory.dc.html","x": 2040, "y": 0, "w": 900, "h": 700, "title": "C · parent history", "page": "page-3" }
+  ],
+  "annotations": [
+    { "id": "note-wide", "x": 0, "y": -210, "w": 1440, "page": "page-1",
+      "text": "Full screen, 1440x900 — your picks: Grove B+C combined, play A (split), parent report A.\n\nThe combination is why it needs the width. One cross-section: six trees above ground, the SAME ground cut open below, so each tree's roots are visibly reaching down through the grade strata. At 390px you can show the trees or the strata, never the relationship between them — which is the whole idea.\n\nNature carries the state: fruit appears in a canopy when an idea is solid, flowers when it is starting, a dashed seed when a topic is not planted. Roots run downward and light as you dig.\n\nSIX trees because there are six topic families in the K-5 graph — Measuring (41 skills), Times tables (34), Big numbers (32), Fractions (23), Shapes (21), Counting (8). Fractions is only the fourth biggest; it feels like the whole app because it is the only one whose skills have child-facing names yet. 104 of 159 still need naming, and that is the one thing standing between this picture and it being true." },
+    { "id": "note-mobile", "x": 0, "y": -120, "w": 900, "page": "page-2",
+      "text": "The mobile cut, kept as the fallback if the wide version does not land." },
+    { "id": "note-old", "x": 0, "y": -120, "w": 900, "page": "page-3",
+      "text": "The alternates you chose from. Kept for reference." }
+  ],
+  "launch": { "view": "canvas", "page": "page-1" }
+}
