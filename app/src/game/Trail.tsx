@@ -80,16 +80,33 @@ export function Trail({
     // times is one place she stood, not three. Rendering it as three put three
     // labels at the same height on top of each other.
     const order: string[] = []
-    const seen = new Map<string, { correct: boolean | null; asked: number }>()
+    const seen = new Map<
+      string, { correct: boolean | null; asked: number; everMissed: boolean }
+    >()
     for (const r of raw) {
       const prev = seen.get(r.nodeId)
-      if (!prev) { order.push(r.nodeId); seen.set(r.nodeId, { correct: r.correct, asked: 1 }) }
-      // keep the LATEST verdict: what she knows now, not what she knew first
-      else seen.set(r.nodeId, { correct: r.correct, asked: prev.asked + 1 })
+      if (!prev) {
+        order.push(r.nodeId)
+        seen.set(r.nodeId, {
+          correct: r.correct, asked: 1, everMissed: r.correct === false,
+        })
+      } else {
+        // keep the LATEST verdict: what she knows now, not what she knew first
+        seen.set(r.nodeId, {
+          correct: r.correct,
+          asked: prev.asked + 1,
+          everMissed: prev.everMissed || r.correct === false,
+        })
+      }
     }
     const rows = order.map((id) => {
       const v = seen.get(id)!
-      return { nodeId: id, correct: v.correct, asked: v.asked, node: byId.get(id)! }
+      return {
+        nodeId: id, correct: v.correct, asked: v.asked,
+        // failed on the way down, answered on the way back up: the payoff
+        reclaimed: v.everMissed && v.correct === true,
+        node: byId.get(id)!,
+      }
     })
 
     // Bands are sized by what they hold, which is what keeps every bead
@@ -102,6 +119,7 @@ export function Trail({
     const beads: {
       id: string; name: string; grade: number; row: number; asked: number
       x: number; y: number; lit: boolean; now: boolean; missed: boolean
+      reclaimed: boolean
     }[] = []
 
     const deepest = rows.length
@@ -120,6 +138,7 @@ export function Trail({
           grade: g,
           row,
           asked: r.asked,
+          reclaimed: r.reclaimed,
           x: rootX(row),
           y: yy,
           lit: r.correct === true || lit.has(r.node.id),
@@ -249,7 +268,18 @@ export function Trail({
 
         {/* the beads */}
         {beads.map((b) => (
-          <g key={`${b.id}-${b.row}`} className={`tr-bead${b.now ? ' now' : ''}${b.lit ? ' lit' : ''}`}>
+          <g
+            key={`${b.id}-${b.row}`}
+            className={`tr-bead${b.now ? ' now' : ''}${b.lit ? ' lit' : ''}${
+              b.reclaimed ? ' reclaimed' : ''
+            }`}
+          >
+            {b.reclaimed && (
+              <circle
+                cx={b.x} cy={b.y} r="24" fill="none"
+                stroke={HUE[b.grade]} strokeWidth="3" opacity=".55"
+              />
+            )}
             <circle
               cx={b.x} cy={b.y} r={b.now ? 20 : 17}
               fill={b.lit ? HUE[b.grade] : b.missed ? '#fdf6e8' : '#e9dcc4'}

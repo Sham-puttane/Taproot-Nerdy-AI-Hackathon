@@ -185,6 +185,19 @@ export function useGame(pack: Pack, wallCode?: string) {
           setLit(new Set([bedrock.nodeId]))
           setPhase('climb')
           const nextNode = path[1]
+          // The climb used to happen entirely off the trail: the nodes she was
+          // reclaiming were not stops, so the one moment the product moves UP
+          // was invisible. Put the repaired bedrock and the next rung on the
+          // trail so the ladder is climbed where she can see it.
+          setTrail((t) => {
+            const withBedrock = t.some((x) => x.nodeId === bedrock.nodeId)
+              ? t.map((x) =>
+                  x.nodeId === bedrock.nodeId ? { ...x, correct: true } : x)
+              : [...t, { nodeId: bedrock.nodeId, correct: true }]
+            return nextNode
+              ? [...withBedrock, { nodeId: nextNode, correct: null }]
+              : withBedrock
+          })
           setItem(nextNode ? take(nextNode) : null)
           return
         }
@@ -199,11 +212,25 @@ export function useGame(pack: Pack, wallCode?: string) {
           session.current.answer(nodeId, correct)
           setLit((s) => new Set([...s, nodeId]))
           setTick((t) => t + 1)
+          // A rung she FAILED on the way down and has just answered on the way
+          // up is the payoff of the whole session, so it has to land on the
+          // same bead she watched go dark.
+          setTrail((t) =>
+            t.some((x) => x.nodeId === nodeId)
+              ? t.map((x) => (x.nodeId === nodeId ? { ...x, correct } : x))
+              : [...t, { nodeId, correct }],
+          )
         }
         const at = climbAt + 1
         setClimbAt(at)
         const upcoming = climb[at + 1]
         if (upcoming) {
+          setTrail((t) =>
+            t.some((x) => x.nodeId === upcoming)
+              ? t.map((x) =>
+                  x.nodeId === upcoming ? { ...x, correct: null } : x)
+              : [...t, { nodeId: upcoming, correct: null }],
+          )
           setItem(take(upcoming))
         } else {
           setItem(wallItem)
