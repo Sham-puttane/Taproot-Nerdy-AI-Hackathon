@@ -499,11 +499,14 @@ button.opt:disabled {
   align-items: stretch;
 }
 .board > .rail {
-  background: var(--ground-2);
-  border-right: 1px solid var(--edge);
+  background: #16233a;
+  color: #fdf6e8;
+  border-right: none;
   padding: 22px 20px 28px;
   overflow-y: auto;
 }
+.board > .rail .tr-count { color: #fdf6e8; }
+.board > .rail .tr-head { color: #7f93b4; }
 .board > .play {
   padding: 24px 26px 30px;
   display: flex;
@@ -529,130 +532,91 @@ button.opt:disabled {
   .board > .play { order: 1; padding: 20px 16px 10px; }
 }
 
-/* ---- the trail -------------------------------------------------------- */
-.trail-head {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--ink-faint);
-  margin-bottom: 14px;
+/* ---- the trail: the tree she is inside --------------------------------
+   Same strata and the same grade colours as the Grove, so walking into a
+   session feels like zooming in on one tree rather than opening another app. */
+.tr { display: flex; flex-direction: column; height: 100%; }
+.tr-head {
+  display: flex; align-items: baseline; gap: 8px;
+  font-size: 13px; color: var(--ink-faint); margin-bottom: 12px;
 }
-.trail-count {
-  font-size: 30px;
-  font-weight: 500;
-  color: var(--ink);
+.tr-count {
+  font-size: 30px; font-weight: 500; color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 
-.trail-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-.trail-list::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 12px;
-  bottom: 12px;
-  width: 3px;
-  margin-left: -1.5px;
-  background: repeating-linear-gradient(
-    to bottom,
-    var(--edge) 0 7px,
-    transparent 7px 13px
-  );
-}
-
-.stop {
-  position: relative;
-  display: grid;
-  /* Fixed columns rather than percentage padding: the label used to run
-     underneath the dot whenever the name was long, which is most of them. */
-  grid-template-columns: 1fr 46px 1fr;
-  align-items: center;
-  min-height: 62px;
-  animation: rise 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.stop.l .stop-label { grid-column: 1; text-align: right; padding-right: 10px; }
-.stop.r .stop-label { grid-column: 3; text-align: left; padding-left: 10px; }
-
-.stop-dot {
-  grid-column: 2;
-  justify-self: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--ink-faint);
-  background: var(--card);
-  border: 3px solid var(--edge);
+.tr-ground {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 420px;
   box-shadow: var(--shadow);
-  z-index: 1;
-  transition: background 0.35s ease, border-color 0.35s ease, transform 0.2s ease;
 }
-.stop.lit .stop-dot {
-  background: var(--gc);
-  border-color: var(--gc);
-  color: #fff;
+.tr-canopy {
+  width: 100%;
+  height: 84px;
+  background: linear-gradient(#a5dcf8, #cfeaf3);
+  flex: none;
 }
-.stop.missed .stop-dot {
-  border-color: var(--wrong);
-  color: var(--wrong);
+.tr-band {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 56px;
+  padding: 8px 10px 8px 74px;
+  display: flex;
+  align-items: center;
+  transition: filter .4s ease;
 }
-.stop.now .stop-dot {
-  border-color: var(--gc);
-  transform: scale(1.16);
-  animation: beat 1.5s ease-in-out infinite;
+/* Strata she has not dug to yet sit back, so depth reads at a glance. */
+.tr-unreached { filter: saturate(.5) brightness(.94); }
+.tr-band-label {
+  position: absolute; left: 10px; top: 10px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px; letter-spacing: .12em;
+}
+.tr-stops { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+
+.tr-stop {
+  display: flex; align-items: center; gap: 9px;
+  animation: rise .34s cubic-bezier(.22,1,.36,1) both;
+}
+.tr-dot {
+  flex: none;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 500;
+  background: #fdf6e8; color: #6b7a90;
+  border: 3px solid rgba(255,255,255,.75);
+  box-shadow: 0 2px 5px rgba(60,40,10,.22);
+  transition: background .35s ease, color .35s ease, transform .2s ease;
+}
+.tr-stop.lit .tr-dot { background: var(--gc); color: #16233a; border-color: #fff; }
+.tr-stop.missed .tr-dot { background: #ffe0d8; color: #c1543a; }
+.tr-stop.now .tr-dot {
+  background: #16233a; color: #ffc94a; transform: scale(1.1);
+  animation: beat 1.6s ease-in-out infinite;
 }
 @keyframes beat {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--gc) 45%, transparent); }
-  50% { box-shadow: 0 0 0 9px transparent; }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22,35,58,.45); }
+  50% { box-shadow: 0 0 0 8px transparent; }
 }
-
-.stop-label {
-  font-size: 13.5px;
-  line-height: 1.3;
-  color: var(--ink-dim);
+.tr-label {
+  font-size: 13px; line-height: 1.25; color: #3a2a10;
   overflow-wrap: anywhere;
 }
-.stop.lit .stop-label { color: var(--ink); }
-.stop.now .stop-label { color: var(--ink); font-weight: 500; }
-.stop-label em {
-  display: block;
-  font-style: normal;
-  font-size: 11.5px;
-  color: var(--ink-faint);
+.tr-stop.now .tr-label { font-weight: 500; color: #16233a; }
+.tr-label em {
+  display: block; font-style: normal; font-size: 10.5px;
+  color: #6b5220; letter-spacing: .04em;
 }
 
-.trail-why {
-  background: var(--card);
-  border-left: 4px solid var(--wrong);
-  border-radius: 6px 14px 14px 6px;
-  box-shadow: var(--shadow);
-  padding: 11px 13px;
-  font-size: 13.5px;
-  line-height: 1.5;
-  color: var(--ink-dim);
-  margin: 12px 0 0;
-  animation: rise 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-.trail-foot {
-  text-align: center;
-  margin-top: 10px;
-}
-.trail-more {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  opacity: 0.7;
+.tr-why {
+  background: #16233a; color: #d7e2f2;
+  border-radius: 16px; padding: 12px 14px;
+  font-size: 13.5px; line-height: 1.5; margin: 12px 0 0;
+  animation: rise .34s cubic-bezier(.22,1,.36,1) both;
 }
 
 /* ---- persistent grown-up access -------------------------------------- */
