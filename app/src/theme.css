@@ -250,6 +250,19 @@ button.opt:disabled {
   transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.offline {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 20;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: var(--leaf-soft);
+  border: 1px solid var(--leaf);
+  color: var(--ink);
+}
+
 .skin-toggle {
   position: fixed;
   top: 10px;

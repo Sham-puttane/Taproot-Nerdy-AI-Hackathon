@@ -3,6 +3,7 @@ import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
 import { useGame } from './game/useGame'
 import { Roots } from './Roots'
 import { speak } from './game/tts'
+import { useOffline } from './game/useOffline'
 import { Cut } from './items/Cut'
 import { Place } from './items/Place'
 import './theme.css'
@@ -14,6 +15,7 @@ export default function App() {
   // Dev affordance: ?preview=cut shows one instrument on its own, so a
   // manipulative can be worked on without playing through to reach it.
   const preview = new URLSearchParams(location.search).get('preview')
+  const offline = useOffline()
 
   useEffect(() => {
     loadPack().then(setPack).catch((e) => setErr(String(e)))
@@ -31,6 +33,11 @@ export default function App() {
       >
         {skin === 'meadow' ? 'soil' : 'meadow'}
       </button>
+      {offline && (
+        <div className="offline" role="status">
+          No internet &mdash; everything still works
+        </div>
+      )}
       {err && <p className="lede">Could not load: {err}</p>}
       {!pack && !err && <p className="lede">Loading…</p>}
       {pack && preview && <Preview pack={pack} kind={preview} />}
