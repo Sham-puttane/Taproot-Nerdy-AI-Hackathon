@@ -61,7 +61,7 @@ export function GroveWide({
           </h1>
           <p className="gw-sub">
             {litTotal === 0
-              ? 'Bring a problem that beat you. We will find what it is really about, fix that, and these start growing.'
+              ? 'Bring a problem that beat you. We find what it is really about, fix that, and the tree above it starts growing.'
               : 'Every root you light feeds the tree above it. Fruit means that idea is solid.'}
           </p>
         </header>
@@ -127,10 +127,28 @@ function Tree({ family, hue }: { family: Family; hue: string }) {
       <svg viewBox="0 0 160 150" className="gw-tree-art" role="img"
            aria-label={`${family.label}: ${family.lit} of ${family.total} skills lit`}>
         {family.lit === 0 && family.keystones === 0 ? (
-          <g opacity="0.6">
-            <circle cx="80" cy="106" r="15" fill="none" stroke="#2f7d5d"
-                    strokeWidth="3" strokeDasharray="5 5" />
-            <path d="M80 99v14M73 106h14" stroke="#2f7d5d" strokeWidth="3" strokeLinecap="round" />
+          /* An unplanted family used to be a bare dashed circle, so a new
+             player's Grove had no trees on it at all and read as broken rather
+             than as an invitation. Now it shows the GHOST of the tree that will
+             grow here -- outlined, not filled -- with the seed at its foot. */
+          <g>
+            {/* The ghost sits where a canopy would, which is up in the pale
+                sky -- so it needs a stroke dark enough to read against blue,
+                not the mint that works on the dark ground. */}
+            <g opacity="0.5">
+              <circle cx="80" cy="70" r="27" fill="#2f7d5d" fillOpacity="0.14"
+                      stroke="#1f6b4d" strokeWidth="2.5" strokeDasharray="7 6" />
+              <circle cx="60" cy="83" r="18" fill="#2f7d5d" fillOpacity="0.14"
+                      stroke="#1f6b4d" strokeWidth="2.5" strokeDasharray="7 6" />
+              <circle cx="100" cy="83" r="18" fill="#2f7d5d" fillOpacity="0.14"
+                      stroke="#1f6b4d" strokeWidth="2.5" strokeDasharray="7 6" />
+              <path d="M80 98v20" stroke="#1f6b4d" strokeWidth="3"
+                    strokeLinecap="round" strokeDasharray="7 6" />
+            </g>
+            <g>
+              <circle cx="80" cy="124" r="8" fill="#ffc94a" />
+              <path d="M80 124c0-8 6-13 12-14-1 8-6 13-12 14z" fill="#46c9a4" />
+            </g>
           </g>
         ) : (
           <>
@@ -154,7 +172,7 @@ function Tree({ family, hue }: { family: Family; hue: string }) {
       </svg>
       <div className="gw-tree-name">{family.label}</div>
       <div className="gw-tree-note">
-        {family.lit === 0 ? 'not planted' : `${family.lit} of ${family.total} lit`}
+        {family.lit === 0 ? 'a seed' : `${family.lit} of ${family.total} lit`}
       </div>
     </div>
   )
