@@ -106,7 +106,18 @@ export const DEFAULT_CONFIG: EngineConfig = {
   propagation: DEFAULT_PROPAGATION,
   masteryThreshold: 0.6,
   confidenceMargin: 0.15,
-  maxItems: 12,
+  /**
+   * 24, from the eval sweep rather than intuition. Confirmation costs two
+   * items per candidate, and at a cap of 12 more than half of all descents
+   * ran out of budget before they could name anything -- 47% diagnosed, 23%
+   * exact. Raising the cap to 24 took that to 97% diagnosed and 40% exact,
+   * and accuracy plateaus there (30 is identical).
+   *
+   * It is a CAP, not a target: the median descent still uses about 12 items.
+   * It only binds on the hard cases, which are exactly the ones worth
+   * spending more questions on.
+   */
+  maxItems: 24,
 };
 
 export interface Bedrock {

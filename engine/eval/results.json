@@ -1,0 +1,8063 @@
+{
+ "wall": "5.NF.A.1",
+ "corridorNodes": 52,
+ "plantableNodes": 51,
+ "learners": 200,
+ "maxItems": 24,
+ "summary": [
+  {
+   "policy": "taproot",
+   "trials": 200,
+   "itemsMean": 14.26,
+   "itemsMedian": 14,
+   "exactHitRate": 0.39,
+   "within1HopRate": 0.57,
+   "diagnosedRate": 0.985,
+   "hitBudget": 3,
+   "tooDeep": 9,
+   "tooShallow": 108,
+   "meanDepthBias": 2.2
+  },
+  {
+   "policy": "linear",
+   "trials": 200,
+   "itemsMean": 16.46,
+   "itemsMedian": 15,
+   "exactHitRate": 0.385,
+   "within1HopRate": 0.54,
+   "diagnosedRate": 0.86,
+   "hitBudget": 28,
+   "tooDeep": 12,
+   "tooShallow": 81,
+   "meanDepthBias": 1.48
+  },
+  {
+   "policy": "random",
+   "trials": 200,
+   "itemsMean": 16.09,
+   "itemsMedian": 15,
+   "exactHitRate": 0.365,
+   "within1HopRate": 0.54,
+   "diagnosedRate": 0.88,
+   "hitBudget": 24,
+   "tooDeep": 8,
+   "tooShallow": 93,
+   "meanDepthBias": 1.85
+  },
+  {
+   "policy": "worksheet",
+   "trials": 200,
+   "itemsMean": 21,
+   "itemsMedian": 21,
+   "exactHitRate": 0,
+   "within1HopRate": 0,
+   "diagnosedRate": 0,
+   "hitBudget": 200,
+   "tooDeep": 0,
+   "tooShallow": 0,
+   "meanDepthBias": 0
+  }
+ ],
+ "trials": [
+  {
+   "policy": "taproot",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.c",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.d",
+   "found": "3.OA.A.2",
+   "items": 21,
+   "hit": false,
+   "hops": 4,
+   "depthBias": -8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.d",
+   "found": "1.OA.D.7",
+   "items": 21,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -11,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.d",
+   "found": "K.CC.A.1",
+   "items": 21,
+   "hit": false,
+   "hops": 6,
+   "depthBias": -11,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.d",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.a",
+   "found": "4.NF.B.3.a",
+   "items": 12,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 24,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 24,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.A.1",
+   "found": "4.OA.A.2",
+   "items": 10,
+   "hit": false,
+   "hops": 3,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.A.1",
+   "found": "4.OA.A.2",
+   "items": 10,
+   "hit": false,
+   "hops": 3,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.A.1",
+   "found": "4.OA.A.2",
+   "items": 10,
+   "hit": false,
+   "hops": 3,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 21,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.1",
+   "found": "3.NF.A.3",
+   "items": 17,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.1",
+   "found": "3.NF.A.3",
+   "items": 17,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.1",
+   "found": "3.NF.A.3",
+   "items": 17,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.2",
+   "found": "4.NF.B.3.d",
+   "items": 16,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.3",
+   "found": "1.G.A.3",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.3",
+   "found": "1.G.A.3",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.3",
+   "found": "1.G.A.3",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 11,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 16,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.2",
+   "found": "1.G.A.3",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.2",
+   "found": "1.G.A.3",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.2",
+   "found": "1.G.A.3",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.B.6",
+   "found": "2.MD.A.2",
+   "items": 15,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.B.6",
+   "found": "2.MD.A.2",
+   "items": 15,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.B.6",
+   "found": "2.MD.A.2",
+   "items": 15,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.3",
+   "found": "K.G.A.3",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.3",
+   "found": "K.G.A.3",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.3",
+   "found": "K.G.A.3",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.2",
+   "found": "K.G.A.2",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.2",
+   "found": "K.G.A.2",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.2",
+   "found": "K.G.A.2",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.1",
+   "found": "1.G.A.3",
+   "items": 29,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.1",
+   "found": "1.G.A.3",
+   "items": 29,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.1",
+   "found": "1.G.A.3",
+   "items": 29,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.3",
+   "found": "2.MD.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.3",
+   "found": "2.MD.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.3",
+   "found": "2.MD.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.2",
+   "found": "2.MD.A.3",
+   "items": 24,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.2",
+   "found": "2.MD.A.3",
+   "items": 24,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.2",
+   "found": "2.MD.A.3",
+   "items": 24,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.2",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.2",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.2",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.2",
+   "found": "2.MD.A.3",
+   "items": 20,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.2",
+   "found": "2.MD.A.3",
+   "items": 20,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.2",
+   "found": "2.MD.A.3",
+   "items": 20,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.1",
+   "found": "K.MD.A.1",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.1",
+   "found": "K.MD.A.1",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.1",
+   "found": "K.MD.A.1",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": false,
+   "hops": 5,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": false,
+   "hops": 5,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": false,
+   "hops": 5,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 12,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.B.6",
+   "found": "3.NF.A.2",
+   "items": 8,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.B.6",
+   "found": "3.NF.A.2",
+   "items": 8,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.B.6",
+   "found": "3.NF.A.2",
+   "items": 8,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 29,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.5",
+   "found": "4.NF.B.3.c",
+   "items": 26,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.5",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.5",
+   "found": "4.NF.B.3.a",
+   "items": 25,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.6",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.6",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.6",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.C.5",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.C.5",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.C.5",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.B.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.NBT.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 21,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.NBT.A.1",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "K.NBT.A.1",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.3",
+   "found": "K.NBT.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.3",
+   "found": "K.NBT.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.3",
+   "found": "K.NBT.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.A.1",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.A.1",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.A.1",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.6",
+   "found": "4.NF.B.3.c",
+   "items": 21,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.4",
+   "found": "1.OA.C.6",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.4",
+   "found": "1.OA.C.6",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.4",
+   "found": "1.OA.C.6",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.5",
+   "found": "1.NBT.C.4",
+   "items": 16,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.5",
+   "found": "1.NBT.C.4",
+   "items": 16,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.5",
+   "found": "1.NBT.C.4",
+   "items": 16,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.5",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.5",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.5",
+   "found": "1.NBT.C.6",
+   "items": 17,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.B.4.c",
+   "found": "4.NF.B.3.a",
+   "items": 12,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.B.4.c",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.B.4.c",
+   "found": "K.CC.B.4.c",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.B.4.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.8",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.8",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.8",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.8",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.7",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 28,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.B.3.a",
+   "items": 15,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.3",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.3",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.3",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 12,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.2",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.2",
+   "found": "3.OA.A.3",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.1",
+   "found": "3.OA.A.2",
+   "items": 10,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.1",
+   "found": "3.OA.A.2",
+   "items": 10,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.1",
+   "found": "3.OA.A.2",
+   "items": 10,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.C.4",
+   "found": "2.OA.C.4",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.C.4",
+   "found": "2.OA.C.4",
+   "items": 20,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.C.4",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.C.3",
+   "found": "4.NF.B.3.c",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.C.3",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.C.3",
+   "found": "2.OA.C.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.C.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.c",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.d",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.d",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.d",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.d",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.a",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.a",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.a",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.d",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.d",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.d",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 24,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.4",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.1",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.1",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.1",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.2",
+   "found": "1.OA.B.4",
+   "items": 7,
+   "hit": false,
+   "hops": 3,
+   "depthBias": -4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.2",
+   "found": "1.OA.B.4",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": -4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.3",
+   "found": "1.NBT.C.4",
+   "items": 22,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.3",
+   "found": "1.NBT.C.4",
+   "items": 22,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.3",
+   "found": "1.NBT.C.4",
+   "items": 22,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.2",
+   "found": "1.G.A.2",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.2",
+   "found": "1.G.A.2",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.2",
+   "found": "1.G.A.2",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.3",
+   "found": "2.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.3",
+   "found": "2.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.3",
+   "found": "2.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.2",
+   "found": "1.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.2",
+   "found": "1.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.2",
+   "found": "1.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.1",
+   "found": "1.G.A.2",
+   "items": 15,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.1",
+   "found": "1.G.A.2",
+   "items": 15,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.1",
+   "found": "1.G.A.2",
+   "items": 15,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.1",
+   "found": "4.NF.A.1",
+   "items": 24,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.1",
+   "found": "4.NF.A.1",
+   "items": 24,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.1",
+   "found": "4.NF.A.1",
+   "items": 24,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.3",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.3",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.3",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.2",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.2",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.2",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.2",
+   "found": "1.MD.A.1",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.2",
+   "found": "1.MD.A.1",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.2",
+   "found": "1.MD.A.1",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.1",
+   "found": "K.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.1",
+   "found": "K.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.1",
+   "found": "K.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.B.4",
+   "items": 7,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.B.4",
+   "items": 23,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.2",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.B.6",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.B.6",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.B.6",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.A.1",
+   "found": "1.OA.A.1",
+   "items": 12,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.A.1",
+   "found": "1.OA.A.1",
+   "items": 24,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.5",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.5",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.5",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.4",
+   "found": "1.OA.A.1",
+   "items": 10,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.4",
+   "found": "1.OA.A.1",
+   "items": 23,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.4",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.6",
+   "found": "1.NBT.C.6",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.6",
+   "found": "1.NBT.C.6",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.6",
+   "found": "1.NBT.C.6",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.B.2",
+   "items": 21,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.B.2",
+   "items": 21,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.B.2",
+   "items": 21,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.B.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.NBT.A.1",
+   "found": "K.NBT.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.NBT.A.1",
+   "found": "K.NBT.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.NBT.A.1",
+   "found": "K.NBT.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.3",
+   "found": "K.OA.A.3",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.3",
+   "found": "K.OA.A.3",
+   "items": 28,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.3",
+   "found": null,
+   "items": 28,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.A.1",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.A.1",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.A.1",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.6",
+   "found": "1.NBT.C.4",
+   "items": 17,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.6",
+   "found": "1.NBT.C.4",
+   "items": 17,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.6",
+   "found": "1.NBT.C.4",
+   "items": 17,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.4",
+   "found": "4.NF.B.3.c",
+   "items": 17,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.4",
+   "found": "4.NF.B.3.c",
+   "items": 17,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.4",
+   "found": "4.NF.B.3.c",
+   "items": 17,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.5",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.5",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.5",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.5",
+   "found": "K.OA.A.5",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.5",
+   "found": "K.OA.A.5",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.5",
+   "found": "K.OA.A.5",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.B.4.c",
+   "found": "K.CC.B.4.c",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.B.4.c",
+   "found": "K.CC.B.4.c",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.B.4.c",
+   "found": "K.CC.B.4.c",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.B.4.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.8",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.8",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.8",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.8",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.7",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.3",
+   "found": "4.NF.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.3",
+   "found": "4.NF.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.3",
+   "found": "4.NF.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.1",
+   "found": "4.OA.A.2",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.1",
+   "found": "4.OA.A.2",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.1",
+   "found": "4.OA.A.2",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.C.4",
+   "found": "2.OA.C.4",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.C.4",
+   "found": "2.OA.C.4",
+   "items": 19,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.C.4",
+   "found": "2.OA.C.4",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.C.3",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.C.3",
+   "found": "K.CC.A.1",
+   "items": 18,
+   "hit": false,
+   "hops": null,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.C.3",
+   "found": "4.NF.B.3.b",
+   "items": 14,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.C.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.A.1",
+   "found": "3.NF.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.A.1",
+   "found": "3.NF.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.A.1",
+   "found": "3.NF.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 2,
+   "depthBias": -2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.a",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.a",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.a",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.d",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.a",
+   "found": "4.NF.B.3.a",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.a",
+   "found": "4.NF.B.3.a",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.a",
+   "found": "4.NF.B.3.a",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.b",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.b",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.b",
+   "items": 18,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.2",
+   "found": "3.NF.A.2",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 7,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 25,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.1",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 23,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.3",
+   "found": "2.G.A.3",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.3",
+   "found": "1.G.A.3",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.3",
+   "found": "1.G.A.3",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.3",
+   "found": "1.G.A.3",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.2",
+   "found": "2.G.A.2",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.2",
+   "found": "2.MD.A.2",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.2",
+   "found": "2.MD.A.2",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.2",
+   "found": "2.MD.A.2",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.3",
+   "items": 12,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.3",
+   "items": 12,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.3",
+   "items": 12,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.3",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 6,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.3",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 6,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.3",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 6,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.2",
+   "found": "2.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.2",
+   "found": "2.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.2",
+   "found": "2.G.A.3",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.1",
+   "found": "K.G.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.1",
+   "found": "K.G.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.1",
+   "found": "K.G.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 17,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.3",
+   "found": "2.MD.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.3",
+   "found": "2.MD.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.3",
+   "found": "2.MD.A.3",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.2",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.2",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.2",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.1",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.1",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.1",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 22,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 22,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 22,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 7,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 7,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 7,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.B.4",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.B.4",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.B.4",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.B.6",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.B.6",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.B.6",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.A.1",
+   "found": "1.OA.A.1",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.A.1",
+   "found": "1.OA.A.1",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.5",
+   "found": "4.NF.B.3.a",
+   "items": 22,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.5",
+   "found": "4.NF.B.3.a",
+   "items": 22,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.5",
+   "found": "4.NF.B.3.a",
+   "items": 22,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.6",
+   "found": "2.OA.A.1",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.6",
+   "found": "2.OA.A.1",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.6",
+   "found": "2.OA.A.1",
+   "items": 20,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.B.2",
+   "items": 20,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.B.2",
+   "items": 20,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.B.2",
+   "items": 20,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.B.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 28,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.NBT.A.1",
+   "found": "K.NBT.A.1",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.NBT.A.1",
+   "found": "K.NBT.A.1",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.NBT.A.1",
+   "found": "K.NBT.A.1",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.3",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.3",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.3",
+   "found": "1.NBT.C.5",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 17,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.A.1",
+   "found": "K.CC.A.1",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 22,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.6",
+   "found": "4.NF.B.3.c",
+   "items": 22,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.6",
+   "found": "4.NF.B.3.c",
+   "items": 26,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.4",
+   "found": "K.OA.A.4",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.4",
+   "found": "K.OA.A.4",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.4",
+   "found": "K.OA.A.4",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.5",
+   "found": "1.OA.C.5",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.5",
+   "found": "1.OA.C.5",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.5",
+   "found": "1.OA.C.5",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.5",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.5",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.5",
+   "found": "K.OA.A.5",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.B.4.c",
+   "found": "2.OA.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.B.4.c",
+   "found": "2.OA.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.B.4.c",
+   "found": "2.OA.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.B.4.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.8",
+   "found": "4.NF.B.3.d",
+   "items": 22,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.8",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.8",
+   "found": "4.NF.B.3.d",
+   "items": 23,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.8",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.7",
+   "found": "3.OA.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.7",
+   "found": "3.OA.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.7",
+   "found": "3.OA.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.7",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.OA.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 14,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.OA.A.2",
+   "found": "K.MD.A.1",
+   "items": 18,
+   "hit": false,
+   "hops": 8,
+   "depthBias": -5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.OA.A.2",
+   "found": "K.MD.A.1",
+   "items": 18,
+   "hit": false,
+   "hops": 8,
+   "depthBias": -5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.A.1",
+   "items": 12,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.3",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": false,
+   "hops": 4,
+   "depthBias": -3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.3",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": false,
+   "hops": 4,
+   "depthBias": -3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.3",
+   "found": "1.OA.D.8",
+   "items": 4,
+   "hit": false,
+   "hops": 4,
+   "depthBias": -3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 22,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 22,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 22,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 15,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 8,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.1",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.1",
+   "found": "3.OA.A.1",
+   "items": 22,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.C.4",
+   "found": "3.OA.A.2",
+   "items": 13,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.C.4",
+   "found": "3.OA.A.2",
+   "items": 13,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.C.4",
+   "found": "3.OA.A.2",
+   "items": 13,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.C.3",
+   "found": "2.OA.C.3",
+   "items": 12,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.C.3",
+   "found": "2.OA.C.3",
+   "items": 12,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.C.3",
+   "found": "2.OA.C.3",
+   "items": 12,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.C.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.A.1",
+   "found": "4.NF.B.3.a",
+   "items": 26,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.A.1",
+   "found": null,
+   "items": 28,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.A.1",
+   "found": null,
+   "items": 28,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.c",
+   "found": "4.NF.B.3.d",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.c",
+   "found": "4.NF.B.3.d",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.c",
+   "found": "4.NF.B.3.d",
+   "items": 19,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.d",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.d",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.d",
+   "found": "4.NF.B.3.d",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.d",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.a",
+   "found": "4.NF.B.3.d",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.a",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.d",
+   "items": 15,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 24,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "4.NF.B.3.b",
+   "found": "4.NF.B.3.d",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.NF.B.3.b",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.3",
+   "found": "1.OA.B.3",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 27,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 27,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.2",
+   "found": "4.NF.B.3.c",
+   "items": 27,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.B.4",
+   "found": "1.OA.B.4",
+   "items": 26,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.B.4",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.B.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.1",
+   "found": "3.NF.A.1",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.1",
+   "found": "3.NF.A.1",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.1",
+   "found": "3.NF.A.1",
+   "items": 23,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.2",
+   "found": "2.MD.A.2",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.3",
+   "found": "2.OA.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.3",
+   "found": "2.OA.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.3",
+   "found": "2.OA.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.3",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.3",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.3",
+   "found": "3.NF.A.3",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.G.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 17,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.G.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 17,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.G.A.2",
+   "found": "4.NF.B.3.b",
+   "items": 17,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.G.A.2",
+   "found": "4.NF.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.G.A.2",
+   "found": "4.NF.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.G.A.2",
+   "found": "4.NF.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.B.6",
+   "found": "3.NF.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 6,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.3",
+   "found": "K.G.A.3",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.3",
+   "found": "K.G.A.3",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.3",
+   "found": "K.G.A.3",
+   "items": 16,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.2",
+   "found": "3.NF.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.2",
+   "found": "3.NF.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.2",
+   "found": "3.NF.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 5,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.G.A.1",
+   "found": "K.G.B.6",
+   "items": 24,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.G.A.1",
+   "found": "K.G.B.6",
+   "items": 24,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.G.A.1",
+   "found": "K.G.B.6",
+   "items": 24,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.G.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.1",
+   "found": "2.MD.A.1",
+   "items": 14,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.A.3",
+   "found": "3.NF.A.3",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.A.3",
+   "found": "3.NF.A.3",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.A.3",
+   "found": "3.NF.A.3",
+   "items": 19,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.2",
+   "found": "2.MD.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.2",
+   "found": "2.MD.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.2",
+   "found": "2.MD.A.1",
+   "items": 14,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.MD.A.1",
+   "found": "1.MD.A.1",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.2",
+   "found": "1.MD.A.1",
+   "items": 18,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.2",
+   "found": "1.MD.A.1",
+   "items": 18,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.2",
+   "found": "1.MD.A.1",
+   "items": 18,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.MD.A.1",
+   "found": "1.MD.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.MD.A.1",
+   "found": "1.MD.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.MD.A.1",
+   "found": "1.MD.A.1",
+   "items": 19,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.MD.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.2",
+   "found": "1.OA.A.1",
+   "items": 11,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.1",
+   "found": "K.OA.A.1",
+   "items": 6,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "2.MD.B.6",
+   "found": "2.MD.B.6",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "2.MD.B.6",
+   "found": "2.MD.B.6",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "2.MD.B.6",
+   "found": "2.MD.B.6",
+   "items": 5,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "2.MD.B.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.A.1",
+   "found": "2.OA.A.1",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.5",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.5",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.5",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.4",
+   "found": "2.OA.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.C.6",
+   "found": "4.NF.B.3.a",
+   "items": 12,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.C.6",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.C.6",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.B.2",
+   "found": "4.NF.B.3.d",
+   "items": 13,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 7,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.B.2",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.B.2",
+   "found": "1.NBT.C.5",
+   "items": 21,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.B.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.NBT.A.1",
+   "found": "4.NF.B.3.c",
+   "items": 17,
+   "hit": false,
+   "hops": 4,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 26,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "1.NBT.A.1",
+   "found": "1.NBT.C.6",
+   "items": 21,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.NBT.A.1",
+   "found": "1.NBT.C.4",
+   "items": 18,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.NBT.A.1",
+   "found": "1.NBT.C.4",
+   "items": 18,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.NBT.A.1",
+   "found": "1.NBT.C.4",
+   "items": 18,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.NBT.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.3",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.3",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.3",
+   "found": "1.NBT.C.5",
+   "items": 13,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 3,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.A.1",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 7,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.A.1",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 7,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.A.1",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": false,
+   "hops": 7,
+   "depthBias": 5,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.A.1",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.6",
+   "found": "2.OA.A.1",
+   "items": 25,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.6",
+   "found": "2.OA.A.1",
+   "items": 25,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.6",
+   "found": "2.OA.A.1",
+   "items": 25,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.6",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.4",
+   "found": "K.OA.A.4",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.4",
+   "found": "K.OA.A.4",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.4",
+   "found": "K.OA.A.4",
+   "items": 15,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.4",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.C.5",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 3,
+   "depthBias": 9,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.C.5",
+   "found": "K.OA.A.1",
+   "items": 16,
+   "hit": false,
+   "hops": 3,
+   "depthBias": -1,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.C.5",
+   "found": null,
+   "items": 27,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.C.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.OA.A.5",
+   "found": "1.NBT.C.4",
+   "items": 16,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.OA.A.5",
+   "found": "1.NBT.C.4",
+   "items": 16,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.OA.A.5",
+   "found": "1.NBT.C.4",
+   "items": 16,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.OA.A.5",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "K.CC.B.4.c",
+   "found": "1.OA.C.6",
+   "items": 19,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "K.CC.B.4.c",
+   "found": "1.OA.C.6",
+   "items": 19,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "K.CC.B.4.c",
+   "found": "1.OA.C.6",
+   "items": 19,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 4,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "K.CC.B.4.c",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.8",
+   "found": "4.NF.B.3.d",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.8",
+   "found": "4.NF.B.3.d",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.8",
+   "found": "4.NF.B.3.d",
+   "items": 13,
+   "hit": false,
+   "hops": 1,
+   "depthBias": 10,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.8",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "1.OA.D.7",
+   "found": "1.OA.D.7",
+   "items": 4,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "1.OA.D.7",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "4.OA.A.2",
+   "found": "4.OA.A.2",
+   "items": 9,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "4.OA.A.2",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.NF.A.3",
+   "found": "4.NF.B.3.c",
+   "items": 11,
+   "hit": false,
+   "hops": 2,
+   "depthBias": 2,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "random",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 25,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.NF.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  },
+  {
+   "policy": "taproot",
+   "planted": "3.OA.A.3",
+   "found": "3.OA.A.3",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "linear",
+   "planted": "3.OA.A.3",
+   "found": "3.OA.A.3",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "random",
+   "planted": "3.OA.A.3",
+   "found": "3.OA.A.3",
+   "items": 10,
+   "hit": true,
+   "hops": 0,
+   "depthBias": 0,
+   "stopped": "bedrock"
+  },
+  {
+   "policy": "worksheet",
+   "planted": "3.OA.A.3",
+   "found": null,
+   "items": 21,
+   "hit": false,
+   "hops": null,
+   "depthBias": null,
+   "stopped": "budget"
+  }
+ ]
+}

@@ -150,13 +150,39 @@ describe("bedrock", () => {
     // learner holds a and b, is missing c and everything above
     b["a"] = 0.95; b["b"] = 0.9; b["c"] = 0.1; b["d"] = 0.1; b["e"] = 0.1;
     b["x"] = 0.1;
-    const bed = findBedrock(g, b, DEFAULT_CONFIG, new Set(["a","b","c","d","e","x"]));
+    const asked = new Set(["a", "b", "c", "d", "e", "x"]);
+    const anchors = { a: 2, b: 2, c: 2, d: 2, e: 2, x: 2 };
+    const bed = findBedrock(g, b, DEFAULT_CONFIG, asked, undefined, undefined, anchors);
     expect(bed?.nodeId).toBe("c");
+  });
+
+  it("refuses to name a gap on a single observation", () => {
+    const g = new Graph(chain());
+    const b = initBeliefs(g, DEFAULT_BKT);
+    b["a"] = 0.95; b["b"] = 0.9; b["c"] = 0.1;
+    const asked = new Set(["a", "b", "c"]);
+    // one look at c is a slip away from being wrong
+    expect(findBedrock(g, b, DEFAULT_CONFIG, asked, undefined, undefined,
+      { a: 2, b: 2, c: 1 })).toBeNull();
+    // two agree, so it may be named
+    expect(findBedrock(g, b, DEFAULT_CONFIG, asked, undefined, undefined,
+      { a: 2, b: 2, c: 2 })?.nodeId).toBe("c");
+  });
+
+  it("never names the wall as its own cause", () => {
+    const g = new Graph(chain());
+    const b = initBeliefs(g, DEFAULT_BKT);
+    b["a"] = 0.95; b["b"] = 0.9; b["c"] = 0.1; b["e"] = 0.05;
+    const asked = new Set(["a", "b", "c", "e"]);
+    const anchors = { a: 2, b: 2, c: 2, e: 2 };
+    const bed = findBedrock(g, b, DEFAULT_CONFIG, asked, undefined, "e", anchors);
+    expect(bed?.nodeId).not.toBe("e");
   });
 
   it("returns null while nothing is settled", () => {
     const g = new Graph(chain());
-    expect(findBedrock(g, initBeliefs(g, DEFAULT_BKT), DEFAULT_CONFIG, new Set())).toBeNull();
+    expect(findBedrock(g, initBeliefs(g, DEFAULT_BKT), DEFAULT_CONFIG,
+      new Set(), undefined, undefined, {})).toBeNull();
   });
 });
 

@@ -103,6 +103,22 @@ const confidentlyMissing = (p: number, c: EngineConfig) =>
   p <= c.masteryThreshold - c.confidenceMargin;
 
 /**
+ * How many times we must have directly tested a node before it may be named
+ * as the gap.
+ *
+ * One wrong answer takes a belief from 0.5 to about 0.22, which already clears
+ * the "confidently missing" line -- so before this, a single unlucky answer
+ * was enough to condemn a skill. With a 1-in-4 guess rate and a 1-in-10 slip
+ * rate that happens constantly, and because bedrock prefers the most
+ * FOUNDATIONAL candidate, every spurious deep failure captured the diagnosis
+ * and dragged it below the real gap. Measured: it cost roughly two thirds of
+ * the accuracy.
+ *
+ * A careful diagnostician would not condemn a skill on one answer either.
+ */
+export const MIN_EVIDENCE = 2;
+
+/**
  * Bedrock: the most foundational skill the learner confidently does NOT have,
  * all of whose prerequisites they confidently DO have. Everything below it is
  * intact, so drilling deeper wastes the learner's time; everything above it is
@@ -125,13 +141,21 @@ export function findBedrock(
   beliefs: Beliefs,
   cfg: EngineConfig,
   asked: Set<string>,
-  scope?: Set<string>
+  scope?: Set<string>,
+  /** The problem she walked in with. It is the symptom, never the cause. */
+  wall?: string,
+  anchors: Anchors = {}
 ): Bedrock | null {
   const missing = (id: string) =>
     confidentlyMissing(beliefs[id] ?? cfg.bkt.prior, cfg);
 
   const candidates: Bedrock[] = [];
   for (const id of graph.ids) {
+    if ((anchors[id] ?? 0) < MIN_EVIDENCE) continue;
+    // The wall is seeded as a failure and marked asked, so it always looks
+    // like a candidate -- and answering "your problem is the thing you just
+    // failed" diagnoses nothing. Excluding it forces a real descent.
+    if (wall && id === wall) continue;
     if (!asked.has(id) || !missing(id)) continue;
 
     // Nothing broken may lie beneath it -- otherwise THAT is the real floor.
@@ -186,12 +210,14 @@ export function bedrockHypothesis(
   beliefs: Beliefs,
   cfg: EngineConfig,
   asked: Set<string>,
-  scope?: Set<string>
+  scope?: Set<string>,
+  wall?: string
 ): string | null {
   const missing = (id: string) =>
     confidentlyMissing(beliefs[id] ?? cfg.bkt.prior, cfg);
 
   const suspects = graph.ids.filter((id) => {
+    if (wall && id === wall) return false;
     if (scope && !scope.has(id)) return false;
     if (!missing(id)) return false;
     // same rule as findBedrock: only tested failures count as "broken below"
@@ -211,8 +237,10 @@ export function shouldStop(
   beliefs: Beliefs,
   asked: Set<string>,
   cfg: EngineConfig,
-  scope?: Set<string>
+  scope?: Set<string>,
+  wall?: string,
+  anchors: Anchors = {}
 ): boolean {
   if (asked.size >= cfg.maxItems) return true;
-  return findBedrock(graph, beliefs, cfg, asked, scope) !== null;
+  return findBedrock(graph, beliefs, cfg, asked, scope, wall, anchors) !== null;
 }

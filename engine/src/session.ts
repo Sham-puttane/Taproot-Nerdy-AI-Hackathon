@@ -6,7 +6,10 @@
  */
 import { Graph } from "./graph";
 import { initBeliefs, applyObservation } from "./mastery";
-import { selectNext, findBedrock, shouldStop, bedrockHypothesis, expectedGain } from "./selection";
+import {
+  selectNext, findBedrock, shouldStop, bedrockHypothesis, expectedGain,
+  MIN_EVIDENCE,
+} from "./selection";
 import { DEFAULT_CONFIG } from "./types";
 import type {
   Beliefs, Bedrock, DescentStep, EngineConfig, SkillGraph,
@@ -33,6 +36,8 @@ export class Session {
   readonly anchors: Record<string, number> = {};
   /** The corridor beneath the wall problem. Unset until seedFromWall. */
   scope?: Set<string>;
+  /** The wall problem, excluded from being its own diagnosis. */
+  wall?: string;
 
   constructor(data: SkillGraph, cfg: Partial<EngineConfig> = {}) {
     this.graph = new Graph(data);
@@ -48,6 +53,7 @@ export class Session {
    */
   seedFromWall(nodeId: string): void {
     this.scope = new Set([nodeId, ...this.graph.ancestors(nodeId)]);
+    this.wall = nodeId;
     this.record(nodeId, false);
   }
 
@@ -66,15 +72,20 @@ export class Session {
   }
 
   next(): { nodeId: string; expectedGain: number } | null {
-    if (shouldStop(this.graph, this.beliefs, this.asked, this.cfg, this.scope)) return null;
+    if (shouldStop(this.graph, this.beliefs, this.asked, this.cfg, this.scope,
+                   this.wall, this.anchors))
+      return null;
 
     // Confirm the leading suspect before anything else. Information gain will
     // not do this on its own -- a node we already believe is broken has low
     // entropy, so it scores as uninformative -- but we refuse to name a gap we
     // never tested, so the hypothesis has to be probed deliberately.
     const suspect = bedrockHypothesis(
-      this.graph, this.beliefs, this.cfg, this.asked, this.scope);
-    if (suspect && !this.asked.has(suspect)) {
+      this.graph, this.beliefs, this.cfg, this.asked, this.scope, this.wall);
+    // Confirm before committing: keep asking the suspect until it has enough
+    // direct evidence to be named. One answer can be a slip or a lucky guess,
+    // and this is the node we are about to tell a parent about.
+    if (suspect && (this.anchors[suspect] ?? 0) < MIN_EVIDENCE) {
       return { nodeId: suspect, expectedGain: this.gain(suspect) };
     }
 
@@ -107,7 +118,8 @@ export class Session {
   }
 
   bedrock(): Bedrock | null {
-    return findBedrock(this.graph, this.beliefs, this.cfg, this.asked, this.scope);
+    return findBedrock(this.graph, this.beliefs, this.cfg, this.asked,
+                       this.scope, this.wall, this.anchors);
   }
 
   /** Run the whole descent against a responder. */
