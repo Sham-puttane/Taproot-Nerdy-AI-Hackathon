@@ -12,6 +12,7 @@
  */
 import type { Pack } from './game/pack'
 import { kidName } from './game/pack'
+import { gradeVar } from './game/grade'
 
 export function Roots({
   pack,
@@ -41,12 +42,14 @@ export function Roots({
         const isLit = lit.has(n.id)
         const isHere = n.id === here
         const solid = masteryOf(n.id) >= 0.6
+        // Lit and current states override, but an untouched node still shows
+        // its grade colour so the corridor reads as a depth gradient.
         const colour = isLit
-          ? 'var(--glow)'
+          ? gradeVar(n.grade)
           : isHere
             ? 'var(--wrong)'
             : solid
-              ? 'var(--leaf)'
+              ? gradeVar(n.grade)
               : 'var(--root-dead)'
         return (
           <div key={n.id}>

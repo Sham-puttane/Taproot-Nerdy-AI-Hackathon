@@ -15,6 +15,7 @@
 import { useMemo } from 'react'
 import type { Progress } from '../game/progress'
 import { litCount } from '../game/progress'
+import { gradeVar } from '../game/grade'
 
 export function Grove({
   progress,
@@ -62,7 +63,10 @@ export function Grove({
           <div className="keystones">
             {keystones.map((k) => (
               <div className="keystone" key={k.nodeId}>
-                <div className="keystone-grade">
+                <div
+                  className="keystone-grade"
+                  style={{ ['--gc' as string]: gradeVar(k.grade) }}
+                >
                   {k.grade === 'K' ? 'K' : `G${k.grade}`}
                 </div>
                 <div>
@@ -156,7 +160,11 @@ function Tree({
         <line
           key={i}
           x1={r.x1} y1={r.y1} x2={r.x2} y2={r.y2}
-          stroke={i < litRoots ? 'var(--glow)' : 'var(--root-dead)'}
+          stroke={
+            i < litRoots
+              ? `var(--g-${['K', '1', '2', '3', '4', '5'][i % 6]})`
+              : 'var(--root-dead)'
+          }
           strokeWidth={i < litRoots ? 1.9 : 1.2}
           strokeLinecap="round"
           opacity={i < litRoots ? 1 : 0.55}

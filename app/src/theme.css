@@ -22,7 +22,19 @@
   --leaf: #4fb083;
   --leaf-soft: #d8f0e3;
   --lilac: #b9a7e6;
+  --azure: #5bb8e8;
+  --coral: #f8836b;
+  --plum: #a06ee1;
   --wrong: #e0654a;
+  /* Grade colours. Deliberately a spectrum rather than decoration: the same
+     hue means the same grade everywhere -- on a root, on a keystone, on a
+     badge -- so a child learns to read depth by colour without being told. */
+  --g-K: #a06ee1;
+  --g-1: #5bb8e8;
+  --g-2: #3fbfa0;
+  --g-3: #4fb083;
+  --g-4: #f5b625;
+  --g-5: #f8836b;
   --wrong-soft: #ffe0d8;
   --root-dead: #e4d9be;
   --root-line: #ecdfc4;
@@ -46,7 +58,16 @@
   --leaf: #5cbf8e;
   --leaf-soft: rgba(92, 191, 142, 0.18);
   --lilac: #a894dc;
+  --azure: #6cc4ef;
+  --coral: #f0917c;
+  --plum: #b08ae8;
   --wrong: #d2694e;
+  --g-K: #b08ae8;
+  --g-1: #6cc4ef;
+  --g-2: #4fd0b0;
+  --g-3: #5cbf8e;
+  --g-4: #e8a33d;
+  --g-5: #f0917c;
   --wrong-soft: rgba(210, 105, 78, 0.2);
   --root-dead: #33443e;
   --root-line: #2c3b36;
@@ -120,6 +141,23 @@ p.lede {
   box-shadow: var(--shadow);
   padding: 20px 18px;
   margin-bottom: 16px;
+  animation: rise 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50% { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--glow) 70%, transparent)); }
 }
 
 .prob {
@@ -142,13 +180,14 @@ p.lede {
 /* 44px is the accessible minimum; 60 because an 8-year-old is aiming with a
    thumb on a shared tablet, often in a moving car. */
 button.opt {
+  --tint: var(--glow);
   min-height: 64px;
   font: inherit;
   font-weight: 500;
   font-size: 23px;
   color: var(--ink);
-  background: var(--raised);
-  border: 2px solid var(--edge);
+  background: color-mix(in srgb, var(--tint) 14%, var(--card));
+  border: 2px solid color-mix(in srgb, var(--tint) 42%, transparent);
   border-radius: 18px;
   box-shadow: var(--shadow);
   cursor: pointer;
@@ -157,9 +196,14 @@ button.opt {
   font-variant-numeric: tabular-nums;
 }
 button.opt:hover:not(:disabled) {
-  border-color: var(--glow);
+  border-color: var(--tint);
   box-shadow: var(--shadow-lift);
+  transform: translateY(-2px);
 }
+.opts > button.opt:nth-child(1) { --tint: var(--glow); }
+.opts > button.opt:nth-child(2) { --tint: var(--leaf); }
+.opts > button.opt:nth-child(3) { --tint: var(--azure); }
+.opts > button.opt:nth-child(4) { --tint: var(--plum); }
 button.opt:active:not(:disabled) {
   transform: scale(0.97);
 }
@@ -202,6 +246,7 @@ button.opt:disabled {
 .go {
   font: inherit;
   font-weight: 500;
+  transition: transform 0.09s ease, filter 0.15s ease;
   font-size: 18px;
   box-shadow: var(--shadow-lift);
   padding: 15px 20px;
@@ -213,6 +258,8 @@ button.opt:disabled {
   cursor: pointer;
   margin-top: 16px;
 }
+.go:active { transform: scale(0.98); }
+.go:hover { filter: brightness(1.04); }
 .go:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 3px;
@@ -301,8 +348,9 @@ button.opt:disabled {
   width: 38px;
   height: 38px;
   border-radius: 12px;
-  background: var(--raised-2);
-  color: var(--glow-soft);
+  background: color-mix(in srgb, var(--gc, var(--glow)) 22%, var(--card));
+  border: 1.5px solid color-mix(in srgb, var(--gc, var(--glow)) 55%, transparent);
+  color: var(--ink);
   display: grid;
   place-items: center;
   font-size: 14px;
@@ -323,6 +371,7 @@ button.opt:disabled {
   padding: 22px 0 8px;
 }
 .earned .badge-big {
+  animation: pop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both, glowPulse 2.4s 0.5s ease-in-out infinite;
   width: 96px;
   height: 96px;
   margin: 0 auto 14px;

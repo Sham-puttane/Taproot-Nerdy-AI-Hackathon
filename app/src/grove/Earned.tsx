@@ -10,6 +10,7 @@
  * given for repairing a real gap.
  */
 import type { Keystone } from '../game/progress'
+import { gradeVar } from '../game/grade'
 
 export function Earned({
   keystone,
@@ -32,7 +33,11 @@ export function Earned({
         <>
           <h1 className="say">Keystone found.</h1>
           <div className="earned">
-            <div className="badge-big" aria-hidden="true">
+            <div
+              className="badge-big"
+              aria-hidden="true"
+              style={{ background: gradeVar(keystone.grade) }}
+            >
               {keystone.grade === 'K' ? 'K' : `G${keystone.grade}`}
             </div>
             <div style={{ fontSize: 20, marginBottom: 4 }}>{keystone.name}</div>
