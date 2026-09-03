@@ -41,11 +41,10 @@ export default function App() {
   }, [skin])
 
   return (
-    <div
-      className={`stage${
-        (!wall && !showGrownup) || picking ? ' bleed' : ''
-      }`}
-    >
+    /* Every real screen now paints its own full-bleed background -- the Grove,
+       the picker, the board and the parent report. Only the dev preview and
+       the loading/error line still want the padded column. */
+    <div className={`stage${pack && progress && !preview ? ' bleed' : ''}`}>
       <button
         className="skin-toggle"
         onClick={() => setSkin(skin === 'meadow' ? 'soil' : 'meadow')}

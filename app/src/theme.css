@@ -489,9 +489,12 @@ button.opt:disabled {
   padding: 0;
 }
 .board {
+  /* Was capped at 1180px, which left a wide screen with a stripe of dead
+     cream down both sides. The rail keeps its width and the play side takes
+     everything else; the question itself stays at a readable measure inside
+     it rather than stretching. */
   width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
+  margin: 0;
   display: grid;
   grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
   gap: 0;
@@ -514,7 +517,7 @@ button.opt:disabled {
   min-width: 0;
 }
 .board > .play > .frame {
-  max-width: 520px;
+  max-width: 560px;
   margin: 0 auto;
   width: 100%;
 }
@@ -963,3 +966,158 @@ button.opt:disabled {
   .pw-tree-art { max-width: 110px; height: 105px; }
   .pw-under-band { padding: 6px 18px; }
 }
+
+/* ---- the parent report -------------------------------------------------
+   The one screen that is not a garden. A parent reading it at 10pm wants a
+   document: verdict on the left at a readable measure, evidence on the right,
+   nothing hidden behind a tap. It borrows the rail's dark header and the
+   grade colours so it still belongs to the same product. */
+.pr {
+  width: 100%;
+  min-height: 100vh;
+  background: #fdf6e8;
+  display: flex;
+  flex-direction: column;
+}
+.pr-top {
+  background: #16233a;
+  color: #fdf6e8;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.pr-top-title { font-size: 22px; font-weight: 600; }
+.pr-top-facts { display: flex; gap: 34px; margin-left: auto; }
+.pr-fact { display: flex; flex-direction: column; line-height: 1.15; }
+.pr-fact b { font-size: 26px; font-weight: 600; }
+.pr-fact span { font-size: 12px; color: #7f93b4; }
+.pr-back {
+  font: inherit; font-size: 14px;
+  border: 2px solid #43587c; background: transparent; color: #fdf6e8;
+  border-radius: 999px; padding: 8px 16px; cursor: pointer;
+}
+.pr-back:hover { background: #22334f; }
+
+.pr-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.9fr);
+  gap: 44px;
+  padding: 34px 40px 48px;
+  align-items: start;
+}
+.pr-main { max-width: 720px; }
+.pr-verdict {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 600; line-height: 1.14;
+  margin: 0 0 10px;
+}
+.pr-lede { font-size: 16.5px; color: var(--ink-dim); margin: 0 0 24px; line-height: 1.55; }
+
+.pr-gap {
+  --gc: #4fb083;
+  border: 2px solid color-mix(in srgb, var(--gc) 55%, transparent);
+  background: color-mix(in srgb, var(--gc) 11%, #fffdf7);
+  border-radius: 20px;
+  padding: 18px 20px 16px;
+  margin-bottom: 24px;
+}
+.pr-gap-tag {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10.5px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: 8px;
+}
+.pr-gap-name { font-size: 23px; font-weight: 600; line-height: 1.2; }
+.pr-gap-teacher { font-size: 14px; color: var(--ink-dim); margin-top: 5px; }
+.pr-code {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px; margin-left: 9px; color: var(--ink-faint);
+}
+.pr-conf {
+  height: 7px; border-radius: 999px; margin-top: 13px;
+  background: color-mix(in srgb, var(--gc) 22%, transparent);
+  overflow: hidden;
+}
+.pr-conf i { display: block; height: 100%; background: var(--gc); }
+
+.pr-block { margin-bottom: 24px; }
+.pr-runner {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 14.5px; color: var(--ink-dim);
+  padding: 6px 0; border-bottom: 1px solid var(--edge);
+}
+.pr-runner-pip { width: 9px; height: 9px; border-radius: 3px; flex: none; }
+.pr-runner-pct { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.pr-rec {
+  border-left: 4px solid var(--leaf);
+  background: #fffdf7;
+  border-radius: 0 14px 14px 0;
+  padding: 14px 18px;
+  font-size: 15px; line-height: 1.55;
+  margin-bottom: 24px;
+}
+.pr-do { font-size: 15px; margin: 6px 0 0; line-height: 1.6; }
+.pr-note { font-size: 13px; color: var(--ink-faint); margin: 4px 0 10px; }
+
+/* the descent, as a chain a parent can read top to bottom */
+.pr-chain { list-style: none; margin: 0; padding: 0; }
+.pr-link {
+  --gc: #4fb083;
+  display: flex; align-items: center; gap: 11px;
+  padding: 7px 0 7px 4px;
+  position: relative;
+}
+.pr-link + .pr-link::before {
+  content: ''; position: absolute;
+  left: 17px; top: -7px; height: 14px;
+  border-left: 2px dashed var(--edge);
+}
+.pr-link-dot {
+  width: 27px; height: 27px; flex: none;
+  border-radius: 9px;
+  background: var(--gc);
+  color: #16233a;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 600;
+}
+.pr-link-name { font-size: 14.5px; color: var(--ink-dim); line-height: 1.3; }
+.pr-link-name em {
+  display: block; font-style: normal;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.pr-link.is-gap .pr-link-name { color: var(--ink); font-weight: 600; }
+.pr-link.is-gap .pr-link-dot {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--gc) 30%, transparent);
+}
+
+.pr-asked { font-size: 13.5px; }
+.pr-ask {
+  display: flex; align-items: center; gap: 9px;
+  padding: 5px 0; border-bottom: 1px solid var(--edge);
+}
+.pr-mark { width: 14px; flex: none; }
+.pr-mark.ok { color: var(--leaf); }
+.pr-mark.no { color: var(--wrong); }
+.pr-ask-name { color: var(--ink-dim); }
+.pr-ask-grade {
+  margin-left: auto;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 11px; color: var(--ink-faint);
+}
+
+@media (max-width: 900px) {
+  .pr-top { padding: 16px 18px; gap: 18px; }
+  .pr-top-facts { gap: 22px; margin-left: 0; }
+  .pr-body { grid-template-columns: 1fr; gap: 26px; padding: 24px 18px 40px; }
+}
+.pr-promise {
+  margin: 6px 0 18px; padding-left: 20px;
+  font-size: 15px; line-height: 1.6; color: var(--ink-dim);
+}
+.pr-promise li { margin-bottom: 9px; }
+.pr-promise b { color: var(--ink); font-weight: 600; }
