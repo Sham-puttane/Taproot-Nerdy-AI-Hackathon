@@ -138,17 +138,29 @@ export function kidName(n: PackNode | undefined): string {
   return n.kid ?? n.teacher
 }
 
-/** Pick an unseen item for a node. */
+/**
+ * Pick an unseen item for a node.
+ *
+ * `prefer` matters more than it looks. A diagnostic descent wants eight quick
+ * reads -- making a child drag cuts around for every one of them is slow and
+ * tiring, and the descent is not where the learning happens. Repair is: she is
+ * staying a while, and that is exactly where the hands-on instrument earns its
+ * time. So the same node serves a fast item on the way down and a manipulative
+ * once we stop to fix it.
+ */
 export function pickItem(
   pack: Pack,
   nodeId: string,
   seen: Set<string>,
+  prefer: 'quick' | 'handsOn' = 'quick',
 ): Item | null {
   const pool = pack.items.filter((i) => i.node_id === nodeId)
   if (!pool.length) return null
   const fresh = pool.filter((i) => !seen.has(itemKey(i)))
-  const chosen = (fresh.length ? fresh : pool)[0]
-  return chosen ?? null
+  const usable = fresh.length ? fresh : pool
+  const wanted = usable.filter((i) =>
+    prefer === 'handsOn' ? isHandsOn(i) : !isHandsOn(i))
+  return (wanted.length ? wanted : usable)[0] ?? null
 }
 
 export function itemKey(i: Item): string {

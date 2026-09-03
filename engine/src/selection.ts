@@ -15,8 +15,8 @@
  */
 import { Graph } from "./graph";
 import { applyObservation, pCorrect, totalEntropy } from "./mastery";
-import { Anchors } from "./mastery";
-import { Beliefs, Bedrock, EngineConfig } from "./types";
+import type { Anchors } from "./mastery";
+import type { Beliefs, Bedrock, EngineConfig } from "./types";
 
 export interface Candidate {
   nodeId: string;

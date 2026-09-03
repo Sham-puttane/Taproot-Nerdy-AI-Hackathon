@@ -28,9 +28,15 @@ OUT = os.environ.get("TAPROOT_OUT", "D:/taproot/data/processed")
 # Where a manipulative teaches the idea and multiple choice cannot, use the
 # manipulative. 3.NF.A.1 is "equal parts", which is a thing you DO; 3.NF.A.2 is
 # where a fraction becomes a point on a line, which is spatial.
+# A conceptual node needs BOTH kinds of item: a quick one for the descent,
+# where eight fast reads matter and dragging would exhaust the learner, and a
+# hands-on one for the repair, where she is staying a while and the instrument
+# earns its time. Listing several templates per node is how that happens.
 EXPLICIT = {
-    "3.NF.A.1": ("cut", "Denominator used for other parts rather than total parts"),
-    "3.NF.A.2": ("place", "Denominator used for other parts rather than total parts"),
+    "3.NF.A.1": (["cut", "partition"],
+                 "Denominator used for other parts rather than total parts"),
+    "3.NF.A.2": (["place", "partition"],
+                 "Denominator used for other parts rather than total parts"),
     "2.G.A.3":  ("partition", "Denominator used for other parts rather than total parts"),
     "2.G.A.2":  ("partition", "Denominator used for other parts rather than total parts"),
     "1.G.A.3":  ("partition", "Denominator used for other parts rather than total parts"),
@@ -46,19 +52,21 @@ EXPLICIT = {
 LIKE_ADD = "Does not find a common denominator when adding/subtracting fractions"
 
 
-def pick_template(code: str) -> tuple[str, str] | None:
+def pick_template(code: str):
+    """Returns (templates, misconception) -- templates is always a list."""
     if code in EXPLICIT:
-        return EXPLICIT[code]
+        tpl, mis = EXPLICIT[code]
+        return ([tpl] if isinstance(tpl, str) else list(tpl)), mis
     if ".NF.B.3" in code or ".NF.B.4" in code:
-        return ("addition_like", LIKE_ADD)
+        return (["addition_like"], LIKE_ADD)
     if ".NF" in code:
-        return ("addition_unlike",
+        return (["addition_unlike"],
                 "When adding fractions, adds the numerators and denominators")
     if ".G." in code:
-        return ("partition",
+        return (["partition"],
                 "Denominator used for other parts rather than total parts")
     if ".OA" in code or ".NBT" in code or ".CC" in code:
-        return ("whole", "Counts the starting number when counting on")
+        return (["whole"], "Counts the starting number when counting on")
     return None                     # no instrument yet -- reported, not faked
 
 
@@ -97,16 +105,19 @@ def bake(wall_code: str, per_node: int = 8) -> dict:
         if not pick:
             uncovered.append(n["code"])
             continue
-        template, misconception = pick
+        templates, misconception = pick
         grade = n["grade"] if n["grade"] != "K" else "1"
-        ok, bad = generate(n["code"], grade, template, misconception, per_node)
-        rejected += len(bad)
-        if not ok:
+        got = []
+        for template in templates:
+            ok, bad = generate(n["code"], grade, template, misconception, per_node)
+            rejected += len(bad)
+            got.extend(ok)
+        if not got:
             uncovered.append(n["code"])
             continue
-        for it in ok:
+        for it in got:
             it["node_id"] = nid
-        items.extend(ok)
+        items.extend(got)
         covered.append(n["code"])
 
     pack = {

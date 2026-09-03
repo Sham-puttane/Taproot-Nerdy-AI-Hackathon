@@ -59,11 +59,14 @@ export function useGame(pack: Pack) {
     [pack],
   )
 
-  const take = useCallback((nodeId: string): Item | null => {
-    const next = pickItem(pack, nodeId, seen.current)
-    if (next) seen.current.add(itemKey(next))
-    return next
-  }, [pack])
+  const take = useCallback(
+    (nodeId: string, prefer: 'quick' | 'handsOn' = 'quick'): Item | null => {
+      const next = pickItem(pack, nodeId, seen.current, prefer)
+      if (next) seen.current.add(itemKey(next))
+      return next
+    },
+    [pack],
+  )
 
   /** Begin: serve the wall problem she walked in with. */
   const start = useCallback(() => {
@@ -143,7 +146,7 @@ export function useGame(pack: Pack) {
           setItem(nextNode ? take(nextNode) : null)
           return
         }
-        const again = take(bedrock.nodeId)
+        const again = take(bedrock.nodeId, 'handsOn')
         setItem(again)
         return
       }
@@ -178,7 +181,7 @@ export function useGame(pack: Pack) {
   const beginRepair = useCallback(() => {
     if (!bedrock) return
     setPhase('repair')
-    setItem(take(bedrock.nodeId))
+    setItem(take(bedrock.nodeId, 'handsOn'))
   }, [bedrock, take])
 
   const nodeOf = useCallback(

@@ -7,8 +7,9 @@
 import { Graph } from "./graph";
 import { initBeliefs, applyObservation } from "./mastery";
 import { selectNext, findBedrock, shouldStop, bedrockHypothesis, expectedGain } from "./selection";
-import {
-  Beliefs, Bedrock, DescentStep, EngineConfig, DEFAULT_CONFIG, SkillGraph,
+import { DEFAULT_CONFIG } from "./types";
+import type {
+  Beliefs, Bedrock, DescentStep, EngineConfig, SkillGraph,
 } from "./types";
 
 export interface DescentResult {

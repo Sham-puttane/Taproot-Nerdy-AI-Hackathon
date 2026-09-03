@@ -17,7 +17,9 @@
  *                         one easy correct answer lighting up the whole tree)
  */
 import { Graph } from "./graph";
-import { Beliefs, BktParams, PropagationConfig, Observation } from "./types";
+import type {
+  Beliefs, BktParams, PropagationConfig, Observation,
+} from "./types";
 
 const EPS = 1e-6;
 

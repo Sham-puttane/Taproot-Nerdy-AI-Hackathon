@@ -20,7 +20,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* The mastery engine lives outside this package and is compiled as part
+       of the app, so the browser and the Node eval harness run identical
+       source. Dev mode resolves it through the Vite alias; the production
+       build needs the same mapping here or `tsc -b` cannot see it. */
+    "paths": { "@engine/*": ["../engine/src/*"] }
   },
-  "include": ["src"]
+  "include": ["src", "../engine/src"]
 }

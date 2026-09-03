@@ -1,5 +1,5 @@
 /** DAG utilities over the prerequisite graph. */
-import { SkillGraph, SkillNode, Edge } from "./types";
+import type { SkillGraph, SkillNode, Edge } from "./types";
 
 export class Graph {
   readonly nodes: Map<string, SkillNode> = new Map();
