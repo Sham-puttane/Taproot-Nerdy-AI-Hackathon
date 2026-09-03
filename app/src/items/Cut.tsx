@@ -39,8 +39,13 @@ export function Cut({
   }
 
   function addCut(e: React.PointerEvent) {
-    if (settled || cuts.length >= needed) return
-    setCuts([...cuts, xFrom(e)])
+    if (settled) return
+    const x = xFrom(e)
+    // Functional update, not `setCuts([...cuts, x])`. Two taps landing before
+    // a re-render both read the same stale `cuts` and the second one is lost --
+    // which is exactly what an excited eight-year-old does to a bar that needs
+    // three cuts.
+    setCuts((prev) => (prev.length >= needed ? prev : [...prev, x]))
   }
 
   useEffect(() => {

@@ -58,54 +58,21 @@ export interface Pack {
   _stats: Record<string, number>
 }
 
-const DB = 'taproot'
-const STORE = 'packs'
+import { get as dbGet, put as dbPut } from './db'
 
-function idb(): Promise<IDBDatabase | null> {
-  return new Promise((resolve) => {
-    if (typeof indexedDB === 'undefined') return resolve(null)
-    const req = indexedDB.open(DB, 1)
-    req.onupgradeneeded = () => req.result.createObjectStore(STORE)
-    req.onsuccess = () => resolve(req.result)
-    req.onerror = () => resolve(null)
-  })
-}
-
-async function cached(key: string): Promise<Pack | null> {
-  const db = await idb()
-  if (!db) return null
-  return new Promise((resolve) => {
-    try {
-      const tx = db.transaction(STORE, 'readonly').objectStore(STORE).get(key)
-      tx.onsuccess = () => resolve((tx.result as Pack) ?? null)
-      tx.onerror = () => resolve(null)
-    } catch {
-      resolve(null)
-    }
-  })
-}
-
-async function store(key: string, pack: Pack): Promise<void> {
-  const db = await idb()
-  if (!db) return
-  try {
-    db.transaction(STORE, 'readwrite').objectStore(STORE).put(pack, key)
-  } catch {
-    /* private mode, blocked storage -- the pack still works in memory */
-  }
-}
+const PACK_STORE = 'packs' as const
 
 /**
  * Cache first, network second. That ordering is the offline promise: once a
  * pack has been seen, the game never waits on a network it may not have.
  */
 export async function loadPack(url = './pack.json'): Promise<Pack> {
-  const hit = await cached(url)
+  const hit = await dbGet<Pack>(PACK_STORE, url)
   if (hit) return hit
   const res = await fetch(url)
   if (!res.ok) throw new Error(`could not load pack (${res.status})`)
   const pack = (await res.json()) as Pack
-  void store(url, pack)
+  void dbPut(PACK_STORE, url, pack)
   return pack
 }
 

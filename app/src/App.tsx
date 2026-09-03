@@ -3,6 +3,13 @@ import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
 import { useGame } from './game/useGame'
 import { Roots } from './Roots'
 import { Brief } from './parent/Brief'
+import { Grove } from './grove/Grove'
+import { Earned } from './grove/Earned'
+import { VoiceAnswer } from './game/VoiceAnswer'
+import {
+  fold, loadProgress, saveProgress,
+  type Keystone, type Progress,
+} from './game/progress'
 import { speak } from './game/tts'
 import { useOffline } from './game/useOffline'
 import { Cut } from './items/Cut'
@@ -18,8 +25,12 @@ export default function App() {
   const preview = new URLSearchParams(location.search).get('preview')
   const offline = useOffline()
 
+  const [progress, setProgress] = useState<Progress | null>(null)
+  const [playing, setPlaying] = useState(false)
+
   useEffect(() => {
     loadPack().then(setPack).catch((e) => setErr(String(e)))
+    loadProgress().then(setProgress)
   }, [])
 
   useEffect(() => {
@@ -42,7 +53,25 @@ export default function App() {
       {err && <p className="lede">Could not load: {err}</p>}
       {!pack && !err && <p className="lede">Loading…</p>}
       {pack && preview && <Preview pack={pack} kind={preview} />}
-      {pack && !preview && <Game pack={pack} />}
+      {pack && !preview && progress && !playing && (
+        <Grove
+          progress={progress}
+          totalSkills={pack.nodes.length}
+          onStart={() => setPlaying(true)}
+        />
+      )}
+      {pack && !preview && progress && playing && (
+        <Game
+          pack={pack}
+          progress={progress}
+          onFinish={(beliefs, keystone) => {
+            const next = fold(progress, beliefs, keystone)
+            setProgress(next)
+            void saveProgress(next)
+          }}
+          onHome={() => setPlaying(false)}
+        />
+      )}
     </div>
   )
 }
@@ -64,10 +93,48 @@ function Preview({ pack, kind }: { pack: Pack; kind: string }) {
   )
 }
 
-function Game({ pack }: { pack: Pack }) {
+function Game({
+  pack,
+  progress,
+  onFinish,
+  onHome,
+}: {
+  pack: Pack
+  progress: Progress
+  onFinish: (beliefs: Record<string, number>, k: Keystone | null) => void
+  onHome: () => void
+}) {
   const g = useGame(pack)
   const [chosen, setChosen] = useState<number | null>(null)
   const [showBrief, setShowBrief] = useState(false)
+  const [saved, setSaved] = useState(false)
+  const [lastKeystone, setLastKeystone] = useState<Keystone | null>(null)
+  const [litBefore] = useState(
+    () => Object.values(progress.mastery).filter((v) => v >= 0.75).length,
+  )
+
+  // Fold the session into saved progress exactly once, when it ends.
+  useEffect(() => {
+    if (g.phase !== 'done' || saved) return
+    setSaved(true)
+    const bed = g.bedrock ? g.nodeOf(g.bedrock.nodeId) : undefined
+    const wall = g.wallNode
+    const gradeNum = (x?: string) => (x === 'K' ? 0 : Number(x) || 0)
+    const keystone: Keystone | null = bed
+      ? {
+          nodeId: bed.id,
+          code: bed.code,
+          name: kidName(bed),
+          grade: bed.grade,
+          wall: wall ? kidName(wall) : 'a problem',
+          depth: Math.max(0, gradeNum(wall?.grade) - gradeNum(bed.grade)),
+          earnedAt: Date.now(),
+        }
+      : null
+    setLastKeystone(keystone)
+    onFinish(g.beliefs, keystone)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [g.phase])
 
   useEffect(() => {
     g.start()
@@ -217,26 +284,12 @@ function Game({ pack }: { pack: Pack }) {
       )}
 
       {g.phase === 'done' && (
-        <>
-          <div className="kicker">done</div>
-          <h1 className="say">You fixed the root.</h1>
-          <p className="lede">
-            The gap was{' '}
-            {bedrockNode ? kidName(bedrockNode).toLowerCase() : 'lower down'}
-            {bedrockNode ? ` — grade ${bedrockNode.grade}` : ''}, well below
-            where the homework was. Everything above it got easier.
-          </p>
-          <Roots
-            pack={pack}
-            path={g.climb}
-            lit={g.lit}
-            here={undefined}
-            masteryOf={g.masteryOf}
-          />
-          <button className="go quiet" onClick={() => setShowBrief(true)}>
-            For a grown-up
-          </button>
-        </>
+        <Earned
+          keystone={lastKeystone}
+          litBefore={litBefore}
+          litAfter={Object.values(g.beliefs).filter((v) => v >= 0.75).length}
+          onHome={onHome}
+        />
       )}
     </div>
   )
@@ -307,6 +360,7 @@ function Question({
       )}
 
       {!handsOn && (
+      <>
       <div className={`opts${item.options.length === 2 ? ' single' : ''}`}>
         {item.options.map((o, i) => {
           const state =
@@ -331,6 +385,12 @@ function Question({
           )
         })}
       </div>
+      <VoiceAnswer
+        options={item.options}
+        onPick={onChoose}
+        disabled={chosen !== null}
+      />
+      </>
       )}
     </>
   )

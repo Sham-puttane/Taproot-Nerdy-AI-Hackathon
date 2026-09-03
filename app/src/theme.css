@@ -250,6 +250,114 @@ button.opt:disabled {
   transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.tree {
+  width: 100%;
+  max-width: 300px;
+  align-self: center;
+  margin: 6px 0 10px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+}
+.stat {
+  flex: 1;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 12px 10px;
+  text-align: center;
+}
+.stat b {
+  display: block;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.stat span {
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.03em;
+}
+
+.keystones {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.keystone {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 11px 13px;
+}
+.keystone-grade {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--raised-2);
+  color: var(--glow-soft);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+.keystone-name {
+  font-size: 15px;
+  line-height: 1.3;
+}
+.keystone-note {
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+}
+
+.earned {
+  text-align: center;
+  padding: 22px 0 8px;
+}
+.earned .badge-big {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 14px;
+  border-radius: 28px;
+  background: var(--glow);
+  color: #2f2a1f;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  font-weight: 500;
+  box-shadow: var(--shadow-lift);
+}
+
+.mic {
+  border: 2px solid var(--edge);
+  background: var(--raised);
+  color: var(--ink);
+  border-radius: 18px;
+  min-height: 56px;
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: var(--shadow);
+}
+.mic.on {
+  border-color: var(--wrong);
+  background: var(--wrong-soft);
+}
+.mic:focus-visible {
+  outline: 3px solid var(--glow-soft);
+  outline-offset: 3px;
+}
+
 .offline {
   position: fixed;
   top: 10px;
