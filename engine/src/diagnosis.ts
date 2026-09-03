@@ -50,11 +50,52 @@ export class GapPosterior {
   // Written as explicit fields rather than constructor parameter properties:
   // the app compiles this same source with `erasableSyntaxOnly`, which
   // forbids them.
-  constructor(graph: Graph, candidates: string[], k: BktParams) {
+  constructor(
+    graph: Graph,
+    candidates: string[],
+    k: BktParams,
+    /**
+     * Grade of the wall problem. Supplying it turns on a recency prior.
+     *
+     * OFF by default, because it was measured and it lost. The reasoning
+     * seemed sound -- a fifth grader has been in school six years, so a
+     * kindergarten gap should be less likely than a grade-4 one -- but:
+     *
+     *   planting    prior off   prior on
+     *   uniform       71.5%      65.5%
+     *   realistic     74.5%      71.5%
+     *
+     * It is worse even when gaps are drawn with exactly the recency bias the
+     * prior assumes. The likelihood is simply strong enough that the prior
+     * mostly fights good evidence. Kept, documented, and switched off.
+     */
+    wallGrade?: string,
+  ) {
     this.candidates = candidates;
     this.k = k;
-    const w = 1 / candidates.length;
-    for (const id of candidates) this.p.set(id, w);
+
+    // A uniform prior treats "missed a lesson last term" and "never learned
+    // kindergarten geometry" as equally likely explanations for a fifth
+    // grader's fraction trouble. They are not: she has been in school for six
+    // years, and a kindergarten gap would have surfaced long before fractions.
+    // So candidates are down-weighted by how many grades below the wall they
+    // sit. Deliberately mild -- deep gaps DO happen and are exactly what this
+    // product exists to find, so this tilts the search without foreclosing it.
+    const GRADE = (g: string) => (g === "K" ? 0 : Number(g) || 0);
+    const wall = wallGrade === undefined ? null : GRADE(wallGrade);
+    const DECAY = 0.35;
+
+    let total = 0;
+    for (const id of candidates) {
+      const w =
+        wall === null
+          ? 1
+          : Math.exp(-DECAY * Math.max(0, wall - GRADE(graph.node(id).grade)));
+      this.p.set(id, w);
+      total += w;
+    }
+    for (const [id, w] of this.p) this.p.set(id, w / total);
+
     for (const id of graph.ids) {
       this.under.set(id, new Set([id, ...graph.ancestors(id)]));
     }

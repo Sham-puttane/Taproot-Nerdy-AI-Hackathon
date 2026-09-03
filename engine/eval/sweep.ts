@@ -30,6 +30,12 @@ const N = Number(process.argv[2] ?? 200)
 const MAX_ITEMS = Number(process.env.MAX_ITEMS ?? DEFAULT_CONFIG.maxItems)
 const CONFIDENCE_STOP = Number(process.env.CONF ?? 0.5)
 const BASELINE_REPEAT = Number(process.env.BASE_REPEAT ?? 4)
+const PRIOR = process.env.PRIOR === '1'   // off by default: it was measured and it lost
+// Where do real gaps sit? Uniform planting treats a kindergarten gap in a
+// fifth grader as being as likely as a grade-4 one. REALISTIC planting draws
+// gaps with the same recency bias the prior assumes, which is the honest
+// place to measure a prior that encodes exactly that belief.
+const REALISTIC = process.env.REALISTIC === '1'
 const WALL = '5.NF.A.1'
 
 const graph = new Graph(data)
@@ -127,7 +133,9 @@ function run(policy: Policy, gapId: string, seed: number): Trial {
   // rule. Only the choice of what to ask next differs, which is the one thing
   // we are trying to measure.
   const candidates = corridor.filter((id) => id !== wallId)
-  const post = new GapPosterior(graph, candidates, cfg.bkt)
+  const post = new GapPosterior(
+    graph, candidates, cfg.bkt,
+    PRIOR ? graph.node(wallId).grade : undefined)
   post.update(wallId, false)
 
   const ordered = candidates
@@ -181,9 +189,27 @@ const plantable = corridor.filter(
   (id) => id !== wallId && (graph.dependents.get(id) ?? []).length > 0,
 )
 
+const gradeOf = (id: string) => {
+  const g = graph.node(id).grade
+  return g === 'K' ? 0 : Number(g) || 0
+}
+const wallGrade = gradeOf(wallId)
+// weights for realistic planting: recent grades far likelier to be the gap
+const weights = plantable.map((id) =>
+  Math.exp(-0.35 * Math.max(0, wallGrade - gradeOf(id))))
+const cumulative: number[] = []
+weights.reduce((acc, w, i) => (cumulative[i] = acc + w), 0)
+const totalW = cumulative[cumulative.length - 1]
+function plantedGap(i: number): string {
+  if (!REALISTIC) return plantable[i % plantable.length]
+  const r = rng(90210 + i)() * totalW
+  const idx = cumulative.findIndex((c) => c >= r)
+  return plantable[idx < 0 ? plantable.length - 1 : idx]
+}
+
 const trials: Trial[] = []
 for (let i = 0; i < N; i++) {
-  const gap = plantable[i % plantable.length]
+  const gap = plantedGap(i)
   const seed = 1000 + i * 7919
   for (const p of ['taproot', 'linear', 'random', 'worksheet'] as Policy[]) {
     trials.push(run(p, gap, seed))

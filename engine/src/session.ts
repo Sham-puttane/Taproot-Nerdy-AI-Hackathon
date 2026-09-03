@@ -67,6 +67,8 @@ export class Session {
     this.scope = new Set([nodeId, ...this.graph.ancestors(nodeId)]);
     this.wall = nodeId;
     this.candidates = [...this.scope].filter((id) => id !== nodeId);
+    // No wallGrade: the recency prior is deliberately left OFF. See the note
+    // in diagnosis.ts -- it was measured and it made things worse.
     this.posterior = new GapPosterior(
       this.graph, this.candidates, this.cfg.bkt);
     this.posterior.update(nodeId, false);   // the wall failure is evidence
