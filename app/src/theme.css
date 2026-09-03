@@ -1230,3 +1230,73 @@ button.opt:disabled {
   60% { opacity: .8; transform: scale(1.6); }
   100% { opacity: 0; transform: scale(2.1); }
 }
+
+/* ---- the cascade -------------------------------------------------------
+   One repair, and everything standing on it lights from the bottom up. The
+   reward is evidence, not points: every rung is a real skill from the real
+   prerequisite graph that was resting on the thing she just fixed. */
+.cx { display: flex; flex-direction: column; }
+.cx-title {
+  font-size: clamp(26px, 3vw, 36px); font-weight: 600;
+  line-height: 1.14; margin: 2px 0 8px;
+  font-variant-numeric: tabular-nums;
+}
+.cx-sub { font-size: 15.5px; color: var(--ink-dim); margin: 0 0 20px; line-height: 1.5; }
+.cx-list {
+  list-style: none; margin: 0 0 22px; padding: 0;
+  display: flex; flex-direction: column-reverse;   /* it climbs */
+}
+.cx-rung {
+  --gc: #ffc94a;
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 12px; margin-top: 6px;
+  border-radius: 14px;
+  border: 2px solid transparent;
+  background: transparent;
+  opacity: 0.34;
+  filter: grayscale(1);
+  transition: opacity 0.3s ease, filter 0.3s ease,
+              background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.cx-rung.on {
+  opacity: 1;
+  filter: none;
+  background: color-mix(in srgb, var(--gc) 13%, var(--card));
+  border-color: color-mix(in srgb, var(--gc) 48%, transparent);
+  animation: rungwake 0.42s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes rungwake {
+  0% { transform: translateY(7px) scale(0.97); }
+  100% { transform: translateY(0) scale(1); }
+}
+.cx-dot {
+  width: 30px; height: 30px; flex: none;
+  border-radius: 10px; background: var(--gc); color: #16233a;
+  display: grid; place-items: center; font-size: 14px; font-weight: 600;
+}
+.cx-name { font-size: 15px; line-height: 1.25; }
+.cx-name em {
+  display: block; font-style: normal;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint); margin-top: 2px;
+}
+.cx-tick { margin-left: auto; color: var(--gc); font-size: 17px; }
+.cx-fixed {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--gc) 70%, transparent) !important;
+}
+.cx-go { margin-top: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .cx-rung.on { animation: none; }
+}
+.cx-wider {
+  font-size: 13.5px; color: var(--ink-faint);
+  margin: -12px 0 20px; line-height: 1.5;
+}
+.cx-wider b { color: var(--ink-dim); }
+.cx-list {
+  max-height: 44vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}

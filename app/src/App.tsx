@@ -8,6 +8,7 @@ import { PickWide } from './game/PickWide'
 import { Earned } from './grove/Earned'
 import { VoiceAnswer } from './game/VoiceAnswer'
 import { Reward } from './game/Reward'
+import { Cascade } from './game/Cascade'
 import {
   fold, loadProgress, saveProgress,
   type Keystone, type Progress,
@@ -233,8 +234,9 @@ function Game({
     )
   }
 
-  const inSession = ['wall', 'descent', 'bedrock', 'repair', 'climb', 'return']
-    .includes(g.phase)
+  const inSession = [
+    'wall', 'descent', 'bedrock', 'repair', 'cascade', 'climb', 'return',
+  ].includes(g.phase)
 
   return (
     <div className="board">
@@ -334,6 +336,17 @@ function Game({
             />
           </div>
         </>
+      )}
+
+      {g.phase === 'cascade' && g.bedrock && (
+        <Cascade
+          pack={pack}
+          fixed={g.bedrock.nodeId}
+          woke={g.woke}
+          wokeTotal={g.wokeTotal}
+          onLight={g.lightUp}
+          onDone={g.beginClimb}
+        />
       )}
 
       {g.phase === 'climb' && (

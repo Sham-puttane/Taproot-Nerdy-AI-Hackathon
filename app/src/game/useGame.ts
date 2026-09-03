@@ -26,6 +26,7 @@ export type Phase =
   | 'descent'
   | 'bedrock'
   | 'repair'
+  | 'cascade'    // the moment one repair wakes everything resting on it
   | 'climb'
   | 'return'
   | 'done'
@@ -50,11 +51,17 @@ export function useGame(pack: Pack, wallCode?: string) {
   const [firstAttempt, setFirstAttempt] = useState<Attempt | null>(null)
   const [bedrock, setBedrock] = useState<Bedrock | null>(null)
   const [climb, setClimb] = useState<string[]>([])
+  // Everything in the corridor that RESTS on the repaired skill. This is the
+  // product's whole argument in one list: fixing one kindergarten idea is not
+  // one repair, it is every skill above it that was quietly built on sand.
+  const [woke, setWoke] = useState<string[]>([])
+  const [wokeTotal, setWokeTotal] = useState(0)
   const [climbAt, setClimbAt] = useState(0)
   const [lit, setLit] = useState<Set<string>>(new Set())
   const [asked, setAsked] = useState<string[]>([])
   const [trail, setTrail] = useState<{ nodeId: string; correct: boolean | null }[]>([])
   const [why, setWhy] = useState<string | null>(null)
+  const [pendingClimbItem, setPendingClimbItem] = useState<Item | null>(null)
   const [tick, setTick] = useState(0)   // forces re-render on belief change
 
   // The chosen wall, falling back to the pack's own if none was picked.
@@ -183,7 +190,63 @@ export function useGame(pack: Pack, wallCode?: string) {
           setClimb(path)
           setClimbAt(0)
           setLit(new Set([bedrock.nodeId]))
-          setPhase('climb')
+
+          // Walk UP the prerequisite edges from the repaired skill and collect
+          // everything that stands on it, nearest first. Ordered by grade so
+          // the cascade travels the way the ground does.
+          const dependents = new Map<string, string[]>()
+          for (const [from, to] of pack.edges as [string, string][]) {
+            const list = dependents.get(from)
+            if (list) list.push(to)
+            else dependents.set(from, [to])
+          }
+          const reached = new Set<string>([bedrock.nodeId])
+          const queue = [bedrock.nodeId]
+          while (queue.length) {
+            const cur = queue.shift()!
+            for (const up of dependents.get(cur) ?? []) {
+              if (!reached.has(up)) { reached.add(up); queue.push(up) }
+            }
+          }
+          reached.delete(bedrock.nodeId)
+          const gnum = (g: string) => (g === 'K' ? 0 : Number(g) || 0)
+
+          // Everything in the whole K-5 map that stands on this skill. True,
+          // and worth saying -- but most of it is not on HER path, so it is
+          // reported as a number rather than animated as a promise.
+          const totalReach = [...reached].filter((id) =>
+            pack.nodes.some((n) => n.id === id))
+
+          // Her corridor: what lies between the repaired skill and the
+          // homework that beat her. These are the rungs she was actually
+          // blocked on, so these are the ones that light up.
+          const prereqsOf = new Map<string, string[]>()
+          for (const [from, to] of pack.edges as [string, string][]) {
+            const list = prereqsOf.get(to)
+            if (list) list.push(from)
+            else prereqsOf.set(to, [from])
+          }
+          const wallId = wallNode?.id ?? ''
+          const underWall = new Set<string>([wallId])
+          const dq = [wallId]
+          while (dq.length) {
+            const cur = dq.shift()!
+            for (const down of prereqsOf.get(cur) ?? []) {
+              if (!underWall.has(down)) { underWall.add(down); dq.push(down) }
+            }
+          }
+          const onHerPath = totalReach.filter((id) => underWall.has(id))
+
+          setWokeTotal(totalReach.length)
+          setWoke(
+            (onHerPath.length ? onHerPath : totalReach)
+              .sort((a, b) => {
+                const na = pack.nodes.find((n) => n.id === a)!
+                const nb = pack.nodes.find((n) => n.id === b)!
+                return gnum(na.grade) - gnum(nb.grade)
+              }),
+          )
+          setPhase('cascade')
           const nextNode = path[1]
           // The climb used to happen entirely off the trail: the nodes she was
           // reclaiming were not stops, so the one moment the product moves UP
@@ -198,7 +261,7 @@ export function useGame(pack: Pack, wallCode?: string) {
               ? [...withBedrock, { nodeId: nextNode, correct: null }]
               : withBedrock
           })
-          setItem(nextNode ? take(nextNode) : null)
+          setPendingClimbItem(nextNode ? take(nextNode) : null)
           return
         }
         const again = take(bedrock.nodeId, 'handsOn')
@@ -247,6 +310,17 @@ export function useGame(pack: Pack, wallCode?: string) {
     [item, phase, bedrock, climb, climbAt, wallItem, wallNode, advanceDescent, take],
   )
 
+  /** The cascade lights rungs one at a time; the trail follows along. */
+  const lightUp = useCallback((nodeId: string) => {
+    setLit((s2) => new Set([...s2, nodeId]))
+  }, [])
+
+  /** She has watched the cascade; now walk back up through it. */
+  const beginClimb = useCallback(() => {
+    setPhase('climb')
+    setItem(pendingClimbItem)
+  }, [pendingClimbItem])
+
   const beginRepair = useCallback(() => {
     if (!bedrock) return
     setPhase('repair')
@@ -289,6 +363,10 @@ export function useGame(pack: Pack, wallCode?: string) {
     bedrock,
     climb,
     climbAt,
+    woke,
+    wokeTotal,
+    beginClimb,
+    lightUp,
     lit,
     asked,
     trail,
