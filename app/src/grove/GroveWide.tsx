@@ -178,40 +178,76 @@ function Tree({ family, hue }: { family: Family; hue: string }) {
   )
 }
 
-/** One tree's roots, reaching as deep as she has actually dug. */
+/**
+ * One tree's roots, reaching as deep as she has actually dug.
+ *
+ * Drawn as FILLED, TAPERED shapes rather than strokes. The ground svg uses
+ * preserveAspectRatio="none" so the strata can stretch to any screen width,
+ * which distorts stroke widths -- a stroked root came out thin, wobbly and
+ * blunt-ended, like a scratch rather than something grown. A filled outline
+ * stretches with the ground and keeps its shape.
+ */
 function Roots({
   index, count, family, hue,
 }: { index: number; count: number; family: Family; hue: string }) {
   const x = ((index + 0.5) / count) * 1440
+  const FULL = 520
+  const bandH = FULL / GRADE_BANDS.length
   // deepestGrade -1 means nothing lit; grade 5 is the top band, K the bottom
-  const bandH = 520 / GRADE_BANDS.length
   const reached = family.deepestGrade < 0
     ? 0
-    : (5 - family.deepestGrade + 1) * bandH
-  const full = 520
+    : Math.min(FULL, (5 - family.deepestGrade + 1) * bandH)
+
+  /** A root that starts `w` wide at the top and comes to a point at `len`. */
+  const taper = (len: number, w: number, drift: number) => {
+    const tip = x + drift
+    const midY = len * 0.55
+    const midX = x + drift * 0.35
+    return (
+      `M${x - w} 0 ` +
+      `C${x - w} ${len * 0.3}, ${midX - w * 0.5} ${midY}, ${tip} ${len} ` +
+      `C${midX + w * 0.5} ${midY}, ${x + w} ${len * 0.3}, ${x + w} 0 Z`
+    )
+  }
 
   return (
     <g>
+      {/* what has not been dug yet: a hint of where the root would go */}
       <path
-        d={`M${x} 0 C${x} ${full * 0.3}, ${x - 26} ${full * 0.5}, ${x - 14} ${full}`}
-        stroke="#5a4118" strokeWidth="6" fill="none" strokeLinecap="round"
-        opacity="0.4" strokeDasharray="9 11"
+        d={taper(FULL, 5, -18)}
+        fill="#4a3312" opacity="0.22"
       />
+
       {reached > 0 && (
         <>
-          <path
-            d={`M${x} 0 C${x} ${reached * 0.34}, ${x - 22} ${reached * 0.6}, ${x - 10} ${reached}`}
-            stroke={hue} strokeWidth="9" fill="none" strokeLinecap="round"
-          />
-          <path
-            d={`M${x} ${reached * 0.22} C${x + 30} ${reached * 0.4}, ${x + 40} ${reached * 0.6}, ${x + 34} ${reached * 0.8}`}
-            stroke={hue} strokeWidth="5" fill="none" strokeLinecap="round" opacity="0.8"
-          />
+          <path d={taper(reached, 9, -14)} fill={hue} />
+          {/* one side root, so it reads as grown rather than drawn */}
+          {reached > bandH * 1.6 && (
+            <path
+              d={
+                `M${x + 2} ${reached * 0.26} ` +
+                `C${x + 30} ${reached * 0.42}, ${x + 40} ${reached * 0.6}, ` +
+                `${x + 34} ${reached * 0.82} ` +
+                `C${x + 32} ${reached * 0.6}, ${x + 22} ${reached * 0.44}, ` +
+                `${x - 2} ${reached * 0.3} Z`
+              }
+              fill={hue}
+              opacity="0.75"
+            />
+          )}
+
           {family.keystones > 0 && (
-            <g transform={`translate(${x - 30} ${reached - 22}) rotate(-8)`}>
-              <rect width="40" height="40" rx="13" fill={hue}
+            /* The badge used to be placed at reached - 22 with a height of 40,
+               so a root that went all the way to kindergarten pushed it past
+               the bottom of the viewBox and it was cut in half. Clamped. */
+            <g
+              transform={`translate(${x - 34} ${
+                Math.min(reached - 30, FULL - 48)
+              }) rotate(-7)`}
+            >
+              <rect width="42" height="42" rx="14" fill={hue}
                     stroke="#16233a" strokeWidth="3" />
-              <text x="20" y="27" textAnchor="middle" fontSize="17"
+              <text x="21" y="29" textAnchor="middle" fontSize="18"
                     fontWeight="600" fill="#16233a">
                 {family.deepestGrade === 0 ? 'K' : family.deepestGrade}
               </text>

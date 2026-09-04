@@ -1300,3 +1300,7 @@ button.opt:disabled {
   overflow-y: auto;
   scrollbar-width: thin;
 }
+.cx-what {
+  font-size: 14px; color: var(--ink-dim);
+  margin: 0 0 10px; line-height: 1.5;
+}

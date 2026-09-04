@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "check:walls": "node scripts/check-walls.mjs",
+    "build": "node scripts/check-walls.mjs && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },

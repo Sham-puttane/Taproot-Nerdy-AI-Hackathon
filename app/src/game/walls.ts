@@ -42,7 +42,10 @@ export const TOPICS: Topic[] = [
     label: 'Big numbers',
     icon: '🔢',
     byGrade: {
-      '5': '5.NBT.B.7', '4': '4.NBT.B.5', '3': '4.NBT.B.5',
+      // grade 3 used to serve 4.NBT.B.5, which is a GRADE 4 standard -- the
+      // one thing the comment above forbids. 3.NBT.A.3 is her own grade and
+      // still has 16 skills beneath it.
+      '5': '5.NBT.B.7', '4': '4.NBT.B.5', '3': '3.NBT.A.3',
       '2': '2.NBT.B.5', '1': '1.NBT.C.4',
     },
   },
@@ -50,13 +53,21 @@ export const TOPICS: Topic[] = [
     id: 'measuring',
     label: 'Measuring',
     icon: '📏',
-    byGrade: { '5': '5.MD.A.1', '4': '4.MD.A.2', '3': '3.MD.D.8' },
+    byGrade: {
+      '5': '5.MD.A.1', '4': '4.MD.A.2', '3': '3.MD.D.8',
+      // "measuring the same thing with two different rulers" -- bigger unit,
+      // smaller number, which is the denominator idea three years early
+      '2': '2.MD.A.2',
+    },
   },
   {
     id: 'shapes',
     label: 'Shapes',
     icon: '🔷',
-    byGrade: { '5': '5.G.B.4', '4': '5.G.B.4', '3': '3.G.A.2' },
+    byGrade: {
+      // grade 4 used to serve 5.G.B.4, a GRADE 5 standard
+      '5': '5.G.B.4', '4': '4.G.A.2', '3': '3.G.A.2', '2': '2.G.A.3',
+    },
   },
 ]
 
@@ -79,6 +90,17 @@ export function wallFor(
     if (code && have.has(code)) return code
   }
   return null
+}
+
+/**
+ * Is this offering at, or below, the grade she said she was in? Exported so a
+ * test can hold the table to the rule the comment above states -- three of
+ * nineteen offerings used to break it, and nothing caught them.
+ */
+export function wallGradeFor(pack: Pack, topic: Topic, grade: string): string | null {
+  const code = wallFor(pack, topic, grade)
+  if (!code) return null
+  return pack.nodes.find((n) => n.code === code)?.grade ?? null
 }
 
 /** Topics we can actually serve at this grade, given what the pack holds. */

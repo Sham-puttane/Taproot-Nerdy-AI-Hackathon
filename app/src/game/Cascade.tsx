@@ -80,7 +80,7 @@ export function Cascade({
 
   return (
     <div className="cx">
-      <div className="kicker">it was never one skill</div>
+      <div className="kicker">nothing to answer &middot; just look</div>
       <h1 className="cx-title">
         {woke.length === 0
           ? 'Fixed.'
@@ -98,6 +98,11 @@ export function Cascade({
             .
           </>
         )}
+      </p>
+      <p className="cx-what">
+        These are not questions. Each one is a skill that was standing on the
+        thing you just fixed &mdash; you will be asked about them on the way
+        back up.
       </p>
       {wokeTotal > woke.length && (
         <p className="cx-wider">
