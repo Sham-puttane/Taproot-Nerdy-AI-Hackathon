@@ -1304,3 +1304,69 @@ button.opt:disabled {
   font-size: 14px; color: var(--ink-dim);
   margin: 0 0 10px; line-height: 1.5;
 }
+
+/* ---- parent report, made legible at a glance ---------------------------
+   A parent reads one picture and maybe two sentences. So the most important
+   fact -- how far BELOW the homework the real problem sits -- is the picture,
+   drawn in the same cross-section the child has been looking at. */
+.pr-depth {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 0 0 22px;
+  box-shadow: var(--shadow);
+}
+
+.pr-gap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.pr-gap-main { min-width: 0; }
+.pr-gap-ring {
+  margin-left: auto;
+  display: flex; flex-direction: column; align-items: center;
+  color: var(--ink);
+  flex: none;
+}
+.pr-gap-ring span {
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-faint);
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  margin-top: 2px;
+}
+.pr-ring { width: 62px; height: 62px; }
+
+/* the header stops being a flat bar */
+.pr-top {
+  background:
+    radial-gradient(120% 180% at 12% -40%, #23405f 0%, transparent 60%),
+    #16233a;
+  border-bottom: 4px solid #ffc94a;
+}
+.pr-fact b { font-variant-numeric: tabular-nums; }
+.pr-fact + .pr-fact { border-left: 1px solid rgba(127,147,180,.3); padding-left: 34px; }
+
+/* evidence column gets structure instead of running text */
+.pr-side {
+  background: #fffdf7;
+  border: 2px solid var(--edge);
+  border-radius: 20px;
+  padding: 20px 20px 8px;
+}
+.pr-side .kicker { color: var(--ink-faint); }
+
+.pr-rec {
+  background: linear-gradient(
+    90deg, color-mix(in srgb, var(--leaf) 14%, #fffdf7), #fffdf7 60%);
+}
+
+.pr-ask:last-child, .pr-runner:last-child { border-bottom: none; }
+
+@media (max-width: 900px) {
+  .pr-gap { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .pr-gap-ring { margin-left: 0; flex-direction: row; gap: 8px; align-items: center; }
+}

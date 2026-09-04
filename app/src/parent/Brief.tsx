@@ -50,6 +50,106 @@ function topicOf(wall: PackNode): string {
   return (wall.kid ?? wall.teacher).toLowerCase()
 }
 
+/**
+ * The drop, drawn. A parent reading a report at 10pm will look at one picture
+ * and read maybe two sentences, so the single most important fact -- how far
+ * BELOW the homework the real problem sits -- gets to be the picture. It is
+ * the same cross-section as the child's screen, which also quietly shows the
+ * grown-up what she has been looking at.
+ */
+function DepthDiagram({
+  wallGrade,
+  gapGrade,
+  wallName,
+  gapName,
+}: {
+  wallGrade: number
+  gapGrade: number
+  wallName: string
+  gapName: string
+}) {
+  const BANDS = [
+    { g: 5, fill: '#ffe0a0' }, { g: 4, fill: '#f0c477' },
+    { g: 3, fill: '#d9a758' }, { g: 2, fill: '#b8863c' },
+    { g: 1, fill: '#8a5a28' }, { g: 0, fill: '#6b4520' },
+  ]
+  const H = 34
+  const yOf = (g: number) => (5 - g) * H + H / 2
+  const x = 132
+  const wallY = yOf(wallGrade)
+  const gapY = yOf(gapGrade)
+
+  return (
+    <svg className="pr-depth" viewBox={`0 0 320 ${BANDS.length * H}`} role="img"
+         aria-label={`The homework is grade ${wallGrade}; the gap is ${
+           gapGrade === 0 ? 'kindergarten' : `grade ${gapGrade}`}`}>
+      {BANDS.map((b, i) => (
+        <g key={b.g}>
+          <rect x="0" y={i * H} width="320" height={H} fill={b.fill}
+                opacity={b.g <= wallGrade && b.g >= gapGrade ? 1 : 0.4} />
+          <text x="8" y={i * H + 21} fontSize="9.5" fontWeight="600"
+                letterSpacing="1.2" fill={b.g >= 3 ? '#7a6330' : '#e8d7b8'}
+                fontFamily="'IBM Plex Mono', ui-monospace, monospace">
+            {b.g === 0 ? 'K' : `GR ${b.g}`}
+          </text>
+        </g>
+      ))}
+
+      {/* the root, from the homework down to what it was really standing on */}
+      <path
+        d={`M${x - 5} ${wallY} C${x - 5} ${(wallY + gapY) / 2}, ` +
+           `${x - 9} ${(wallY + gapY) / 2}, ${x - 1} ${gapY} ` +
+           `C${x + 9} ${(wallY + gapY) / 2}, ${x + 5} ${(wallY + gapY) / 2}, ` +
+           `${x + 5} ${wallY} Z`}
+        fill="#7a4a1c" opacity=".55"
+      />
+
+      <circle cx={x} cy={wallY} r="11" fill="#fdf6e8"
+              stroke={GRADE_HUE[wallGrade]} strokeWidth="4" />
+      <text x={x + 20} y={wallY + 4} fontSize="11.5" fill="#3b2a12">
+        {wallName.length > 26 ? `${wallName.slice(0, 25)}…` : wallName}
+      </text>
+      <text x={x + 20} y={wallY + 15} fontSize="8.5" letterSpacing="1"
+            fill="rgba(59,42,18,.6)"
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace">
+        THE HOMEWORK
+      </text>
+
+      <circle cx={x} cy={gapY} r="13" fill={GRADE_HUE[gapGrade]}
+              stroke="#16233a" strokeWidth="3" />
+      <text x={x + 22} y={gapY + 3} fontSize="11.5" fontWeight="600"
+            fill={gapGrade >= 3 ? '#3b2a12' : '#fdf6e8'}>
+        {gapName.length > 24 ? `${gapName.slice(0, 23)}…` : gapName}
+      </text>
+      <text x={x + 22} y={gapY + 14} fontSize="8.5" letterSpacing="1"
+            fill={gapGrade >= 3 ? 'rgba(59,42,18,.6)' : 'rgba(253,246,232,.7)'}
+            fontFamily="'IBM Plex Mono', ui-monospace, monospace">
+        THE GAP
+      </text>
+    </svg>
+  )
+}
+
+/** Confidence as a dial. A flat bar reads as a score; a dial reads as a gauge. */
+function ConfidenceRing({ pct, hue }: { pct: number; hue: string }) {
+  const R = 26
+  const C = 2 * Math.PI * R
+  return (
+    <svg className="pr-ring" viewBox="0 0 64 64" role="img"
+         aria-label={`${pct} per cent confident`}>
+      <circle cx="32" cy="32" r={R} fill="none" strokeWidth="7"
+              stroke={`color-mix(in srgb, ${hue} 26%, transparent)`} />
+      <circle
+        cx="32" cy="32" r={R} fill="none" strokeWidth="7" stroke={hue}
+        strokeLinecap="round" transform="rotate(-90 32 32)"
+        strokeDasharray={`${(C * pct) / 100} ${C}`}
+      />
+      <text x="32" y="37" textAnchor="middle" fontSize="17" fontWeight="600"
+            fill="currentColor">{pct}</text>
+    </svg>
+  )
+}
+
 export function Brief({
   pack,
   data,
@@ -127,20 +227,31 @@ export function Brief({
                 .
               </p>
 
+              {data.wall && (
+                <DepthDiagram
+                  wallGrade={gradeNum(data.wall.grade)}
+                  gapGrade={gradeNum(gap.grade)}
+                  wallName={kidName(data.wall)}
+                  gapName={kidName(gap)}
+                />
+              )}
+
               <section
                 className="pr-gap"
                 style={{ ['--gc' as string]: GRADE_HUE[gradeNum(gap.grade)] }}
               >
-                <div className="pr-gap-tag">
-                  most likely gap &middot; {confidence}% confident
+                <div className="pr-gap-main">
+                  <div className="pr-gap-tag">most likely gap</div>
+                  <div className="pr-gap-name">{kidName(gap)}</div>
+                  <div className="pr-gap-teacher">
+                    {gap.teacher}
+                    <span className="pr-code">{gap.code}</span>
+                  </div>
                 </div>
-                <div className="pr-gap-name">{kidName(gap)}</div>
-                <div className="pr-gap-teacher">
-                  {gap.teacher}
-                  <span className="pr-code">{gap.code}</span>
-                </div>
-                <div className="pr-conf">
-                  <i style={{ width: `${confidence}%` }} />
+                <div className="pr-gap-ring">
+                  <ConfidenceRing pct={confidence}
+                                  hue={GRADE_HUE[gradeNum(gap.grade)]} />
+                  <span>confident</span>
                 </div>
               </section>
 
