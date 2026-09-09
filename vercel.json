@@ -4,5 +4,10 @@
   "outputDirectory": "app/dist",
   "installCommand": "echo skip",
   "framework": null,
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/((?!assets/|pack\\.json|sw\\.js|registerSW\\.js|workbox-|manifest|favicon|icon-|apple-touch).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
