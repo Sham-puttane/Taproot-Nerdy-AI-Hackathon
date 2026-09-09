@@ -148,14 +148,47 @@ the Grove, and the Cascade, whose content is real graph structure.
 
 ## Open, in the order I'd do them
 
-1. **A real measuring instrument.** MD skills currently serve whole-number
+**The submission itself is the risk now, not the product.** Everything below
+item 2 is polish; items 1 and 2 are the deliverable.
+
+1. **Demo video (2-3 min) + README refresh.** UNSTARTED and it is the only
+   required artefact. The README predates the Cascade, the crossing notes,
+   the per-section eval and all four rebuilt screens, so it undersells what
+   exists. Suggested 2:30 cut:
+   - 0:00 a real 5th-grade fraction problem she gets wrong
+   - 0:20 the descent, with the rail's root going down and the WHY line
+   - 0:50 the crossing: "decimals ARE fractions" (this is the moment)
+   - 1:15 bedrock named in kid language, then repair on a manipulative
+   - 1:40 **the Cascade** -- one kindergarten fix, N skills wake up
+   - 2:00 the Grove: four trees lit from one repair
+   - 2:15 the parent report, and the numbers (73.2% exact over 16 sections)
+2. **A real measuring instrument.** MD skills currently serve whole-number
    arithmetic as a placeholder — reachable, not right. `2.MD.A.2` deserves it
    most: "bigger unit, smaller number" is the denominator idea three years
    early.
-2. **More instruments** — Fold (equivalence), Groups, Balance, Blocks. 624 of
-   729 items are still multiple choice.
-3. **Climb cascade** — understated; should be light travelling up the chain.
-4. **Demo video + README** — the actual submission, and unstarted.
+3. **More instruments** — Fold (equivalence), Groups, Balance, Blocks.
+   **716 of 729 items are still multiple choice; only 13 are hands-on
+   (1.8%).** This is why a casual play-through never meets the slicer.
+4. **The Dig gesture** — drag down through the soil to reveal the next
+   question instead of tapping. Makes the metaphor kinetic and hands her the
+   pacing; roughly one gesture handler.
+5. **Tap a bead -> "why are we here?"** — surfaces `crossing.ts` on demand
+   instead of only at the moment of the jump.
+6. **The bedrock screen** — the emotional payoff of the descent, still a
+   plain card in a wide empty column.
+
+## Done since the last update
+
+- Service worker + deploy concurrency: three commits had shipped invisibly.
+- All four screens rebuilt full-bleed in one visual language.
+- Trail redrawn as one SVG: strata, a single root, beads on it.
+- Rewards on every answer; the climb now happens ON the trail.
+- **The Cascade** — one repair, everything standing on it lights in sequence.
+- Topic crossings narrated (`crossing.ts`).
+- Trees own their CORRIDOR, so one repair can light four trees.
+- 3 walls that sat ABOVE the child's grade, now gated by
+  `app/scripts/check-walls.mjs` on every build (verified it fails on the bug).
+- `engine/eval/sections.ts` — all 16 offerable walls measured.
 
 ## The four screens, all now full-bleed and in one visual language
 
