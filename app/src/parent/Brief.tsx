@@ -27,7 +27,16 @@ export interface BriefData {
   best: { nodeId: string; confidence: number } | null
   runnersUp: { nodeId: string; confidence: number }[]
   path: string[]
-  asked: { nodeId: string; correct: boolean }[]
+  asked: {
+    nodeId: string
+    correct: boolean
+    /** what she was actually shown */
+    stem?: string
+    /** which option she picked */
+    chosen?: number
+    /** the named error that answer represents */
+    becauseOf?: string
+  }[]
   questionCount: number
 }
 
@@ -366,20 +375,36 @@ export function Brief({
             <div className="kicker">
               what she was asked ({data.questionCount})
             </div>
+            <p className="pr-note">
+              Every question, and for the ones she missed, what that particular
+              wrong answer means.
+            </p>
             <div className="pr-asked">
               {data.asked.map((a, i) => {
                 const n = node(a.nodeId)
                 if (!n) return null
                 return (
-                  <div key={`${a.nodeId}-${i}`} className="pr-ask">
-                    <span
-                      className={`pr-mark${a.correct ? ' ok' : ' no'}`}
-                      aria-hidden="true"
-                    >
-                      {a.correct ? '✓' : '✗'}
-                    </span>
-                    <span className="pr-ask-name">{kidName(n)}</span>
-                    <span className="pr-ask-grade">gr {n.grade}</span>
+                  <div key={`${a.nodeId}-${i}`}
+                       className={`pr-ask${a.correct ? '' : ' pr-ask-wrong'}`}>
+                    <div className="pr-ask-head">
+                      <span
+                        className={`pr-mark${a.correct ? ' ok' : ' no'}`}
+                        aria-hidden="true"
+                      >
+                        {a.correct ? '✓' : '✗'}
+                      </span>
+                      <span className="pr-ask-name">{kidName(n)}</span>
+                      <span className="pr-ask-grade">gr {n.grade}</span>
+                    </div>
+                    {a.stem && <div className="pr-ask-stem">{a.stem}</div>}
+                    {/* The point of the whole page. A parent can see a tick
+                        and a cross anywhere; what they cannot get elsewhere is
+                        what the wrong answer MEANT. */}
+                    {!a.correct && a.becauseOf && (
+                      <div className="pr-ask-why">
+                        <b>Why:</b> {a.becauseOf}
+                      </div>
+                    )}
                   </div>
                 )
               })}

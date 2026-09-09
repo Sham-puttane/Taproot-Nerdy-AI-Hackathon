@@ -1370,3 +1370,30 @@ button.opt:disabled {
   .pr-gap { flex-direction: column; align-items: flex-start; gap: 12px; }
   .pr-gap-ring { margin-left: 0; flex-direction: row; gap: 8px; align-items: center; }
 }
+
+/* Each question becomes a small record rather than a tick in a list: what she
+   was asked, and for a miss, what that particular wrong answer means. A tick
+   and a cross is available on any worksheet; this is not. */
+.pr-ask {
+  display: block;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--edge);
+}
+.pr-ask-head { display: flex; align-items: center; gap: 9px; }
+.pr-ask-stem {
+  font-size: 13px; color: var(--ink-dim);
+  margin: 4px 0 0 23px; line-height: 1.45;
+}
+.pr-ask-why {
+  font-size: 12.5px; line-height: 1.45;
+  margin: 5px 0 0 23px; padding: 6px 10px;
+  border-left: 3px solid var(--wrong);
+  background: color-mix(in srgb, var(--wrong) 8%, transparent);
+  border-radius: 0 8px 8px 0;
+  color: var(--ink);
+}
+.pr-ask-why b {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-faint); margin-right: 5px;
+}

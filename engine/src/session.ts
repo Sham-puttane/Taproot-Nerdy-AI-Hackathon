@@ -63,7 +63,10 @@ export class Session {
    * the engine would open on whatever is globally most informative, which is
    * not what the child just walked in with.
    */
-  seedFromWall(nodeId: string): void {
+  seedFromWall(
+    nodeId: string,
+    shown?: { stem?: string; chosen?: number; becauseOf?: string },
+  ): void {
     this.scope = new Set([nodeId, ...this.graph.ancestors(nodeId)]);
     this.wall = nodeId;
     this.candidates = [...this.scope].filter((id) => id !== nodeId);
@@ -72,10 +75,18 @@ export class Session {
     this.posterior = new GapPosterior(
       this.graph, this.candidates, this.cfg.bkt);
     this.posterior.update(nodeId, false);   // the wall failure is evidence
-    this.record(nodeId, false);
+    // The wall is the question that BROUGHT her here, so it is the one a
+    // parent most wants to see. Recording it without its stem left the first
+    // row of the report as a bare cross.
+    this.record(nodeId, false, 0, shown);
   }
 
-  private record(nodeId: string, correct: boolean, gain = 0): void {
+  private record(
+    nodeId: string,
+    correct: boolean,
+    gain = 0,
+    shown?: { stem?: string; chosen?: number; becauseOf?: string },
+  ): void {
     const before = this.beliefs[nodeId] ?? this.cfg.bkt.prior;
     this.beliefs = applyObservation(
       this.graph, this.beliefs, { nodeId, correct },
@@ -89,6 +100,7 @@ export class Session {
     this.steps.push({
       nodeId, correct, beliefBefore: before,
       beliefAfter: this.beliefs[nodeId], expectedGain: gain,
+      ...(shown ?? {}),
     });
   }
 
@@ -116,8 +128,13 @@ export class Session {
   }
 
 
-  answer(nodeId: string, correct: boolean, gain = 0): void {
-    this.record(nodeId, correct, gain);
+  answer(
+    nodeId: string,
+    correct: boolean,
+    gain = 0,
+    shown?: { stem?: string; chosen?: number; becauseOf?: string },
+  ): void {
+    this.record(nodeId, correct, gain, shown);
   }
 
   bedrock(): Bedrock | null {

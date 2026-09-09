@@ -153,4 +153,17 @@ export interface DescentStep {
   beliefAfter: number;
   /** Expected information gain, in bits, that motivated choosing this item. */
   expectedGain: number;
+  /**
+   * WHAT she was actually shown, and WHICH answer she picked.
+   *
+   * Without these the parent report can say "she got 6 of 9 right" and
+   * nothing else -- it cannot say what she was asked or why a wrong answer
+   * was wrong, because that information was thrown away the moment the
+   * belief was updated. Rewording the report could never have fixed that.
+   * Optional because the eval harness answers a node, not an item.
+   */
+  stem?: string;
+  chosen?: number;
+  /** The named error the chosen option represents, when the item knows it. */
+  becauseOf?: string;
 }

@@ -40,6 +40,22 @@ export interface Attempt {
 /** Mastery is a belief, not a tally -- three lucky answers cannot clear it. */
 const MASTERED = DEFAULT_CONFIG.masteryThreshold + DEFAULT_CONFIG.confidenceMargin
 
+/**
+ * What the chosen answer says about her thinking.
+ *
+ * An authored item carries a reason per option; a deterministic item carries
+ * the single named misconception its distractors were built from. Either way
+ * this is the difference between a report that says "6 of 9 correct" and one
+ * that says WHY the other three were wrong -- which is the only thing a
+ * parent cannot get anywhere else.
+ */
+function becauseOf(item: Item, chosen: number, correct: boolean): string | undefined {
+  if (correct) return undefined
+  const reasons = (item as unknown as { reasons?: string[] }).reasons
+  if (reasons && reasons[chosen]) return reasons[chosen]
+  return item.misconception || undefined
+}
+
 export function useGame(pack: Pack, wallCode?: string) {
   const graph = useMemo(() => toGraph(pack), [pack])
   const session = useRef<Session>(new Session(graph))
@@ -162,7 +178,11 @@ export function useGame(pack: Pack, wallCode?: string) {
         setTrail((t) =>
           t.map((s2, i) => (i === t.length - 1 ? { ...s2, correct: false } : s2)),
         )
-        session.current.seedFromWall(item.node_id)
+        session.current.seedFromWall(item.node_id, {
+          stem: item.stem,
+          chosen,
+          becauseOf: becauseOf(item, chosen, correct),
+        })
         setPhase('descent')
         setTick((t) => t + 1)
         advanceDescent()
@@ -170,7 +190,11 @@ export function useGame(pack: Pack, wallCode?: string) {
       }
 
       if (phase === 'descent') {
-        session.current.answer(item.node_id, correct)
+        session.current.answer(item.node_id, correct, 0, {
+          stem: item.stem,
+          chosen,
+          becauseOf: becauseOf(item, chosen, correct),
+        })
         setTrail((t) =>
           t.map((s2, i) => (i === t.length - 1 ? { ...s2, correct } : s2)),
         )
@@ -180,7 +204,11 @@ export function useGame(pack: Pack, wallCode?: string) {
       }
 
       if (phase === 'repair' && bedrock) {
-        session.current.answer(bedrock.nodeId, correct)
+        session.current.answer(bedrock.nodeId, correct, 0, {
+          stem: item.stem,
+          chosen,
+          becauseOf: becauseOf(item, chosen, correct),
+        })
         setTick((t) => t + 1)
         if (beliefs()[bedrock.nodeId] >= MASTERED) {
           const path = session.current.climbPath(
@@ -272,7 +300,11 @@ export function useGame(pack: Pack, wallCode?: string) {
       if (phase === 'climb') {
         const nodeId = climb[climbAt + 1]
         if (nodeId) {
-          session.current.answer(nodeId, correct)
+          session.current.answer(nodeId, correct, 0, {
+            stem: item.stem,
+            chosen,
+            becauseOf: becauseOf(item, chosen, correct),
+          })
           setLit((s) => new Set([...s, nodeId]))
           setTick((t) => t + 1)
           // A rung she FAILED on the way down and has just answered on the way
@@ -349,6 +381,9 @@ export function useGame(pack: Pack, wallCode?: string) {
       asked: session.current.steps.map((st) => ({
         nodeId: st.nodeId,
         correct: st.correct,
+        stem: st.stem,
+        chosen: st.chosen,
+        becauseOf: st.becauseOf,
       })),
       questionCount: session.current.steps.length,
     }
