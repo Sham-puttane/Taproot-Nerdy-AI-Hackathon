@@ -22,17 +22,27 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass
 
-ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
-
-# Free-tier models, tried in order. The first is the strongest reasoner we can
-# reach for free; the rest are fallbacks for when a free model is rate-limited
-# or temporarily unavailable, which on a free tier is normal rather than
-# exceptional.
-MODELS = [
-    "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "google/gemma-4-31b-it:free",
-    "nvidia/nemotron-3-super-120b-a12b:free",
-    "thinkingmachines/inkling:free",
+# Two providers, both free tier, both OpenAI-shaped so one code path serves
+# them. Groq goes first purely on speed: OpenRouter's free tier was taking
+# 30-60s per item, which caps how much of the pack can be regenerated in the
+# days available. Groq answers in seconds. OpenRouter is the fallback, so a
+# rate limit on one does not stop a build.
+PROVIDERS = [
+    {
+        "name": "groq",
+        "env": "GROQ_API_KEY",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "models": ["openai/gpt-oss-120b", "qwen/qwen3.8-27b",
+                   "openai/gpt-oss-20b"],
+    },
+    {
+        "name": "openrouter",
+        "env": "OPENROUTER_API_KEY",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "models": ["nvidia/nemotron-3-ultra-550b-a55b:free",
+                   "google/gemma-4-31b-it:free",
+                   "nvidia/nemotron-3-super-120b-a12b:free"],
+    },
 ]
 
 
@@ -40,16 +50,17 @@ class NoKey(RuntimeError):
     pass
 
 
-def api_key() -> str:
-    key = os.environ.get("OPENROUTER_API_KEY", "").strip()
-    if not key:
+def available() -> list[dict]:
+    """Providers we actually hold a key for, in preference order."""
+    live = [p for p in PROVIDERS if os.environ.get(p["env"], "").strip()]
+    if not live:
         raise NoKey(
-            "OPENROUTER_API_KEY is not set.\n"
-            "  PowerShell:  setx OPENROUTER_API_KEY \"sk-or-...\"  (then a NEW terminal)\n"
-            "Generation refuses to run without it rather than shipping "
+            "No generation key set. Wanted GROQ_API_KEY or OPENROUTER_API_KEY.\n"
+            "  PowerShell:  setx GROQ_API_KEY \"gsk_...\"   (then a NEW terminal)\n"
+            "Generation refuses to run without one rather than shipping "
             "unverified items."
         )
-    return key
+    return live
 
 
 @dataclass
@@ -69,60 +80,64 @@ def ask(
     retries: int = 2,
     timeout: int = 120,
 ) -> Reply:
-    """One completion, falling through the model list on failure."""
-    key = api_key()
+    """One completion, falling through providers and then models."""
     last: Exception | None = None
 
-    for model in (models or MODELS):
-        for attempt in range(retries):
-            body = json.dumps({
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": system},
-                    {"role": "user", "content": user},
-                ],
-                "max_tokens": max_tokens,
-                "temperature": temperature,
-            }).encode("utf-8")
+    for provider in available():
+        key = os.environ[provider["env"]].strip()
+        for model in (models or provider["models"]):
+            for attempt in range(retries):
+                body = json.dumps({
+                    "model": model,
+                    "messages": [
+                        {"role": "system", "content": system},
+                        {"role": "user", "content": user},
+                    ],
+                    "max_tokens": max_tokens,
+                    "temperature": temperature,
+                }).encode("utf-8")
 
-            req = urllib.request.Request(
-                ENDPOINT, data=body, method="POST",
-                headers={
-                    "Authorization": f"Bearer {key}",
-                    "Content-Type": "application/json",
-                    # OpenRouter asks for these; they also make the traffic
-                    # attributable if we ever need to debug a rate limit.
-                    "HTTP-Referer": "https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon",
-                    "X-Title": "Taproot",
-                },
-            )
-            t0 = time.time()
-            try:
-                with urllib.request.urlopen(req, timeout=timeout) as r:
-                    payload = json.loads(r.read().decode("utf-8"))
-                choices = payload.get("choices") or []
-                if not choices:
-                    raise RuntimeError(f"no choices: {str(payload)[:200]}")
-                text = choices[0]["message"]["content"] or ""
-                if not text.strip():
-                    raise RuntimeError("empty completion")
-                return Reply(text.strip(), model, time.time() - t0)
-            except urllib.error.HTTPError as e:
-                detail = e.read().decode("utf-8", "replace")[:300]
-                last = RuntimeError(f"{model} HTTP {e.code}: {detail}")
-                # 429 on a free tier means wait, not give up on the model
-                if e.code == 429 and attempt + 1 < retries:
-                    time.sleep(3 * (attempt + 1))
-                    continue
-                break
-            except Exception as e:                      # noqa: BLE001
-                last = e
-                if attempt + 1 < retries:
-                    time.sleep(2)
-                    continue
-                break
+                req = urllib.request.Request(
+                    provider["url"], data=body, method="POST",
+                    headers={
+                        "Authorization": f"Bearer {key}",
+                        "Content-Type": "application/json",
+                        # OpenRouter asks for these; they also make the traffic
+                        # attributable if we need to debug a rate limit.
+                        "HTTP-Referer": "https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon",
+                        "X-Title": "Taproot",
+                    },
+                )
+                t0 = time.time()
+                try:
+                    with urllib.request.urlopen(req, timeout=timeout) as r:
+                        payload = json.loads(r.read().decode("utf-8"))
+                    choices = payload.get("choices") or []
+                    if not choices:
+                        raise RuntimeError(f"no choices: {str(payload)[:200]}")
+                    text = choices[0]["message"]["content"] or ""
+                    if not text.strip():
+                        raise RuntimeError("empty completion")
+                    return Reply(text.strip(),
+                                 f"{provider['name']}/{model}",
+                                 time.time() - t0)
+                except urllib.error.HTTPError as e:
+                    detail = e.read().decode("utf-8", "replace")[:300]
+                    last = RuntimeError(
+                        f"{provider['name']}/{model} HTTP {e.code}: {detail}")
+                    # 429 on a free tier means wait, not give up on the model
+                    if e.code == 429 and attempt + 1 < retries:
+                        time.sleep(3 * (attempt + 1))
+                        continue
+                    break
+                except Exception as e:                  # noqa: BLE001
+                    last = e
+                    if attempt + 1 < retries:
+                        time.sleep(2)
+                        continue
+                    break
 
-    raise RuntimeError(f"every model failed; last error: {last}")
+    raise RuntimeError(f"every provider and model failed; last error: {last}")
 
 
 def _extract(text: str) -> object | None:
