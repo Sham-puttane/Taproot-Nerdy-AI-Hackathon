@@ -175,3 +175,91 @@ def test_rejection_names_the_reason():
     v = verify(BROKEN[0][1])
     assert not v.ok
     assert "correct value" in " ".join(v.reasons)
+
+
+# ---- word problems: the author must show working that actually checks out --
+
+def _word(**kw):
+    item = {
+        "kind": "word",
+        "stem": "Maria has 45 apples. She gives 12 away. Then buys 20 more.",
+        "expression": "(45 - 12) + 20",
+        "options": ["53", "33", "65", "77"],
+        "answer_index": 0,
+        "grade": "2",
+    }
+    item.update(kw)
+    return item
+
+
+def test_word_accepts_working_that_matches_the_answer():
+    assert verify(_word()).ok
+
+
+def test_word_rejects_when_the_authors_own_arithmetic_disagrees():
+    """The whole point of the gate: a plausible story with a wrong answer."""
+    v = verify(_word(options=["55", "33", "65", "77"]))
+    assert not v.ok
+    assert any("disagrees" in r for r in v.reasons)
+
+
+def test_word_rejects_a_story_with_no_working():
+    v = verify(_word(expression=""))
+    assert not v.ok
+    assert any("no expression" in r for r in v.reasons)
+
+
+def test_word_rejects_unevaluatable_working():
+    assert not verify(_word(expression="45 apples minus 12")).ok
+
+
+def test_word_rejects_answer_index_out_of_range():
+    assert not verify(_word(answer_index=9)).ok
+
+
+def test_word_accepts_answer_index_zero():
+    """answer_index 0 is falsy in Python; a truthiness test rejects it."""
+    assert verify(_word(answer_index=0)).ok
+
+
+def test_word_grade_cap_is_enforced_by_the_authoring_gate():
+    """The strict whole-number cap lives in authored.py, not here.
+
+    `_check_grade` is deliberately loose (cap * 100) because the deterministic
+    generators already bound their own numbers. Authored items come from a
+    model and are bounded at the authoring gate instead, so that is where this
+    is asserted -- testing it here would have been testing the wrong layer and
+    passing for the wrong reason.
+    """
+    import authored
+
+    node = {"code": "K.OA.A.1", "grade": "K", "id": "x"}
+    raw = {
+        # deliberately inside the 8-word kindergarten budget, so the grade
+        # cap is the gate that fires rather than the length gate
+        "stem": "450 apples. Take 12. How many?",
+        "expression": "450 - 12",
+        "answer": "438",
+        "options": ["438", "33", "65", "77"],
+        "answer_index": 0,
+    }
+    item, why = authored.check(raw, node)
+    assert item is None
+    assert "grade cap" in why
+
+
+def test_authoring_gate_rejects_a_stem_that_hides_its_numbers():
+    """"How many apples in total?" = 3+2 verifies, and is unanswerable."""
+    import authored
+
+    node = {"code": "K.OA.A.1", "grade": "K", "id": "x"}
+    raw = {
+        "stem": "How many apples in total?",
+        "expression": "3+2",
+        "answer": "5",
+        "options": ["5", "4", "6", "3"],
+        "answer_index": 0,
+    }
+    item, why = authored.check(raw, node)
+    assert item is None
+    assert "never mentions" in why

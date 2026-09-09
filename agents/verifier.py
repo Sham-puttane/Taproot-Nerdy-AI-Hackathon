@@ -252,12 +252,59 @@ def verify_place(item: dict) -> Verdict:
     return _check_grade(v, item.get("grade"), [val])
 
 
+def verify_word(item: dict) -> Verdict:
+    """A word problem, checked by making the author show its work.
+
+    A story has no closed form to sympify, so a naive gate could only check
+    that four options look like numbers -- which would let a model state a
+    story, state an answer, and be believed. That is exactly what this project
+    refuses to do.
+
+    So an authored word problem must carry the COMPUTATION it claims to
+    describe ("(72 - 18)/9"). SymPy evaluates that, and the item is rejected
+    unless the arithmetic the author showed actually produces the answer the
+    author stated. A model that reasons badly fails a check rather than
+    reaching a child, and the failure is visible in the reject log.
+    """
+    v = Verdict(ok=True)
+    expr = item.get("expression")
+    if not expr:
+        return v.fail("word problem has no expression to check its answer")
+    try:
+        truth = sympify(str(expr).replace("x", "*"), rational=True)
+    except (SympifyError, TypeError, SyntaxError):
+        return v.fail(f"expression does not evaluate: {expr!r}")
+    if truth.free_symbols:
+        return v.fail("expression contains free symbols")
+
+    opts = item.get("options", [])
+    idx = item.get("answer_index", -1)
+    if isinstance(idx, bool) or not isinstance(idx, int) \
+            or not (0 <= idx < len(opts)):
+        return v.fail("answer_index out of range")
+
+    claimed = parse_value(opts[idx])
+    if claimed is None:
+        return v.fail(f"stated answer {opts[idx]!r} is not a number")
+    if claimed != truth:
+        return v.fail(
+            f"the working {expr!r} gives {truth}, but the item claims "
+            f"{opts[idx]!r} -- the author's own arithmetic disagrees")
+
+    v = _check_options(v, opts, idx, truth)
+    if not v.ok:
+        return v
+    vals = [parse_value(o) for o in opts] + [truth]
+    return _check_grade(v, item.get("grade"), vals)
+
+
 KINDS = {
     "arithmetic": verify_arithmetic,
     "compare": verify_compare,
     "partition": verify_partition,
     "cut": verify_cut,
     "place": verify_place,
+    "word": verify_word,
 }
 
 
