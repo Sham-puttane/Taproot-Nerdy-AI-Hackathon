@@ -1,0 +1,366 @@
+{
+  "trialsPerWall": 150,
+  "results": [
+    {
+      "topic": "Fractions",
+      "grade": "3",
+      "code": "3.NF.A.3",
+      "corridor": 19,
+      "plantable": 18,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.78,
+      "within1": 0.88,
+      "diagnosed": 1,
+      "meanItems": 9.413333333333334,
+      "crossRate": 1,
+      "crossInto": {
+        "Shapes": 150,
+        "Measuring": 102
+      },
+      "deepestFind": {
+        "planted": "K.MD.A.1",
+        "grades": 3
+      }
+    },
+    {
+      "topic": "Fractions",
+      "grade": "4",
+      "code": "4.NF.B.3.d",
+      "corridor": 51,
+      "plantable": 50,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.6933333333333334,
+      "within1": 0.8,
+      "diagnosed": 0.9333333333333333,
+      "meanItems": 13.746666666666666,
+      "crossRate": 1,
+      "crossInto": {
+        "Times tables": 112,
+        "Big numbers": 89,
+        "Counting": 14,
+        "Shapes": 53,
+        "Measuring": 41
+      },
+      "deepestFind": {
+        "planted": "K.CC.A.1",
+        "grades": 4
+      }
+    },
+    {
+      "topic": "Fractions",
+      "grade": "5",
+      "code": "5.NF.A.1",
+      "corridor": 52,
+      "plantable": 51,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.6933333333333334,
+      "within1": 0.8,
+      "diagnosed": 0.92,
+      "meanItems": 14.253333333333334,
+      "crossRate": 1,
+      "crossInto": {
+        "Big numbers": 92,
+        "Times tables": 115,
+        "Shapes": 51,
+        "Measuring": 37,
+        "Counting": 12
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.3",
+        "grades": 5
+      }
+    },
+    {
+      "topic": "Times tables",
+      "grade": "1",
+      "code": "1.OA.C.6",
+      "corridor": 10,
+      "plantable": 9,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7533333333333333,
+      "within1": 0.86,
+      "diagnosed": 1,
+      "meanItems": 6.953333333333333,
+      "crossRate": 0.21333333333333335,
+      "crossInto": {
+        "Counting": 32
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.5",
+        "grades": 1
+      }
+    },
+    {
+      "topic": "Times tables",
+      "grade": "2",
+      "code": "2.OA.A.1",
+      "corridor": 19,
+      "plantable": 18,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7266666666666667,
+      "within1": 0.86,
+      "diagnosed": 0.9733333333333334,
+      "meanItems": 10.52,
+      "crossRate": 1,
+      "crossInto": {
+        "Big numbers": 150,
+        "Counting": 43
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.4",
+        "grades": 2
+      }
+    },
+    {
+      "topic": "Times tables",
+      "grade": "3",
+      "code": "3.OA.D.8",
+      "corridor": 26,
+      "plantable": 25,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.76,
+      "within1": 0.8466666666666667,
+      "diagnosed": 1,
+      "meanItems": 10.966666666666667,
+      "crossRate": 0.8533333333333334,
+      "crossInto": {
+        "Big numbers": 116,
+        "Counting": 32
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.2",
+        "grades": 3
+      }
+    },
+    {
+      "topic": "Times tables",
+      "grade": "4",
+      "code": "4.OA.A.3",
+      "corridor": 42,
+      "plantable": 41,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7,
+      "within1": 0.82,
+      "diagnosed": 0.94,
+      "meanItems": 12.66,
+      "crossRate": 1,
+      "crossInto": {
+        "Big numbers": 150,
+        "Counting": 22
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.2",
+        "grades": 4
+      }
+    },
+    {
+      "topic": "Big numbers",
+      "grade": "1",
+      "code": "1.NBT.C.4",
+      "corridor": 15,
+      "plantable": 14,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7066666666666667,
+      "within1": 0.8733333333333333,
+      "diagnosed": 0.9933333333333333,
+      "meanItems": 9.033333333333333,
+      "crossRate": 1,
+      "crossInto": {
+        "Times tables": 150,
+        "Counting": 51
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.4",
+        "grades": 1
+      }
+    },
+    {
+      "topic": "Big numbers",
+      "grade": "2",
+      "code": "2.NBT.B.5",
+      "corridor": 19,
+      "plantable": 18,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.76,
+      "within1": 0.8666666666666667,
+      "diagnosed": 0.98,
+      "meanItems": 10.24,
+      "crossRate": 1,
+      "crossInto": {
+        "Times tables": 150,
+        "Counting": 41
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.4",
+        "grades": 2
+      }
+    },
+    {
+      "topic": "Big numbers",
+      "grade": "4",
+      "code": "4.NBT.B.5",
+      "corridor": 24,
+      "plantable": 23,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7533333333333333,
+      "within1": 0.88,
+      "diagnosed": 1,
+      "meanItems": 9.833333333333334,
+      "crossRate": 0.8666666666666667,
+      "crossInto": {
+        "Times tables": 120,
+        "Counting": 13
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.3",
+        "grades": 4
+      }
+    },
+    {
+      "topic": "Big numbers",
+      "grade": "5",
+      "code": "5.NBT.B.7",
+      "corridor": 73,
+      "plantable": 72,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.72,
+      "within1": 0.8,
+      "diagnosed": 0.94,
+      "meanItems": 14.473333333333333,
+      "crossRate": 1,
+      "crossInto": {
+        "Fractions": 150,
+        "Times tables": 93,
+        "Counting": 7,
+        "Shapes": 34,
+        "Measuring": 48
+      },
+      "deepestFind": {
+        "planted": "K.CC.A.1",
+        "grades": 5
+      }
+    },
+    {
+      "topic": "Measuring",
+      "grade": "3",
+      "code": "3.MD.D.8",
+      "corridor": 12,
+      "plantable": 11,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7266666666666667,
+      "within1": 0.8533333333333334,
+      "diagnosed": 1,
+      "meanItems": 7.34,
+      "crossRate": 0.6666666666666666,
+      "crossInto": {
+        "Shapes": 100
+      },
+      "deepestFind": {
+        "planted": "K.G.A.1",
+        "grades": 3
+      }
+    },
+    {
+      "topic": "Measuring",
+      "grade": "4",
+      "code": "4.MD.A.2",
+      "corridor": 58,
+      "plantable": 57,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.72,
+      "within1": 0.8133333333333334,
+      "diagnosed": 0.9333333333333333,
+      "meanItems": 13.933333333333334,
+      "crossRate": 1,
+      "crossInto": {
+        "Fractions": 150,
+        "Shapes": 48,
+        "Times tables": 116,
+        "Big numbers": 54,
+        "Counting": 7
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.1",
+        "grades": 4
+      }
+    },
+    {
+      "topic": "Measuring",
+      "grade": "5",
+      "code": "5.MD.A.1",
+      "corridor": 80,
+      "plantable": 79,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.7133333333333334,
+      "within1": 0.7866666666666666,
+      "diagnosed": 0.9133333333333333,
+      "meanItems": 14.66,
+      "crossRate": 1,
+      "crossInto": {
+        "Fractions": 150,
+        "Shapes": 30,
+        "Big numbers": 106,
+        "Times tables": 90,
+        "Counting": 5
+      },
+      "deepestFind": {
+        "planted": "K.OA.A.4",
+        "grades": 5
+      }
+    },
+    {
+      "topic": "Shapes",
+      "grade": "3",
+      "code": "3.G.A.2",
+      "corridor": 17,
+      "plantable": 16,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.76,
+      "within1": 0.84,
+      "diagnosed": 1,
+      "meanItems": 8.6,
+      "crossRate": 0.64,
+      "crossInto": {
+        "Measuring": 96
+      },
+      "deepestFind": {
+        "planted": "K.G.A.1",
+        "grades": 3
+      }
+    },
+    {
+      "topic": "Shapes",
+      "grade": "5",
+      "code": "5.G.B.4",
+      "corridor": 12,
+      "plantable": 11,
+      "floor": "K",
+      "trials": 150,
+      "exact": 0.74,
+      "within1": 0.8733333333333333,
+      "diagnosed": 1,
+      "meanItems": 7.273333333333333,
+      "crossRate": 0,
+      "crossInto": {},
+      "deepestFind": {
+        "planted": "K.G.B.5",
+        "grades": 5
+      }
+    }
+  ]
+}

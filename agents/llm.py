@@ -102,6 +102,13 @@ def ask(
                     headers={
                         "Authorization": f"Bearer {key}",
                         "Content-Type": "application/json",
+                        # Not cosmetic. urllib defaults to
+                        # "Python-urllib/3.x", which Groq's Cloudflare front
+                        # blocks with error 1010 -- a browser-integrity ban,
+                        # not a rate limit. That single missing header was 63
+                        # of 87 rejections in the first full run, and it looks
+                        # exactly like a quality problem in the reject log.
+                        "User-Agent": "taproot/1.0 (+https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon)",
                         # OpenRouter asks for these; they also make the traffic
                         # attributable if we need to debug a rate limit.
                         "HTTP-Referer": "https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon",

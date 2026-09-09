@@ -250,7 +250,10 @@ def for_node(node: dict, n: int, cache: dict) -> tuple[list[dict], list[str]]:
         try:
             out = ask_json(SYSTEM, prompt, max_tokens=4000)
         except Exception as e:                              # noqa: BLE001
-            return [], [f"call failed: {e}"]
+            # Keep the provider's own words. Collapsing every failure to
+            # "call failed" hid a 403 and a 429 behind what read like a
+            # quality problem for two full runs.
+            return [], [f"call failed - {str(e)[:160]}"]
         raw_items = out.get("items") if isinstance(out, dict) else None
         if not isinstance(raw_items, list):
             return [], ["reply had no items list"]

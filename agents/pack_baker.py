@@ -117,7 +117,22 @@ def bake(wall_codes, per_node: int = 8) -> dict:
     ids = set()
     for w in wall_codes:
         ids |= corridor(by_code[w], prereqs)
+
+    # Authored items, if agents/authored.py has been run. Indexed by STANDARD
+    # CODE rather than node id: the ids come from whichever graph build the
+    # authoring run happened to read, and matching on them would silently drop
+    # everything after any rebuild. The code is the stable name.
+    authored_by_code: dict[str, list] = {}
+    apath = f"{OUT}/authored_items.json"
+    if os.path.exists(apath):
+        try:
+            for it in json.load(io.open(apath, encoding="utf-8")):
+                authored_by_code.setdefault(it["node"], []).append(it)
+        except (ValueError, OSError, KeyError) as e:
+            print(f"  ! could not read authored items: {e}", file=sys.stderr)
+
     items, covered, uncovered, rejected = [], [], [], 0
+    authored_used = 0
 
     for nid in sorted(ids, key=lambda i: nodes[i]["depth"]):
         n = nodes[nid]
@@ -135,6 +150,23 @@ def bake(wall_codes, per_node: int = 8) -> dict:
                                per_node, n.get("text", ""))
             rejected += len(bad)
             got.extend(ok)
+        # Authored items sit ALONGSIDE the deterministic ones rather than
+        # replacing them. The deterministic generator is the floor -- it can
+        # always produce something, needs no key and no network -- so a bad
+        # authoring run can never leave a skill with nothing to ask.
+        for it in authored_by_code.get(n["code"], []):
+            copy = dict(it)
+            copy["node_id"] = nid
+            # Re-verified here rather than trusted from the file on disk: the
+            # file is an artefact of an earlier run against an earlier graph,
+            # and Gate 1 is cheap.
+            v = verify(copy)
+            if v.ok:
+                got.append(copy)
+                authored_used += 1
+            else:
+                rejected += 1
+
         if not got:
             uncovered.append(n["code"])
             continue
@@ -165,6 +197,7 @@ def bake(wall_codes, per_node: int = 8) -> dict:
         "nodes_without_items": len(uncovered),
         "items": len(items),
         "rejected_by_verifier": rejected,
+        "authored_items": authored_used,
     }
     return pack, uncovered
 
