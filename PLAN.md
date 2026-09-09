@@ -51,6 +51,107 @@ cosmetically. Fold and Blocks are not worth the days.
 
 ---
 
+## What the evidence says about making this interactive
+
+Researched rather than guessed, because "add more gimmicks" and "help kids
+learn" pull in opposite directions more often than people expect.
+
+### 1. Three representations have strong evidence, and they are named
+
+The IES What Works Clearinghouse practice guides recommend a specific, small
+set: **number lines, arrays, and strip diagrams**, and single out the number
+line as *"a central representational tool in teaching fraction concepts from
+the early grades onward."*
+
+That is not a general encouragement to be visual. It is a list of three. And
+it maps onto our graph almost exactly:
+
+| WWC representation | Our instrument | Nodes it serves | Status |
+|---|---|---|---|
+| **Number line** | `Place`, needs extending | **38** | 8 items on 1 skill |
+| **Arrays** | Groups — does not exist | **31** | nothing |
+| **Strip diagrams** | `partition` bar | 68 items, 20 skills | exists, works |
+
+So the two instruments to build are the two the evidence names and we lack.
+Fold (12 nodes) and Blocks (4) are not on the WWC list and are not worth a day.
+
+### 2. Manipulatives help RETENTION more than transfer
+
+The meta-analysis of teaching with concrete manipulatives found *moderate to
+large* effects on retention but only *small* effects on problem solving,
+transfer and justification.
+
+Read honestly, that means dragging things is not automatically better
+learning. It earns its place for **remembering the repaired skill**, which is
+exactly and only what Repair is for. It does not justify making the whole game
+draggable.
+
+### 3. Perceptual richness actively HURTS — this one changes a design decision
+
+Kaminski, Sloutsky and Heckler found that irrelevant perceptual detail
+distracts children away from the concept — the seductive-details effect.
+Concrete representations can *hinder* transfer because they bind an idea to
+one context; idealised representations strip detail to expose the structure,
+and transfer better.
+
+**This overrides an instinct we both had.** A photorealistic pizza with
+pepperoni would test worse than a plain bar. Our existing `Cut` slicer already
+uses a spare rectangle — that is correct and stays. The instruments get shape
+and colour and nothing else: no textures, no cartoon food, no characters
+inside the manipulative.
+
+### 4. Concreteness fading — and we already have the loop for it
+
+The strongest single finding for us: transfer improves when instruction moves
+**concrete → representational → abstract** rather than staying at any one.
+
+Taproot's loop is *already that shape* and nobody designed it that way:
+
+```
+  Repair   ->   Climb          ->   Return
+  concrete      representational     abstract
+  drag it       see it drawn         the original symbols
+```
+
+Making that deliberate costs almost nothing and is a real pedagogical claim
+for the submission: the manipulative appears at Repair, the same idea appears
+as a diagram on the way up, and the child finishes on the exact symbolic
+problem that beat her. Right now Repair and Climb both serve whatever item
+happens to exist, so the fade is accidental. Enforcing it is a selection rule,
+not new UI.
+
+### What this means we build
+
+1. **Number line instrument** (WWC-named, 38 nodes) — drag a marker to a value,
+   place a fraction, compare two points. Extends `Place`.
+2. **Array/Groups instrument** (WWC-named, 31 nodes) — build rows and columns,
+   see multiplication as area.
+3. **Concreteness-fading selection rule** — Repair prefers hands-on, Climb
+   prefers a diagram item, Return uses the original symbolic wall item.
+4. **Keep manipulatives visually spare.** Shape and colour only.
+
+Interactivity that is NOT about the maths goes in the UI pass and is kept
+cheap: the Dig gesture, tap-a-bead-for-why, the bedrock reveal. Those serve
+autonomy and pacing, which the gamification meta-analysis says gamification
+actually does improve, unlike competence.
+
+### Sources
+
+- IES WWC, *Assisting Students Struggling with Mathematics: Intervention in
+  the Elementary Grades* — https://ies.ed.gov/ncee/wwc/PracticeGuide/26
+- IES WWC, *Developing Effective Fractions Instruction for K-8* —
+  https://ies.ed.gov/ncee/wwc/practiceguide/15
+- Carbonneau, Marley & Selig, *A meta-analysis of the efficacy of teaching
+  mathematics with concrete manipulatives* — https://eric.ed.gov/?id=EJ1007941
+- Fyfe, McNeil, Son & Goldstone, *Concreteness fading in mathematics and
+  science instruction: a systematic review* —
+  https://link.springer.com/article/10.1007/s10648-014-9249-3
+- Kaminski, Sloutsky & Heckler, *Do children need concrete instantiations to
+  learn an abstract concept?* —
+  https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/1/56827/files/2018/06/Kaminski-Sloutsky-Heckler-CogSci-2006-2kl3ovl.pdf
+
+---
+
 ## Dependency map
 
 ```
@@ -108,8 +209,13 @@ cuttable. Days 1 and 5–7 need no API key at all.
   *why that answer* by name. "She answered 5/6 because she added the
   denominators" instead of ✗. *Solves #5.*
 
-### Days 5–6 — three instruments
-Number line, Balance, Groups. *Solves #4.*
+### Days 5–6 — the two instruments the evidence names
+**Number line** (WWC's central tool for fractions, 38 nodes) and
+**Array/Groups** (WWC-named, 31 nodes), plus the **concreteness-fading
+selection rule** so Repair is concrete, Climb is representational and Return
+is abstract. Manipulatives stay visually spare — perceptual richness measurably
+hurts transfer. Balance is dropped: it is not on the WWC list, and strip
+diagrams (which are) already exist as the partition bar. *Solves #4.*
 
 ### Day 7 — UI pass
 Bedrock screen payoff, Dig gesture, tap-a-bead-for-why. *Solves #8.*
