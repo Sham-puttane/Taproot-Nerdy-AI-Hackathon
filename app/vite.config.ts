@@ -3,12 +3,21 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath, URL } from 'node:url'
 
-// GitHub Pages serves from a repo subpath. A service worker's scope is
-// absolute, so unlike the rest of the app it cannot use relative URLs -- the
-// base has to be the real path in production and root in dev.
-const BASE = process.env.NODE_ENV === 'production'
-  ? '/Taproot-Nerdy-AI-Hackathon/'
-  : '/'
+// Two hosts, two different roots, and the difference is not cosmetic: a
+// service worker's scope is ABSOLUTE, so unlike the rest of the app it cannot
+// be made relative and left to sort itself out.
+//
+//   GitHub Pages  serves from /<repo>/, so every asset path needs that prefix
+//   Vercel        serves from /, and the Pages prefix would 404 every asset
+//   dev           serves from /
+//
+// Vercel sets VERCEL=1 during its builds, which is how we tell them apart
+// without a second config or a manual flag someone has to remember to flip.
+const BASE = process.env.VERCEL
+  ? '/'
+  : process.env.NODE_ENV === 'production'
+    ? '/Taproot-Nerdy-AI-Hackathon/'
+    : '/'
 
 // The mastery engine is imported as SOURCE, not as a built package and not
 // across an API. It is the same TypeScript the eval harness drives under
