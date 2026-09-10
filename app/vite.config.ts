@@ -76,8 +76,16 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.endsWith('pack.json'),
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'taproot-packs' },
+            // NetworkFirst, not StaleWhileRevalidate. Stale-while-revalidate
+            // hands back the OLD pack on every load and only updates the copy
+            // behind it, so a person on a fresh bundle kept being served last
+            // week's questions. Three seconds is generous for a 400KB file and
+            // still falls back to the cache on a bad connection.
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'taproot-packs',
+              networkTimeoutSeconds: 3,
+            },
           },
         ],
       },

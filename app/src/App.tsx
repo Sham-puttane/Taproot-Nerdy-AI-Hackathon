@@ -222,7 +222,29 @@ function Preview({ pack, kind }: { pack: Pack; kind: string }) {
   const items = pack.items.filter((i) => i.kind === kind)
   const [n, setN] = useState(0)
   const item = items[n % Math.max(items.length, 1)]
-  if (!item) return <p className="lede">No {kind} items in this pack.</p>
+  if (!item) {
+    // "No X items in this pack" was a dead end that told a tester nothing --
+    // not whether they had typed the kind wrong, not whether their pack was
+    // stale, not what they could look at instead. All three were true at
+    // various points today.
+    const have = [...new Set(pack.items.map((i) => i.kind))].sort()
+    return (
+      <div className="frame">
+        <div className="kicker">preview</div>
+        <h1 className="say">No {kind} items here.</h1>
+        <p className="lede">
+          This pack holds {pack.items.length} items across {have.length} kinds.
+          If {kind} is one of them, the pack in this browser is out of date --
+          reload once.
+        </p>
+        <div className="opts">
+          {have.map((k) => (
+            <a key={k} className="opt" href={`?preview=${k}`}>{k}</a>
+          ))}
+        </div>
+      </div>
+    )
+  }
   return (
     <div className="frame">
       <div className="kicker">preview &middot; {kind} &middot; {items.length} items</div>

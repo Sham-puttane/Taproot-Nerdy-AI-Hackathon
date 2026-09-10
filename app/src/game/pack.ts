@@ -90,14 +90,37 @@ const PACK_STORE = 'packs' as const
  * Cache first, network second. That ordering is the offline promise: once a
  * pack has been seen, the game never waits on a network it may not have.
  */
+/**
+ * Load the question pack: newest if we can reach the network, cached if not.
+ *
+ * This used to be cache-first with no revalidation and no version, so the
+ * FIRST pack a person ever received was the one they kept forever. Someone
+ * running today's bundle -- voice switch visible, roster visible -- was still
+ * being served the original 729-item pack and told, correctly and uselessly,
+ * "No numberline items in this pack".
+ *
+ * Offline still works: that is exactly what the cache fallback is for. But
+ * being offline-capable was never a reason to refuse a newer pack from a
+ * machine that is plainly online.
+ */
 export async function loadPack(url = './pack.json'): Promise<Pack> {
+  try {
+    const res = await fetch(url, { cache: 'no-cache' })
+    if (res.ok) {
+      const pack = (await res.json()) as Pack
+      if (pack?.nodes?.length && pack?.items?.length) {
+        void dbPut(PACK_STORE, url, pack)
+        return pack
+      }
+    }
+  } catch {
+    // no network, or a fetch the browser refused. Fall through to the cache,
+    // which is the whole point of having one.
+  }
+
   const hit = await dbGet<Pack>(PACK_STORE, url)
   if (hit) return hit
-  const res = await fetch(url)
-  if (!res.ok) throw new Error(`could not load pack (${res.status})`)
-  const pack = (await res.json()) as Pack
-  void dbPut(PACK_STORE, url, pack)
-  return pack
+  throw new Error('could not load the pack, and nothing is cached yet')
 }
 
 /** The pack's own subgraph, in the shape the engine expects. */
