@@ -99,56 +99,74 @@ export function Bedrock({
         )}
       </p>
 
-      {/* the drop, in the same ground she has been digging through */}
-      <svg className="bd-drop" viewBox={`0 0 560 ${bands.length * H}`}
-           role="img"
-           aria-label={
-             `You were stuck at ${wall ? gradeWord(wall.grade) : 'the top'}; ` +
-             `the gap is at ${gradeWord(gap.grade)}`}>
-        {bands.map((g, i) => (
-          <g key={g}>
-            <rect x="0" y={i * H} width="560" height={H} fill={BAND[g]}
-                  opacity={g <= wg && g >= bg ? 1 : 0.35} />
-            <text x="10" y={i * H + 26} fontSize="11" fontWeight="600"
-                  letterSpacing="1.3" fill={g >= 3 ? '#7a6330' : '#e8d7b8'}
-                  fontFamily="'IBM Plex Mono', ui-monospace, monospace">
-              {g === 0 ? 'K' : `GR ${g}`}
-            </text>
-          </g>
-        ))}
+      {/* The drop, in the same ground she has been digging through. Only
+          drawn when there IS a drop: when the gap sits in the wall's own
+          grade the two markers share a y and the labels print on top of one
+          another, and a picture of two dots in one band says nothing anyway. */}
+      {drop > 0 ? (
+        <svg className="bd-drop" viewBox={`0 0 560 ${bands.length * H}`}
+             role="img"
+             aria-label={
+               `You were stuck at ${wall ? gradeWord(wall.grade) : 'the top'}; ` +
+               `the gap is at ${gradeWord(gap.grade)}`}>
+          {bands.map((g, i) => (
+            <g key={g}>
+              <rect x="0" y={i * H} width="560" height={H} fill={BAND[g]}
+                    opacity={g <= wg && g >= bg ? 1 : 0.35} />
+              <text x="10" y={i * H + 26} fontSize="11" fontWeight="600"
+                    letterSpacing="1.3" fill={g >= 3 ? '#7a6330' : '#e8d7b8'}
+                    fontFamily="'IBM Plex Mono', ui-monospace, monospace">
+                {g === 0 ? 'K' : `GR ${g}`}
+              </text>
+            </g>
+          ))}
 
-        {/* the root joining what she tried to what was really wrong */}
-        <path
-          d={`M${x - 6} ${yOf(wg)} C${x - 6} ${(yOf(wg) + yOf(bg)) / 2},
-              ${x - 11} ${(yOf(wg) + yOf(bg)) / 2}, ${x - 1} ${yOf(bg)}
-              C${x + 11} ${(yOf(wg) + yOf(bg)) / 2},
-              ${x + 6} ${(yOf(wg) + yOf(bg)) / 2}, ${x + 6} ${yOf(wg)} Z`}
-          fill="#7a4a1c" opacity=".6"
-        />
+          {/* the root joining what she tried to what was really wrong */}
+          <path
+            d={`M${x - 6} ${yOf(wg)} C${x - 6} ${(yOf(wg) + yOf(bg)) / 2},
+                ${x - 11} ${(yOf(wg) + yOf(bg)) / 2}, ${x - 1} ${yOf(bg)}
+                C${x + 11} ${(yOf(wg) + yOf(bg)) / 2},
+                ${x + 6} ${(yOf(wg) + yOf(bg)) / 2}, ${x + 6} ${yOf(wg)} Z`}
+            fill="#7a4a1c" opacity=".6"
+          />
 
-        <circle cx={x} cy={yOf(wg)} r="13" fill="#fdf6e8"
-                stroke={HUE[wg]} strokeWidth="4" />
-        <text x={x + 24} y={yOf(wg) + 1} fontSize="13" fill="#3b2a12">
-          {wall ? fit(kidName(wall), 46) : 'where you got stuck'}
-        </text>
-        <text x={x + 24} y={yOf(wg) + 15} fontSize="9" letterSpacing="1.1"
-              fill="rgba(59,42,18,.62)"
-              fontFamily="'IBM Plex Mono', ui-monospace, monospace">
-          WHERE YOU GOT STUCK
-        </text>
+          <circle cx={x} cy={yOf(wg)} r="13" fill="#fdf6e8"
+                  stroke={HUE[wg]} strokeWidth="4" />
+          <text x={x + 24} y={yOf(wg) + 1} fontSize="13" fill="#3b2a12">
+            {wall ? fit(kidName(wall), 46) : 'where you got stuck'}
+          </text>
+          <text x={x + 24} y={yOf(wg) + 15} fontSize="9" letterSpacing="1.1"
+                fill="rgba(59,42,18,.62)"
+                fontFamily="'IBM Plex Mono', ui-monospace, monospace">
+            WHERE YOU GOT STUCK
+          </text>
 
-        <circle className="bd-pulse" cx={x} cy={yOf(bg)} r="16"
-                fill={HUE[bg]} stroke="#16233a" strokeWidth="3" />
-        <text x={x + 26} y={yOf(bg)} fontSize="14" fontWeight="600"
-              fill={bg >= 3 ? '#3b2a12' : '#fdf6e8'}>
-          {fit(kidName(gap), 44)}
-        </text>
-        <text x={x + 26} y={yOf(bg) + 14} fontSize="9" letterSpacing="1.1"
-              fill={bg >= 3 ? 'rgba(59,42,18,.62)' : 'rgba(253,246,232,.75)'}
-              fontFamily="'IBM Plex Mono', ui-monospace, monospace">
-          THIS IS THE ONE
-        </text>
-      </svg>
+          <circle className="bd-pulse" cx={x} cy={yOf(bg)} r="16"
+                  fill={HUE[bg]} stroke="#16233a" strokeWidth="3" />
+          <text x={x + 26} y={yOf(bg)} fontSize="14" fontWeight="600"
+                fill={bg >= 3 ? '#3b2a12' : '#fdf6e8'}>
+            {fit(kidName(gap), 44)}
+          </text>
+          <text x={x + 26} y={yOf(bg) + 14} fontSize="9" letterSpacing="1.1"
+                fill={bg >= 3 ? 'rgba(59,42,18,.62)' : 'rgba(253,246,232,.75)'}
+                fontFamily="'IBM Plex Mono', ui-monospace, monospace">
+            THIS IS THE ONE
+          </text>
+        </svg>
+      ) : (
+        <div className="bd-here" style={{ ['--gc' as string]: HUE[bg] }}>
+          <span className="bd-here-dot">
+            {gap.grade === 'K' ? 'K' : gap.grade}
+          </span>
+          <span className="bd-here-body">
+            <b>{kidName(gap)}</b>
+            <em>
+              same grade as the problem you brought &mdash; the idea sitting
+              directly underneath it
+            </em>
+          </span>
+        </div>
+      )}
 
       {gap.reteach && (
         <div className="bd-coach">

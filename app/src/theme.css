@@ -1846,3 +1846,26 @@ button.opt:disabled {
 @media (prefers-reduced-motion: reduce) {
   .ov-bar i, .ov-col-fill { transition: none; }
 }
+
+/* The gap sat in the wall's own grade: no distance to draw, so no diagram.
+   Two markers in one band collided into four overprinted lines. */
+.bd-here {
+  --gc: #ffc94a;
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px; margin-bottom: 20px;
+  border-radius: 18px;
+  border: 2px solid color-mix(in srgb, var(--gc) 55%, transparent);
+  background: color-mix(in srgb, var(--gc) 12%, #fffdf7);
+  max-width: 560px;
+}
+.bd-here-dot {
+  width: 42px; height: 42px; flex: none; border-radius: 14px;
+  background: var(--gc); color: #16233a;
+  display: grid; place-items: center;
+  font-size: 19px; font-weight: 600;
+}
+.bd-here-body b { display: block; font-size: 19px; line-height: 1.25; }
+.bd-here-body em {
+  display: block; font-style: normal; font-size: 13px;
+  color: var(--ink-dim); margin-top: 3px; line-height: 1.45;
+}
