@@ -41,6 +41,17 @@ LINE_RE = re.compile(
 ARRAY_RE = re.compile(
     r"array|arrays|group|groups|row|column|multipl|divid|equal share"
     r"|equal group|times|product|area", re.I)
+# Balance is for equality and part-whole, so it wants the skills where a child
+# is putting two amounts together -- not every skill that mentions a number.
+# The word boundaries below are load-bearing and were lost once already:
+# written through a bash heredoc the backslashes were eaten, leaving a
+# bare `part` that matched "Partition circles and rectangles into equal
+# shares" and handed a geometry skill a pile of addition items. Same trap
+# recorded in STATE.md; anything with an escape gets a file tool.
+BALANCE_RE = re.compile(
+    r"\badd|\bsum\b|\bplus\b|subtract|take away|difference"
+    r"|number bond|make ten|making ten|compose|decompose|part-whole"
+    r"|within 10|within 20", re.I)
 
 # A grade-appropriate line: how far it runs and how finely it is cut.
 LINES = {
@@ -108,12 +119,37 @@ def array_items(node: dict, want: int) -> list[dict]:
     return out
 
 
+def balance_items(node: dict, want: int) -> list[dict]:
+    """Pairs whose total stays inside the 20 blocks the beam can show."""
+    grade = node["grade"]
+    cap = {"K": 10, "1": 20, "2": 20}.get(grade, 20)
+    out: list[dict] = []
+    # Walk totals downward from the cap so the first items are the ones worth
+    # the most: making ten, and the bonds just past it.
+    for total in range(cap, 2, -1):
+        for a in range(1, total):
+            b = total - a
+            if a < b:
+                continue                # a+b and b+a are the same picture
+            out.append({
+                "kind": "balance",
+                "stem": f"Balance {a} and {b}.",
+                "a": a, "b": b, "total": total,
+                "grade": grade,
+                "node": node["code"], "node_id": node["id"],
+                "options": [], "answer_index": 0,
+            })
+            if len(out) >= want:
+                return out
+    return out
+
+
 def main() -> int:
     pack = json.load(io.open(PACK, encoding="utf-8"))
     per = int(sys.argv[1]) if len(sys.argv) > 1 else 4
 
     made: list[dict] = []
-    stats = {"numberline": 0, "groups": 0, "rejected": 0}
+    stats = {"numberline": 0, "groups": 0, "balance": 0, "rejected": 0}
     reasons: dict[str, int] = {}
     touched: set[str] = set()
 
@@ -125,6 +161,10 @@ def main() -> int:
             wanted += line_items(node, per)
         if ARRAY_RE.search(text):
             wanted += array_items(node, per)
+        # Balance only where the numbers stay small enough to lay out as
+        # blocks; past grade 2 the same idea is better served by the line.
+        if BALANCE_RE.search(text) and gnum(node["grade"]) <= 2:
+            wanted += balance_items(node, per)
 
         for item in wanted:
             v = verify(item)
@@ -144,6 +184,7 @@ def main() -> int:
 
     print(f"number line  {stats['numberline']:>4} items")
     print(f"arrays       {stats['groups']:>4} items")
+    print(f"balance      {stats['balance']:>4} items")
     print(f"rejected     {stats['rejected']:>4}")
     print(f"skills now hands-on: {len(touched)} of {len(pack['nodes'])}")
     if reasons:

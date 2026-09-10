@@ -355,6 +355,31 @@ def verify_groups(item: dict) -> Verdict:
     return _check_grade(v, item.get("grade"), [Rational(product)])
 
 
+def verify_balance(item: dict) -> Verdict:
+    """Two groups on the left; she fills the right until the beam is level.
+
+    Bounded at 20 because the blocks have to stay countable, and because the
+    standards this serves ("add and subtract within 20", number bonds, making
+    ten) are bounded there anyway.
+    """
+    v = Verdict(ok=True)
+    a, b = item.get("a"), item.get("b")
+    for name, n in (("a", a), ("b", b)):
+        if isinstance(n, bool) or not isinstance(n, int):
+            return v.fail(f"{name} must be an integer, got {n!r}")
+        if not (0 <= n <= 20):
+            return v.fail(f"{name}={n} outside 0..20")
+    total = a + b
+    if total > 20:
+        return v.fail(f"{a} + {b} = {total}, past the 20 the blocks can show")
+    if total == 0:
+        return v.fail("an empty balance has nothing to work out")
+    stated = item.get("total")
+    if stated is not None and stated != total:
+        return v.fail(f"total {stated} but {a} + {b} = {total}")
+    return _check_grade(v, item.get("grade"), [Rational(total)])
+
+
 KINDS = {
     "arithmetic": verify_arithmetic,
     "compare": verify_compare,
@@ -364,6 +389,7 @@ KINDS = {
     "word": verify_word,
     "numberline": verify_numberline,
     "groups": verify_groups,
+    "balance": verify_balance,
 }
 
 

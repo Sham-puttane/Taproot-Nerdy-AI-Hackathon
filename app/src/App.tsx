@@ -19,6 +19,7 @@ import { Cut } from './items/Cut'
 import { Place } from './items/Place'
 import { NumberLine } from './items/NumberLine'
 import { Groups } from './items/Groups'
+import { Balance } from './items/Balance'
 import './theme.css'
 
 export default function App() {
@@ -465,6 +466,15 @@ function Question({
           key={item.stem}
           rows={item.rows}
           cols={item.cols}
+          onDone={(ok) => onChoose(ok ? 0 : 1)}
+        />
+      )}
+      {handsOn && item.kind === 'balance'
+        && item.a != null && item.b != null && (
+        <Balance
+          key={item.stem}
+          a={item.a}
+          b={item.b}
           onDone={(ok) => onChoose(ok ? 0 : 1)}
         />
       )}

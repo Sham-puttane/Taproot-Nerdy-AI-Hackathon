@@ -7,9 +7,16 @@
  */
 import type { SkillGraph } from '@engine/types'
 
-export type ItemKind = 'arithmetic' | 'compare' | 'partition' | 'cut' | 'place'
-  | 'numberline'
-  | 'groups'
+export type ItemKind =
+  | 'arithmetic'   // a bare sum -- the deterministic generator's floor
+  | 'word'         // a story problem, authored and SymPy-checked
+  | 'compare'
+  | 'partition'    // strip diagram -- one of the three WWC names
+  | 'cut'
+  | 'place'
+  | 'numberline'   // WWC's central tool for fractions
+  | 'groups'       // arrays -- the third WWC name
+  | 'balance'      // equality as sameness, not "here comes the answer"
 
 export interface Item {
   kind: ItemKind
@@ -35,10 +42,12 @@ export interface Item {
   ticks?: number       // place / numberline: how many divisions
   rows?: number        // groups: rows in the array she builds
   cols?: number        // groups: columns in it
+  a?: number           // balance: first group on the left pan
+  b?: number           // balance: second group on the left pan
 }
 
 /** Hands-on items have no option list; they report correctness themselves. */
-const HANDS_ON = new Set(['cut', 'place', 'numberline', 'groups'])
+const HANDS_ON = new Set(['cut', 'place', 'numberline', 'groups', 'balance'])
 
 /**
  * Items she manipulates rather than picks from a list.

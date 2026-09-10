@@ -1473,3 +1473,98 @@ button.opt:disabled {
 @media (prefers-reduced-motion: reduce) {
   .gr-dot { transition: none; }
 }
+
+/* ---- balance ----------------------------------------------------------
+   Aimed at one specific misconception: that "=" means "and here comes the
+   answer" rather than "these are the same amount". A beam cannot express the
+   first. It can only tip until you have the second, and the feedback is the
+   beam going level rather than a tick. */
+.bal { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.bal-ask { font-size: 16px; margin-bottom: 14px; align-self: flex-start; }
+.bal-rig { position: relative; width: 100%; max-width: 420px; height: 190px; }
+.bal-beam {
+  position: absolute; left: 0; right: 0; top: 8px;
+  display: flex; justify-content: space-between; gap: 12px;
+  transform-origin: 50% 118px;
+  transition: transform 0.28s cubic-bezier(0.3, 1.2, 0.5, 1);
+}
+.bal-pan {
+  width: 46%;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.bal-blocks {
+  display: flex; flex-wrap: wrap; gap: 3px;
+  justify-content: center; align-items: flex-end;
+  min-height: 62px; width: 100%;
+  padding: 6px 5px;
+  border-radius: 0 0 12px 12px;
+  border: 2px solid var(--edge); border-top: none;
+  background: var(--card);
+}
+.bal-block {
+  width: 13px; height: 13px; border-radius: 3px;
+  background: var(--glow);
+}
+.bal-block.g1 { background: var(--g-3, #4fb083); }
+.bal-block.g2 { background: var(--g-1, #5bb8e8); }
+.bal-block.g3 { background: var(--glow); }
+.bal-block.ok { background: var(--leaf); }
+.bal-block.no { background: var(--wrong); }
+.bal-num {
+  font-size: 13px; color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+.bal-post {
+  position: absolute; left: 50%; top: 96px; width: 8px; height: 74px;
+  margin-left: -4px; border-radius: 3px; background: var(--ink-faint);
+}
+.bal-base {
+  position: absolute; left: 50%; bottom: 8px;
+  width: 130px; height: 9px; margin-left: -65px;
+  border-radius: 5px; background: var(--ink-faint);
+}
+.bal-controls {
+  display: flex; align-items: center; gap: 16px; margin-top: 6px;
+}
+.bal-btn {
+  width: 46px; height: 46px; border-radius: 14px;
+  font: inherit; font-size: 24px; line-height: 1;
+  border: 2px solid var(--edge); background: var(--card);
+  color: var(--ink); cursor: pointer;
+}
+.bal-btn:hover:not(:disabled) { background: var(--raised-2, #fff); }
+.bal-btn:disabled { opacity: 0.35; cursor: default; }
+.bal-count {
+  font-size: 24px; font-weight: 600; min-width: 34px; text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bal-beam { transition: none; }
+}
+
+/* The pans were tilting with nothing between them, so they read as two loose
+   trays rather than one beam. The bar is what makes it a balance. */
+.bal-beam::before {
+  content: '';
+  position: absolute;
+  left: 4%; right: 4%; top: 0;
+  height: 7px; border-radius: 4px;
+  background: var(--ink-faint);
+}
+.bal-beam { padding-top: 7px; }
+.bal-pan { position: relative; }
+.bal-pan::before {
+  content: '';
+  position: absolute; left: 50%; top: -7px;
+  width: 3px; height: 14px; margin-left: -1.5px;
+  background: var(--ink-faint);
+}
+.bal-blocks { margin-top: 7px; }
+/* the pivot, so the beam clearly turns on the post */
+.bal-rig::before {
+  content: '';
+  position: absolute; left: 50%; top: 2px;
+  width: 16px; height: 16px; margin-left: -8px;
+  border-radius: 50%; background: var(--ink-dim);
+  z-index: 2;
+}
