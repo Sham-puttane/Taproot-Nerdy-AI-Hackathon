@@ -28,6 +28,11 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      // We register the worker ourselves in src/sw-update.ts. The injected
+      // snippet omits updateViaCache, never calls update(), and never reloads
+      // on controllerchange -- which froze the live site on a days-old bundle
+      // and made every downstream feature look broken.
+      injectRegister: null,
       // The pack is the whole point of offline: it holds every question the
       // descent can ask beneath this wall, so a child who loses connection
       // mid-diagnosis can still finish it.
