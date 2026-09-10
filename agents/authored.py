@@ -369,9 +369,29 @@ def main() -> int:
                   + (f"   [{rejected[0][:56]}]" if rejected else ""))
 
     save_cache(cache)
+    # MERGE, do not overwrite. Running this for one family used to wipe every
+    # other family's questions out of the file: a pass over Measuring deleted
+    # the multi-step word problems for 4.OA.A.3 -- a skill called "Word
+    # problems with several steps" -- and left it serving 7 + 3 = ?. The
+    # symptom looked like the ranking not working; the cause was destroyed
+    # work.
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    merged: dict[tuple[str, str], dict] = {}
+    if os.path.exists(args.out):
+        try:
+            for it in json.load(io.open(args.out, encoding="utf-8")):
+                merged[(it["node"], it["stem"])] = it
+        except (ValueError, OSError, KeyError):
+            pass
+    before = len(merged)
+    for it in kept_all:
+        merged[(it["node"], it["stem"])] = it      # this run wins on a clash
+    out_items = list(merged.values())
     with io.open(args.out, "w", encoding="utf-8") as f:
-        json.dump(kept_all, f, ensure_ascii=False, indent=1)
+        json.dump(out_items, f, ensure_ascii=False, indent=1)
+    print(f"file held {before}, this run kept {len(kept_all)}, "
+          f"now {len(out_items)} across "
+          f"{len({i['node'] for i in out_items})} skills")
 
     total = stats["kept"] + stats["rejected"]
     rate = stats["kept"] / total * 100 if total else 0

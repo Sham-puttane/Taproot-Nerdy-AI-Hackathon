@@ -147,6 +147,9 @@ export default function App() {
           For grown-ups
         </button>
       )}
+      {/* Which build this is. Reading it beats guessing: a stale service
+          worker or a cached pack looks exactly like a missing feature. */}
+      <span className="build-stamp" title="build time">{__BUILD__}</span>
       {offline && (
         <div className="offline" role="status">
           No internet &mdash; everything still works

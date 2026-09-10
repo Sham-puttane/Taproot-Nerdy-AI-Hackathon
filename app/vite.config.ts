@@ -23,7 +23,16 @@ const BASE = process.env.VERCEL
 // across an API. It is the same TypeScript the eval harness drives under
 // Node, so the browser and the harness cannot drift -- which is the entire
 // reason there is only one implementation of it.
+// Stamped into the bundle so a person can read which build they are looking
+// at without asking anyone. Three separate caches froze this app on an old
+// version in two days, and every time the first ten minutes went on
+// establishing what was actually running.
+const BUILD_STAMP = new Date().toISOString().slice(0, 16).replace('T', ' ')
+
 export default defineConfig({
+  define: {
+    __BUILD__: JSON.stringify(BUILD_STAMP),
+  },
   plugins: [
     react(),
     VitePWA({

@@ -176,7 +176,11 @@ def bake(wall_codes, per_node: int = 8) -> dict:
         # skill with five genuine measuring questions still looked 40%
         # arithmetic, and the six topics on the home screen stayed a lie.
         if better:
-            got = got[:2]
+            # Two was right for the ratio and wrong for variety: it left the
+            # median skill with two items in a tier, so Repair ran out and
+            # started repeating. Three keeps the ratio low and gives the
+            # rotation something to rotate through.
+            got = got[:3]
         got.extend(better)
 
         if not got:

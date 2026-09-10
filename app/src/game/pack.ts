@@ -200,6 +200,24 @@ const TIERS: Record<Prefer, Set<ItemKind>[]> = {
  * time. So the same node serves a fast item on the way down and a manipulative
  * once we stop to fix it.
  */
+/**
+ * Within a tier, what to reach for first.
+ *
+ * `arithmetic` is the deterministic fallback and always sorts last: the
+ * abstract tier holds both it and `word`, and returning whichever the pack
+ * listed first meant the bare sum won nearly every time -- so every authored
+ * word problem was invisible during the descent, which is the part of a
+ * session anyone actually sees.
+ */
+const WITHIN_TIER: ItemKind[] = [
+  'word', 'numberline', 'groups', 'balance', 'cut', 'place',
+  'partition', 'compare', 'arithmetic',
+]
+const rank = (k: ItemKind) => {
+  const i = WITHIN_TIER.indexOf(k)
+  return i === -1 ? WITHIN_TIER.length : i
+}
+
 export function pickItem(
   pack: Pack,
   nodeId: string,
@@ -209,16 +227,25 @@ export function pickItem(
   const pool = pack.items.filter((i) => i.node_id === nodeId)
   if (!pool.length) return null
   const fresh = pool.filter((i) => !seen.has(itemKey(i)))
-  const usable = fresh.length ? fresh : pool
+
+  // Everything here has been asked already. Rotating on the count of what she
+  // has seen is what stops Repair serving one question three times running:
+  // the old code fell back to the whole pool and then took [0], for ever.
+  const exhausted = fresh.length === 0
+  const usable = exhausted ? pool : fresh
 
   // Take the first tier that has anything. Falling through rather than
   // insisting means a node holding only bare sums still works -- the fade is
   // a preference, not a precondition.
   for (const tier of TIERS[prefer]) {
-    const got = usable.filter((i) => tier.has(i.kind))
-    if (got.length) return got[0]
+    const got = usable
+      .filter((i) => tier.has(i.kind))
+      .sort((a, b) => rank(a.kind) - rank(b.kind))
+    if (got.length) {
+      return exhausted ? got[seen.size % got.length] : got[0]
+    }
   }
-  return usable[0] ?? null
+  return usable[exhausted ? seen.size % usable.length : 0] ?? null
 }
 
 export function itemKey(i: Item): string {

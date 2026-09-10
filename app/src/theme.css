@@ -1877,3 +1877,16 @@ button.opt:disabled {
   max-width: 560px;
 }
 .pr-samegrade b { color: var(--ink); }
+
+/* Which build you are looking at. Three caches froze this app on an old
+   version in two days and each time the first ten minutes went on working out
+   what was actually running. Now you can read it. */
+.build-stamp {
+  position: fixed; left: 8px; bottom: 6px; z-index: 40;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 9.5px; letter-spacing: 0.04em;
+  color: rgba(20, 50, 74, 0.42);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 2px 6px; border-radius: 6px;
+  pointer-events: none; user-select: text;
+}
