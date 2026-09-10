@@ -263,3 +263,44 @@ def test_authoring_gate_rejects_a_stem_that_hides_its_numbers():
     item, why = authored.check(raw, node)
     assert item is None
     assert "never mentions" in why
+
+
+# ---- balance must pose a question, not a counting task --------------------
+
+def _bal(**kw):
+    item = {"kind": "balance", "stem": "8 and 5 on one side. 6 and what?",
+            "a": 8, "b": 5, "given": 6, "answer": 7, "grade": "2"}
+    item.update(kw)
+    return item
+
+
+def test_balance_accepts_a_real_missing_addend():
+    assert verify(_bal()).ok
+
+
+def test_balance_rejects_an_empty_pan():
+    """The bug this instrument shipped with.
+
+    With nothing already on her side she can count the other pan and copy the
+    total, so the item tests counting and says nothing about what "=" means --
+    which was the entire reason for building it.
+    """
+    v = verify(_bal(given=0, answer=13))
+    assert not v.ok
+    assert any("counting" in r for r in v.reasons)
+
+
+def test_balance_rejects_a_pan_that_is_already_full():
+    v = verify(_bal(given=13, answer=0))
+    assert not v.ok
+    assert any("nothing to add" in r for r in v.reasons)
+
+
+def test_balance_rejects_an_answer_that_does_not_balance():
+    v = verify(_bal(answer=6))
+    assert not v.ok
+    assert any("13 - 6 = 7" in r for r in v.reasons)
+
+
+def test_balance_rejects_more_blocks_than_the_beam_can_show():
+    assert not verify(_bal(a=12, b=11, given=5)).ok

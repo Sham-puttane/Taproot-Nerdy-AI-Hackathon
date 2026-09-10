@@ -356,28 +356,38 @@ def verify_groups(item: dict) -> Verdict:
 
 
 def verify_balance(item: dict) -> Verdict:
-    """Two groups on the left; she fills the right until the beam is level.
+    """a and b on one pan; `given` plus her blocks on the other.
 
-    Bounded at 20 because the blocks have to stay countable, and because the
-    standards this serves ("add and subtract within 20", number bonds, making
-    ten) are bounded there anyway.
+    The check that matters is that `given` leaves a real question. If the pan
+    she is filling starts empty, she can count the other side and copy the
+    total, and the item tests counting rather than what "=" means. If `given`
+    already equals or exceeds the target there is nothing to add, which is not
+    a task either.
     """
     v = Verdict(ok=True)
-    a, b = item.get("a"), item.get("b")
-    for name, n in (("a", a), ("b", b)):
+    a, b, given = item.get("a"), item.get("b"), item.get("given")
+    for name, n in (("a", a), ("b", b), ("given", given)):
         if isinstance(n, bool) or not isinstance(n, int):
             return v.fail(f"{name} must be an integer, got {n!r}")
-        if not (0 <= n <= 20):
-            return v.fail(f"{name}={n} outside 0..20")
-    total = a + b
-    if total > 20:
-        return v.fail(f"{a} + {b} = {total}, past the 20 the blocks can show")
-    if total == 0:
+        if n < 0:
+            return v.fail(f"{name}={n} cannot be negative")
+
+    target = a + b
+    if target > 20:
+        return v.fail(f"{a} + {b} = {target}, past the 20 the blocks can show")
+    if target == 0:
         return v.fail("an empty balance has nothing to work out")
-    stated = item.get("total")
-    if stated is not None and stated != total:
-        return v.fail(f"total {stated} but {a} + {b} = {total}")
-    return _check_grade(v, item.get("grade"), [Rational(total)])
+    if given < 1:
+        return v.fail("given must be at least 1, or she can copy the total "
+                      "off the other pan and this tests counting")
+    if given >= target:
+        return v.fail(f"given={given} leaves nothing to add against a target "
+                      f"of {target}")
+
+    stated = item.get("answer")
+    if stated is not None and stated != target - given:
+        return v.fail(f"answer {stated} but {target} - {given} = {target - given}")
+    return _check_grade(v, item.get("grade"), [Rational(target)])
 
 
 KINDS = {

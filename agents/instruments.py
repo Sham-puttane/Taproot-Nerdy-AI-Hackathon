@@ -120,27 +120,38 @@ def array_items(node: dict, want: int) -> list[dict]:
 
 
 def balance_items(node: dict, want: int) -> list[dict]:
-    """Pairs whose total stays inside the 20 blocks the beam can show."""
+    """8 and 5 on one side, 6 and WHAT on the other.
+
+    `given` is the whole point: with an empty pan she can count the other side
+    and copy the total, which tests counting. With something already there,
+    matching requires reasoning about a difference -- the shape that separates
+    a child who reads "=" as "here comes the answer" from one who reads it as
+    "these are the same".
+    """
     grade = node["grade"]
     cap = {"K": 10, "1": 20, "2": 20}.get(grade, 20)
     out: list[dict] = []
-    # Walk totals downward from the cap so the first items are the ones worth
-    # the most: making ten, and the bonds just past it.
-    for total in range(cap, 2, -1):
-        for a in range(1, total):
+    for total in range(cap, 3, -1):
+        for a in range(2, total):
             b = total - a
             if a < b:
                 continue                # a+b and b+a are the same picture
-            out.append({
-                "kind": "balance",
-                "stem": f"Balance {a} and {b}.",
-                "a": a, "b": b, "total": total,
-                "grade": grade,
-                "node": node["code"], "node_id": node["id"],
-                "options": [], "answer_index": 0,
-            })
-            if len(out) >= want:
-                return out
+            # Leave a real gap. Too small and she can see it at a glance; too
+            # large and it is the old copy-the-total task again.
+            for given in (total // 2, total // 2 + 1, total - 2):
+                need = total - given
+                if given < 1 or need < 1:
+                    continue
+                out.append({
+                    "kind": "balance",
+                    "stem": f"{a} and {b} on one side. {given} and what?",
+                    "a": a, "b": b, "given": given, "answer": need,
+                    "grade": grade,
+                    "node": node["code"], "node_id": node["id"],
+                    "options": [], "answer_index": 0,
+                })
+                if len(out) >= want:
+                    return out
     return out
 
 

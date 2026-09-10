@@ -638,11 +638,12 @@ function Question({
         />
       )}
       {handsOn && item.kind === 'balance'
-        && item.a != null && item.b != null && (
+        && item.a != null && item.b != null && item.given != null && (
         <Balance
           key={item.stem}
           a={item.a}
           b={item.b}
+          given={item.given}
           onDone={(ok) => onChoose(ok ? 0 : 1)}
         />
       )}

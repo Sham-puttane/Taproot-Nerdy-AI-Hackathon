@@ -44,6 +44,7 @@ export interface Item {
   cols?: number        // groups: columns in it
   a?: number           // balance: first group on the left pan
   b?: number           // balance: second group on the left pan
+  given?: number       // balance: what is already on HER pan
 }
 
 /** Hands-on items have no option list; they report correctness themselves. */
