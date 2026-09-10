@@ -66,6 +66,7 @@ Return ONLY JSON. No prose, no explanation, no code fences."""
 TEMPLATE = """Skill: {kid}
 Formal name: {teacher}
 Standard: {code}   Grade: {grade}
+{family}
 HARD LIMIT: at most {maxwords} words in each stem.
 Numbers must not exceed {cap}.
 
@@ -90,6 +91,50 @@ Return a JSON object exactly like this:
   ]
 }}"""
 
+# What makes a question belong to its subject rather than being arithmetic
+# with a different label on the tree. Without this, a measuring skill gets
+# "10 + 3 = ?" and the six topics on the home screen are a lie.
+FAMILY_HINT = {
+    "MD": (
+        "This is a MEASURING skill. The question must involve a real quantity "
+        "with units -- length in cm/m/inches, mass in g/kg, liquid in ml/l, "
+        "time in minutes/hours, or money. Never a bare sum. A child should "
+        "have to think about the unit, not just the number."
+    ),
+    "NF": (
+        "This is a FRACTIONS skill. The question must be about parts of a "
+        "whole, equal shares, or a fraction of a quantity. Use fraction "
+        "notation, not decimals."
+    ),
+    "OA": (
+        "This is an OPERATIONS AND ALGEBRAIC THINKING skill. The question "
+        "must be a situation -- groups of things, sharing out, comparing "
+        "amounts, several steps. Never a bare sum with no story."
+    ),
+    "NBT": (
+        "This is a PLACE VALUE skill. The question must turn on how the "
+        "digits are worth different amounts -- tens and ones, regrouping, "
+        "rounding, comparing sizes of numbers. Not just a calculation."
+    ),
+    "G": (
+        "This is a GEOMETRY skill. The question must be about shapes, sides, "
+        "corners, angles or equal pieces of a shape. Never arithmetic."
+    ),
+    "CC": (
+        "This is a COUNTING skill for the youngest children. The question "
+        "must be about counting objects, saying what comes next, or how many "
+        "there are. Very short sentences."
+    ),
+}
+
+
+def family_of(code: str) -> str:
+    for k in ("NF", "OA", "NBT", "MD", "CC"):
+        if "." + k in code:
+            return k
+    return "G" if ".G." in code else ""
+
+
 _lock = threading.Lock()
 
 
@@ -112,7 +157,7 @@ def save_cache(cache: dict) -> None:
 
 def cache_key(code: str, n: int) -> str:
     """Prompt-shape aware, so tweaking the prompt invalidates the cache."""
-    blob = f"{code}|{n}|{SYSTEM}|{TEMPLATE}"
+    blob = f"{code}|{n}|{SYSTEM}|{TEMPLATE}|{FAMILY_HINT}"
     return hashlib.sha1(blob.encode("utf-8")).hexdigest()[:16]
 
 
@@ -243,6 +288,7 @@ def for_node(node: dict, n: int, cache: dict) -> tuple[list[dict], list[str]]:
             kid=node.get("kid") or node.get("teacher") or node["code"],
             teacher=node.get("teacher", ""),
             code=node["code"], grade=node["grade"],
+            family=FAMILY_HINT.get(family_of(node["code"]), ""),
             maxwords=MAX_WORDS[node["grade"]],
             cap=GRADE_MAX_WHOLE.get(node["grade"], 1000),
             gradeword=GRADE_WORD[node["grade"]], n=n,

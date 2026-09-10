@@ -241,14 +241,24 @@ export function Brief({
                 .
               </p>
 
-              {data.wall && (
+              {/* Only when there is a drop to show. With the gap in the
+                  wall's own grade the two markers share a y and the labels
+                  print on top of one another -- the same collision the
+                  bedrock screen had, in the second drawing of the same idea. */}
+              {data.wall && gapsBelow > 0 ? (
                 <DepthDiagram
                   wallGrade={gradeNum(data.wall.grade)}
                   gapGrade={gradeNum(gap.grade)}
                   wallName={kidName(data.wall)}
                   gapName={kidName(gap)}
                 />
-              )}
+              ) : data.wall ? (
+                <p className="pr-samegrade">
+                  The gap is in <b>{gradeLabel(gap.grade)}</b> too &mdash; the
+                  idea sitting directly under the problem she brought, rather
+                  than something from years earlier.
+                </p>
+              ) : null}
 
               <section
                 className="pr-gap"

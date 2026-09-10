@@ -1869,3 +1869,11 @@ button.opt:disabled {
   display: block; font-style: normal; font-size: 13px;
   color: var(--ink-dim); margin-top: 3px; line-height: 1.45;
 }
+.pr-samegrade {
+  font-size: 15px; line-height: 1.55; color: var(--ink-dim);
+  margin: 0 0 22px; padding: 13px 16px;
+  border-left: 4px solid var(--glow);
+  background: #fffdf7; border-radius: 0 14px 14px 0;
+  max-width: 560px;
+}
+.pr-samegrade b { color: var(--ink); }
