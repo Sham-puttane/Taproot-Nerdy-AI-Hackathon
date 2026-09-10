@@ -24,88 +24,161 @@ Re-run it after any pack rebake; the routes move when the content does.
 
 ---
 
-## The main take — 2:30
+## The words
 
-### 0:00 · The problem *(15s)*
+Written to be read aloud at about 150 words a minute — unhurried. Word counts
+are given so you can check the timing instead of hoping. Nothing here needs
+to be memorised: it needs to be true, and to be said while the right thing is
+on screen.
 
-Start digging → **Grade 5** → **Fractions**.
+**Total spoken: 380 words ≈ 2:32.** The numbers card at the end is silent.
 
-You get `1/2 + 2/3 = ?`. **Answer 1** (the option showing `1`).
+---
 
-> "A fifth grader gets this wrong. Every maths app I know responds by drilling
-> fractions."
+### 0:00 — Cold open, over the Grove *(38 words, ~15s)*
 
-### 0:15 · The descent *(35s)*
+> "This is Taproot. A fifth grader gets a fractions question wrong.
+>
+> Every maths app I have used answers that by giving her more fractions. But
+> she is usually not failing fractions. She is missing something from three
+> grades earlier that fractions are built on."
 
-Answer **WRONG** each time. Let the rail draw: the root grows down through the
-grade strata, and the line underneath names why each move happened.
+*Do not click yet. Let the six trees sit on screen while you say it.*
 
-> "It isn't drilling. It's descending a real prerequisite graph, choosing each
-> question to maximise information about *where* the break is."
+---
 
-Point at the **progress bar** — beat 2 of 5, "Digging" — and the *"no score,
-no timer"* line.
+### 0:15 — What it does *(34 words, ~14s)*
 
-### 0:50 · The crossing — **do not cut this** *(20s)*
+Click **Start digging → Grade 5 → Fractions**.
 
-**Tap any bead** on the rail that changed subject. The panel says:
+> "So instead of drilling the thing she got wrong, Taproot treats it as a
+> symptom, and goes looking for the cause. It asks about ten questions, each
+> one chosen to narrow down where the break actually is."
 
-> *"Decimals ARE fractions — 0.7 is seven tenths. So this goes through
-> fractions."*
+---
 
-> "It crossed from big numbers into fractions. That looked like a bug until I
-> measured it: grade-5 decimals have sixteen fraction skills underneath, and
-> it crosses **100% of the time**. The graph was right and the product used to
-> say nothing."
+### 0:29 — The first question *(22 words, ~9s)*
 
-*This is the moment a judge realises there is a real graph underneath.*
+`1/2 + 2/3 = ?` — answer **1**.
 
-### 1:10 · Bedrock *(20s)*
+> "She gets it wrong. Nothing is scored, nothing is lost. It just says: okay,
+> let's find out why."
 
-> **"It was never about fractions."**
-> *You got stuck grade 5. The thing that is actually broken is 5 grades
-> further down.*
+*Point at "no score · no timer" under the progress bar.*
 
-The drop is drawn through the same strata. Read the three facts underneath:
-questions asked, % sure, grade.
+---
 
-> "It names the skill in words a child can read, and tells her how sure it is.
-> Seven times in ten it is exactly right."
+### 0:38 — How it works, said once, while it happens *(56 words, ~22s)*
 
-### 1:30 · Repair on a manipulative *(20s)*
+Answer **WRONG** each time. The root grows down the strata.
 
-Press **Fix it**. Drag the instrument that appears.
+> "Underneath this is a real prerequisite graph — Common Core, from the
+> Coherence Map, two hundred and ninety thousand nodes reduced to a hundred
+> and fifty-nine K-to-5 skills. Each question is picked for maximum
+> information about which skill is broken. Watch the root: it is going *down*
+> through the grades, and the line at the bottom says why each move happened."
 
-> "Repair is the only place it asks her to drag something. Manipulatives show
-> large effects on retention and small ones on transfer — so they belong where
-> she stays with one skill, and nowhere else."
+---
 
-### 1:50 · The Cascade *(20s)*
+### 1:00 — The crossing. Do not cut this *(48 words, ~19s)*
 
-> "One kindergarten idea fixed, and everything that was standing on it wakes
-> up — real skills, from the real graph. That's the reward. No points, no
-> streak, no timer."
+**Tap a bead** that changed subject.
 
-### 2:10 · The Grove *(10s)*
+> "It has crossed from big numbers into fractions. That looked like a bug
+> until I measured it — grade-five decimals have sixteen fraction skills
+> underneath them, because a decimal *is* a fraction. It crosses a hundred
+> percent of the time. The graph was right and the product used to say
+> nothing."
 
-Back to the grove. Several trees are lit from one repair.
+---
 
-> "One repair fed four topics, because a fraction genuinely rests on shapes."
+### 1:19 — Bedrock *(41 words, ~16s)*
 
-### 2:20 · The grown-up view *(10s)*
+> "It was never about fractions. She got stuck at grade five; the thing
+> actually broken is five grades below, in kindergarten. It names it in words
+> a child can read, and tells her how sure it is. Seven times in ten, it is
+> exactly right."
+
+---
+
+### 1:35 — Repair, and where the AI sits *(52 words, ~21s)*
+
+Press **Fix it**, drag the instrument.
+
+> "This is the only place it asks her to drag something — manipulatives help
+> memory more than transfer, so they belong where she stays with one skill.
+> The questions themselves are written by a language model and then executed
+> by a symbolic engine. If the maths does not check out, the question is
+> thrown away. A weak model costs me questions, never correctness."
+
+---
+
+### 1:56 — The Cascade *(35 words, ~14s)*
+
+> "And this is the reward. One kindergarten idea fixed, and everything that
+> was standing on it wakes up — real skills, from the real graph. No points,
+> no streak, no timer. The reward is evidence."
+
+---
+
+### 2:10 — The Grove *(24 words, ~10s)*
+
+> "Back at the grove, one repair has fed four different topics — because a
+> fraction genuinely does rest on shapes."
+
+---
+
+### 2:20 — The grown-up view *(30 words, ~12s)*
 
 **For grown-ups.**
 
-> "What she was asked, and *why* the wrong answer was wrong — the named
-> misconception, not a tick. Plus where she is across the whole subject."
+> "And for a parent or a tutor: what she was asked, and *why* the wrong answer
+> was wrong — the named misconception, not a tick. Plus where she stands
+> across the whole subject."
 
-### 2:30 · The numbers — on screen, not spoken
+---
+
+### 2:32 — The numbers, silent on screen *(no narration)*
 
 ```
-73.2% exact · 84.1% within one hop · 10.9 questions
-measured across all 16 topic/grade combinations
+73.2% exact   ·   84.1% within one hop   ·   10.9 questions
+across all 16 topic/grade combinations
 worksheet baseline: 0%
+zero model calls at runtime — it works offline
 ```
+
+---
+
+### If you have 20 seconds spare
+
+> "It makes no model calls while a child is using it. Everything is generated
+> and verified at build time, so there is no key in the browser, nothing to
+> rate-limit, and no outage that can take down a lesson."
+
+---
+
+## The shot list — clicks only
+
+No words here; they are above. This is what to have on a second screen while
+you record.
+
+| at | do this |
+|---|---|
+| 0:00 | Grove on screen. **Do not click.** |
+| 0:15 | **Start digging** → **Grade 5** → **Fractions** |
+| 0:29 | Answer `1/2 + 2/3 = ?` with **1** |
+| 0:38 | Answer **wrong** each time. Let the root draw down the strata. |
+| 1:00 | **Tap a bead** on the rail that changed subject |
+| 1:19 | The bedrock screen appears on its own |
+| 1:35 | **Fix it** → drag the instrument |
+| 1:56 | The Cascade runs itself → **Climb back up** |
+| 2:10 | Finish the climb → back at the Grove |
+| 2:20 | **For grown-ups** |
+| 2:32 | Cut to the numbers card |
+
+**Two things to point at with the cursor**, because they are easy to miss:
+the **progress bar** at 0:38 (beat 2 of 5, "Digging"), and **"no score · no
+timer"** underneath it.
 
 ---
 
@@ -168,12 +241,35 @@ the product is that the engine *chose* the instrument.
 
 ---
 
-## Worth saying if there is room
+## Spare lines, if a beat runs short
 
-- **Zero model calls at runtime.** All generation is build-time, so there is
-  no key in the browser and no provider outage that can take down a lesson. It
-  works offline.
-- **A weak model costs us questions, never correctness** — SymPy executes the
-  working and rejects anything whose arithmetic does not check out.
-- **One device, several children.** The learner roster is not an edge case for
-  a tutoring company; it is Tuesday afternoon.
+Three points that are true, quotable, and not in the main script. Each is
+about ten seconds. Say at most one -- the script is already 2:32.
+
+- **Runs with no model calls.** "Everything is generated and verified before
+  it ships, so there is no key in the browser, nothing to rate-limit, and no
+  outage that can take a lesson down. It works on a plane."
+- **On the questions.** "A language model writes them and a symbolic engine
+  executes them. If the maths does not check out the question is thrown away,
+  so a weak model costs me questions, never correctness."
+- **On who uses it.** "One tablet, several children, each with their own
+  grove. For a tutoring company that is not an edge case, it is Tuesday
+  afternoon."
+
+---
+
+## If you are asked a hard question afterwards
+
+- **"Is 73% good?"** "It is measured against three baselines sharing the
+  same belief model and stopping rule -- asking in curriculum order gets 9.5%,
+  random adaptive 2%, a worksheet 0%, because a worksheet cannot name a cause
+  at all."
+- **"Have real children used it?"** "No. Every number is against simulated
+  learners with slip and guess noise. That is honest and it is not the same as
+  evidence, and validating on real learners is the first thing I would do
+  next."
+- **"Where is the AI?"** "Three places. Embedding retrieval maps 253
+  expert-authored misconceptions onto the standards. A language model writes
+  the questions behind a symbolic gate. And the live loop is Bayesian
+  inference over the graph -- deliberately not an LLM, because it has to be
+  fast, deterministic, and explainable to a parent."
