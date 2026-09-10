@@ -1,13 +1,21 @@
-﻿networkx
-sentence-transformers
-chromadb
-duckdb
-sympy
-fastapi
-uvicorn[standard]
-pydantic
-python-dotenv
-anthropic
-langgraph
-kagglehub
-pytest
+# Everything here is imported by something in this repo. Checked, not assumed.
+#
+# It previously listed chromadb, fastapi, uvicorn[standard], duckdb, pydantic,
+# python-dotenv, anthropic, langgraph, networkx and kagglehub -- none of which
+# were imported anywhere -- alongside an empty api/ directory. That is worse
+# than listing nothing: a reader who greps for langgraph to see how the agent
+# loop is built finds it absent and concludes the AI claims are scaffolding.
+#
+# The honest architecture is the stronger one. The generate/verify loop is
+# hand-rolled precisely because SymPy, not a framework, is the thing that
+# decides what reaches a child.
+
+sentence-transformers   # ingest/map_constructs.py -- embedding retrieval that
+                        # maps Eedi constructs onto Learning Components
+sympy                   # agents/verifier.py -- executes the maths. The gate.
+pytest                  # agents/test_verifier.py -- 48 adversarial tests
+
+# The model client (agents/llm.py) speaks OpenAI-shaped HTTP to Groq and
+# OpenRouter using urllib from the standard library. No SDK: two providers
+# behind one code path is about 120 lines, and a dependency whose only job is
+# formatting a JSON body is a dependency that can break a build for nothing.
