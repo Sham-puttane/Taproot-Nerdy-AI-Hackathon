@@ -1568,3 +1568,89 @@ button.opt:disabled {
   border-radius: 50%; background: var(--ink-dim);
   z-index: 2;
 }
+
+/* ---- the bedrock reveal -----------------------------------------------
+   "It was never about fractions" is the sentence the whole product exists to
+   say, and it was being delivered as a small card floating in a wide empty
+   column. What makes it land is the DISTANCE, so the drop gets drawn at the
+   same scale and in the same strata she has been digging through. */
+.bd { display: flex; flex-direction: column; }
+.bd-title {
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 600; line-height: 1.1;
+  margin: 2px 0 10px; text-wrap: balance;
+}
+.bd-lede {
+  font-size: 17px; color: var(--ink-dim);
+  margin: 0 0 20px; line-height: 1.5; max-width: 46ch;
+}
+.bd-lede b { color: var(--ink); }
+.bd-drop {
+  width: 100%; max-width: 560px; height: auto; display: block;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: var(--shadow); margin-bottom: 20px;
+}
+/* the found skill breathes once, so the eye lands on it and not on the top */
+.bd-pulse {
+  animation: bdpulse 2.4s ease-in-out 0.3s 2 both;
+  transform-box: fill-box; transform-origin: center;
+}
+@keyframes bdpulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.14); }
+}
+.bd-coach {
+  border-left: 4px solid var(--leaf);
+  background: linear-gradient(
+    90deg, color-mix(in srgb, var(--leaf) 12%, #fffdf7), #fffdf7 65%);
+  border-radius: 0 14px 14px 0;
+  padding: 13px 18px; font-size: 15.5px; line-height: 1.55;
+  max-width: 60ch; margin-bottom: 16px;
+}
+.bd-coach-tag {
+  display: block;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-faint); margin-bottom: 4px;
+}
+.bd-facts {
+  display: flex; gap: 22px; flex-wrap: wrap;
+  font-size: 13px; color: var(--ink-faint); margin-bottom: 20px;
+}
+.bd-facts b {
+  color: var(--ink-dim); font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.bd-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.bd-fix { font-size: 19px; padding: 15px 40px; }
+@media (prefers-reduced-motion: reduce) { .bd-pulse { animation: none; } }
+
+/* Tapping a bead. crossing.ts already knew why the descent changed subject,
+   but only said so in the instant it happened -- one line, replaced by the
+   next move. A child looking back up the root had no way to ask again. */
+.tr-tap {
+  margin: 12px 2px 0;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: #22334f;
+  border-left: 3px solid #ffc94a;
+  color: #eaf1fb;
+  font-size: 13.5px;
+  line-height: 1.5;
+  animation: tapin 0.18s ease-out both;
+}
+@keyframes tapin {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.tr-tap b { display: block; font-size: 14.5px; }
+.tr-tap-grade {
+  display: block;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #9db1cf; margin-top: 2px;
+}
+.tr-tap p { margin: 7px 0 0; color: #cfe0f5; }
+.tr-bead { outline: none; }
+.tr-bead:focus-visible circle:first-of-type { stroke: #ffc94a; stroke-width: 5; }
+@media (prefers-reduced-motion: reduce) { .tr-tap { animation: none; } }

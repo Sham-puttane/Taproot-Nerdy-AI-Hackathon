@@ -21,9 +21,10 @@
  * And the WHY: after a miss, the reason for the next move is named underneath,
  * because the engine has always known why it descends and never said so.
  */
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import type { Pack } from './pack'
 import { kidName } from './pack'
+import { crossingNote, familyLabel } from './crossing'
 
 export interface TrailStop {
   nodeId: string
@@ -67,6 +68,8 @@ export function Trail({
   lit: Set<string>
   reason?: string | null
 }) {
+  const [open, setOpen] = useState<string | null>(null)
+
   const byId = useMemo(() => new Map(pack.nodes.map((n) => [n.id, n])), [pack])
 
   const layout = useMemo(() => {
@@ -117,7 +120,7 @@ export function Trail({
       grade: number; top: number; height: number; reached: boolean
     }[] = []
     const beads: {
-      id: string; name: string; grade: number; row: number; asked: number
+      id: string; name: string; code: string; grade: number; row: number; asked: number
       x: number; y: number; lit: boolean; now: boolean; missed: boolean
       reclaimed: boolean
     }[] = []
@@ -134,6 +137,7 @@ export function Trail({
         const yy = y + (i + 0.5) * ROW
         beads.push({
           id: r.node.id,
+          code: r.node.code,
           name: kidName(r.node),
           grade: g,
           row,
@@ -159,6 +163,23 @@ export function Trail({
   const below = GRADES.filter((g) => g < deepest).length
   const last = beads[beads.length - 1]
   const fruit = beads.filter((b) => b.lit).slice(-5)
+
+  // Why this bead. The crossing note is the good one -- it is the
+
+  // reason the graph stepped from the bead ABOVE into this
+
+  // family, which is the question a child actually asks.
+
+  const openIdx = beads.findIndex((b) => b.id === open)
+
+  const openBead = openIdx >= 0 ? beads[openIdx] : null
+
+  const openWhy = openBead && openIdx > 0
+
+    ? crossingNote(beads[openIdx - 1].code, openBead.code)
+
+    : null
+
 
   // One smooth path through every bead, continued dashed into the dark.
   const path = beads.length
@@ -270,6 +291,11 @@ export function Trail({
         {beads.map((b) => (
           <g
             key={`${b.id}-${b.row}`}
+            onClick={() => setOpen(open === b.id ? null : b.id)}
+            style={{ cursor: 'pointer' }}
+            role="button"
+            tabIndex={0}
+            aria-label={`${b.name}, grade ${b.grade}. Tap to see why we came here.`}
             className={`tr-bead${b.now ? ' now' : ''}${b.lit ? ' lit' : ''}${
               b.reclaimed ? ' reclaimed' : ''
             }`}
@@ -329,6 +355,24 @@ export function Trail({
           />
         )}
       </svg>
+
+      {openBead && (
+
+        <div className="tr-tap">
+
+          <b>{openBead.name}</b>
+
+          <span className="tr-tap-grade">
+
+            {openBead.grade === 0 ? 'kindergarten' : `grade ${openBead.grade}`} &middot; {familyLabel(openBead.code)}
+
+          </span>
+
+          {openWhy && <p>{openWhy}</p>}
+
+        </div>
+
+      )}
 
       {reason && <p className="tr-why">{reason}</p>}
     </div>

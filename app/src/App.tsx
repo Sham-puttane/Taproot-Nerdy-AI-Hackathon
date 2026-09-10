@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
-import { loadPack, kidName, isHandsOn, type Pack, type Item } from './game/pack'
+import {
+  loadPack, kidName, isHandsOn,
+  type Pack, type Item, type PackNode,
+} from './game/pack'
 import { useGame } from './game/useGame'
 import { Trail } from './game/Trail'
 import { Brief } from './parent/Brief'
@@ -9,6 +12,7 @@ import { Earned } from './grove/Earned'
 import { VoiceAnswer } from './game/VoiceAnswer'
 import { Reward } from './game/Reward'
 import { Cascade } from './game/Cascade'
+import { Bedrock } from './game/Bedrock'
 import {
   fold, loadProgress, saveProgress,
   type Keystone, type Progress,
@@ -135,6 +139,24 @@ function Preview({ pack, kind }: { pack: Pack; kind: string }) {
       </button>
     </div>
   )
+}
+
+/**
+ * The topic in the child's words, for "It was never about ___".
+ *
+ * Derived from the wall's standard rather than from what she tapped in the
+ * picker, because the descent can and does cross families -- and the sentence
+ * has to be about the problem that actually beat her.
+ */
+function topicWord(wall: PackNode | undefined): string {
+  if (!wall) return 'that'
+  const c = wall.code
+  if (c.includes('.NF')) return 'fractions'
+  if (c.includes('.OA')) return 'times tables'
+  if (c.includes('.NBT')) return 'big numbers'
+  if (c.includes('.MD')) return 'measuring'
+  if (c.includes('.G.')) return 'shapes'
+  return 'that'
 }
 
 function Game({
@@ -289,38 +311,19 @@ function Game({
       )}
 
       {g.phase === 'bedrock' && (
-        <>
-          <div className="kicker">found it</div>
-          <h1 className="say">Here&rsquo;s the tricky bit.</h1>
-          {bedrockNode ? (
-            <>
-              <p className="lede">
-                It was never really about{' '}
-                {g.wallItem?.stem.replace(' = ?', '')}.
-              </p>
-              <div className="coach">
-                <b>{kidName(bedrockNode)}</b>
-                {bedrockNode.reteach ? ` — ${bedrockNode.reteach}` : ''}
-              </div>
-              <span className="badge" style={{ marginTop: 14 }}>
-                {g.itemsUsed} questions &middot; grade {bedrockNode.grade}
-              </span>
-            </>
-          ) : (
-            <p className="lede">
-              Nothing is clearly broken yet — let&rsquo;s keep practising.
-            </p>
-          )}
-          <div className="spacer" />
-          {bedrockNode && (
-            <button className="go" onClick={g.beginRepair}>
-              Fix it
-            </button>
-          )}
-          <button className="go quiet" onClick={() => setShowBrief(true)}>
-            For a grown-up
-          </button>
-        </>
+        <Bedrock
+          wall={g.wallNode}
+          gap={bedrockNode}
+          // The posterior's confidence in the gap's IDENTITY, which is what
+          // "we are 70% sure" means. bedrock.belief is something else --
+          // how broken the skill looks -- and showing it here would be a
+          // different number wearing the same words.
+          confidence={g.brief().best?.confidence ?? 0}
+          questions={g.itemsUsed}
+          topic={topicWord(g.wallNode)}
+          onFix={g.beginRepair}
+          onGrownup={() => setShowBrief(true)}
+        />
       )}
 
       {g.phase === 'repair' && g.item && bedrockNode && g.bedrock && (
