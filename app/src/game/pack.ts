@@ -8,6 +8,8 @@
 import type { SkillGraph } from '@engine/types'
 
 export type ItemKind = 'arithmetic' | 'compare' | 'partition' | 'cut' | 'place'
+  | 'numberline'
+  | 'groups'
 
 export interface Item {
   kind: ItemKind
@@ -27,14 +29,27 @@ export interface Item {
   expects_none_correct?: boolean
   target?: number      // cut: how many equal pieces
   tolerance?: number   // cut: how close counts as equal
-  value?: string       // place: the fraction to position
-  max?: number         // place: right end of the line
-  ticks?: number       // place: how many divisions
+  value?: string       // place / numberline: the number to position
+  min?: number         // numberline: left end of the line (default 0)
+  max?: number         // place / numberline: right end of the line
+  ticks?: number       // place / numberline: how many divisions
+  rows?: number        // groups: rows in the array she builds
+  cols?: number        // groups: columns in it
 }
 
 /** Hands-on items have no option list; they report correctness themselves. */
+const HANDS_ON = new Set(['cut', 'place', 'numberline', 'groups'])
+
+/**
+ * Items she manipulates rather than picks from a list.
+ *
+ * These are what Repair reaches for. The manipulatives meta-analysis found
+ * moderate-to-large effects on RETENTION and only small ones on transfer, so
+ * dragging earns its place exactly where she is fixing one skill and needs to
+ * remember it -- not everywhere.
+ */
 export function isHandsOn(i: Item): boolean {
-  return i.kind === 'cut' || i.kind === 'place'
+  return HANDS_ON.has(i.kind)
 }
 
 export interface PackNode {

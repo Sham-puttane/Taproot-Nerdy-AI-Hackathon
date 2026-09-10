@@ -298,6 +298,63 @@ def verify_word(item: dict) -> Verdict:
     return _check_grade(v, item.get("grade"), vals)
 
 
+def verify_numberline(item: dict) -> Verdict:
+    """Drag a number to its place on a line running min..max.
+
+    Generalises `place`, which only knew fractions between 0 and 1. The one
+    check that actually matters is the same: the target has to LAND on a tick.
+    A number that falls between two ticks cannot be placed, so the child is
+    being asked to do something impossible and will be marked wrong for it.
+    """
+    v = Verdict(ok=True)
+    val = parse_value(item.get("value"))
+    if val is None:
+        return v.fail(f"value not parseable: {item.get('value')!r}")
+
+    lo = item.get("min", 0)
+    hi = item.get("max", 1)
+    if not isinstance(lo, int) or not isinstance(hi, int):
+        return v.fail("min and max must be integers")
+    if hi <= lo:
+        return v.fail(f"max {hi} must be greater than min {lo}")
+    if not (lo <= val <= hi):
+        return v.fail(f"value {val} outside the line {lo}..{hi}")
+
+    ticks = item.get("ticks")
+    if not isinstance(ticks, int) or ticks < 2:
+        return v.fail("ticks must be an integer >= 2")
+    if ticks > 24:
+        return v.fail(f"{ticks} ticks is more than a child can count")
+
+    # ((val - lo) / (hi - lo)) * ticks must be a whole number
+    pos = Rational(val - lo, hi - lo) * ticks
+    if pos.q != 1:
+        return v.fail(f"{val} does not land on any of the {ticks} ticks "
+                      f"between {lo} and {hi}")
+    return _check_grade(v, item.get("grade"), [val])
+
+
+def verify_groups(item: dict) -> Verdict:
+    """Build an array of `rows` x `cols`.
+
+    Bounded at 12 because past that the dots stop being countable, which is
+    the entire reason for using an array rather than a number.
+    """
+    v = Verdict(ok=True)
+    rows, cols = item.get("rows"), item.get("cols")
+    for name, n in (("rows", rows), ("cols", cols)):
+        if not isinstance(n, int) or isinstance(n, bool):
+            return v.fail(f"{name} must be an integer, got {n!r}")
+        if not (1 <= n <= 12):
+            return v.fail(f"{name}={n} outside 1..12; an array past 12 "
+                          f"cannot be counted by eye")
+    product = rows * cols
+    stated = item.get("total")
+    if stated is not None and stated != product:
+        return v.fail(f"total {stated} but {rows} x {cols} = {product}")
+    return _check_grade(v, item.get("grade"), [Rational(product)])
+
+
 KINDS = {
     "arithmetic": verify_arithmetic,
     "compare": verify_compare,
@@ -305,6 +362,8 @@ KINDS = {
     "cut": verify_cut,
     "place": verify_place,
     "word": verify_word,
+    "numberline": verify_numberline,
+    "groups": verify_groups,
 }
 
 

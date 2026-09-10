@@ -17,6 +17,8 @@ import { speak } from './game/tts'
 import { useOffline } from './game/useOffline'
 import { Cut } from './items/Cut'
 import { Place } from './items/Place'
+import { NumberLine } from './items/NumberLine'
+import { Groups } from './items/Groups'
 import './theme.css'
 
 export default function App() {
@@ -443,6 +445,26 @@ function Question({
           key={item.stem}
           value={item.value}
           ticks={item.ticks}
+          onDone={(ok) => onChoose(ok ? 0 : 1)}
+        />
+      )}
+      {handsOn && item.kind === 'numberline' && item.value
+        && item.ticks != null && (
+        <NumberLine
+          key={item.stem}
+          value={item.value}
+          ticks={item.ticks}
+          min={item.min ?? 0}
+          max={item.max ?? 1}
+          onDone={(ok) => onChoose(ok ? 0 : 1)}
+        />
+      )}
+      {handsOn && item.kind === 'groups'
+        && item.rows != null && item.cols != null && (
+        <Groups
+          key={item.stem}
+          rows={item.rows}
+          cols={item.cols}
           onDone={(ok) => onChoose(ok ? 0 : 1)}
         />
       )}

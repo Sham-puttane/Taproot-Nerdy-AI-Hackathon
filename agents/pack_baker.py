@@ -123,13 +123,15 @@ def bake(wall_codes, per_node: int = 8) -> dict:
     # authoring run happened to read, and matching on them would silently drop
     # everything after any rebuild. The code is the stable name.
     authored_by_code: dict[str, list] = {}
-    apath = f"{OUT}/authored_items.json"
-    if os.path.exists(apath):
+    for name in ("authored_items.json", "instrument_items.json"):
+        path = f"{OUT}/{name}"
+        if not os.path.exists(path):
+            continue
         try:
-            for it in json.load(io.open(apath, encoding="utf-8")):
+            for it in json.load(io.open(path, encoding="utf-8")):
                 authored_by_code.setdefault(it["node"], []).append(it)
         except (ValueError, OSError, KeyError) as e:
-            print(f"  ! could not read authored items: {e}", file=sys.stderr)
+            print(f"  ! could not read {name}: {e}", file=sys.stderr)
 
     items, covered, uncovered, rejected = [], [], [], 0
     authored_used = 0

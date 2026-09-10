@@ -1397,3 +1397,79 @@ button.opt:disabled {
   font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--ink-faint); margin-right: 5px;
 }
+
+/* ---- number line ------------------------------------------------------
+   The highest-evidence representation we have, and deliberately spare: a
+   line, ticks, a marker. Decoration measurably pulls children off the
+   structure, and here the structure is the whole point. */
+.nl-line {
+  position: relative; height: 92px; margin-top: 6px;
+  touch-action: none; border-radius: 12px;
+}
+.nl-line:focus-visible { outline: 3px solid var(--glow-soft); outline-offset: 4px; }
+.nl-rule {
+  position: absolute; left: 0; right: 0; top: 48px;
+  height: 4px; border-radius: 2px; background: var(--edge);
+}
+.nl-tick {
+  position: absolute; top: 42px; width: 2px; height: 16px;
+  background: var(--ink-faint);
+}
+.nl-tick.major { top: 38px; height: 24px; background: var(--ink-dim); }
+.nl-label {
+  position: absolute; top: 66px; transform: translateX(-50%);
+  font-size: 15px; color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+.nl-marker {
+  position: absolute; top: 0; width: 60px; height: 62px;
+  background: none; border: none; padding: 0; touch-action: none;
+}
+.nl-chip {
+  display: inline-block; padding: 5px 10px; border-radius: 10px;
+  font-size: 16px; color: #2f2a1f; box-shadow: var(--shadow);
+  font-variant-numeric: tabular-nums;
+}
+.nl-stem {
+  display: block; width: 3px; height: 18px; margin: 2px auto 0;
+  background: var(--ink);
+}
+.nl-say { font-size: 14px; color: var(--ink-dim); margin: 6px 0 0; min-height: 20px; }
+
+/* ---- arrays -----------------------------------------------------------
+   4 x 6 stops being a fact to remember and becomes a shape she made. The
+   running total climbs WHILE she drags, because watching it go up by six per
+   row is the lesson -- revealing it at the end would be a quiz again. */
+.gr { display: flex; flex-direction: column; align-items: flex-start; }
+.gr-ask { font-size: 16px; margin-bottom: 10px; }
+.gr-ask b { font-size: 19px; }
+.gr-pad {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  width: 100%; max-width: 340px; aspect-ratio: 1;
+  padding: 8px; border-radius: 16px;
+  background: var(--card); border: 2px solid var(--edge);
+  touch-action: none;
+}
+.gr-pad:focus-visible { outline: 3px solid var(--glow-soft); outline-offset: 3px; }
+.gr-dot {
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  transition: background 0.09s ease, transform 0.09s ease;
+}
+.gr-dot.on { background: var(--glow); transform: scale(1.06); }
+.gr-dot.on.right { background: var(--leaf); }
+.gr-dot.on.wrong { background: var(--wrong); }
+.gr-count {
+  display: flex; align-items: baseline; gap: 7px;
+  margin-top: 12px; font-size: 16px; color: var(--ink-dim);
+}
+.gr-count b { font-size: 21px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.gr-eq { color: var(--ink-faint); }
+.gr-total { color: var(--leaf) !important; }
+.gr-hint { font-size: 14px; color: var(--ink-faint); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gr-dot { transition: none; }
+}
