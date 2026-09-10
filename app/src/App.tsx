@@ -13,6 +13,7 @@ import { VoiceAnswer } from './game/VoiceAnswer'
 import { Reward } from './game/Reward'
 import { Cascade } from './game/Cascade'
 import { Bedrock } from './game/Bedrock'
+import { SessionProgress } from './game/SessionProgress'
 import { fold, type Keystone, type Progress } from './game/progress'
 import {
   addLearner, loadFor, loadRoster, removeLearner, saveFor, setActive,
@@ -441,6 +442,9 @@ function Game({
         grade={verdict?.grade ?? 5}
         nth={verdict?.nth ?? 0}
       />
+      {inSession && (
+        <SessionProgress phase={g.phase} asked={g.itemsUsed} />
+      )}
       <div className="frame">
       {g.phase === 'wall' && g.item && (
         <>

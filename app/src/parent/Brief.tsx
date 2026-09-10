@@ -314,10 +314,19 @@ export function Brief({
             </>
           ) : data.questionCount === 0 ? (
             <>
-              <h1 className="pr-verdict">Nothing to report yet.</h1>
+              {/* Saying "nothing to report" beside a filled-in overview
+                  is the page arguing with itself. If she has played before,
+                  the history IS the report; only a brand-new learner has
+                  nothing. */}
+              <h1 className="pr-verdict">
+                {progress && progress.keystones.length > 0
+                  ? 'No session open right now.'
+                  : 'Nothing to report yet.'}
+              </h1>
               <p className="pr-lede">
-                This page fills itself in while she plays. It is not a score
-                and there is nothing here to revise for.
+                {progress && progress.keystones.length > 0
+                  ? 'Everything she has done so far is on the right. Start a session and this side fills in with what she was asked today.'
+                  : 'This page fills itself in while she plays. It is not a score and there is nothing here to revise for.'}
               </p>
               <ul className="pr-promise">
                 <li>

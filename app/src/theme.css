@@ -1890,3 +1890,155 @@ button.opt:disabled {
   padding: 2px 6px; border-radius: 6px;
   pointer-events: none; user-select: text;
 }
+
+/* ======================================================================
+   VIBRANCY PASS
+   The palette was tasteful and washed out: pastel fills at ~13% tint on
+   cream, so a grade-5 coral and a grade-1 azure read as the same beige at a
+   glance. Children pick targets by colour before they read them. This
+   saturates the interactive surfaces without touching the tokens the rest of
+   the app reasons about.
+   ====================================================================== */
+
+/* ---- the answer buttons ---------------------------------------------- */
+.opt {
+  --tint: var(--glow);
+  position: relative;
+  background: linear-gradient(
+    170deg,
+    color-mix(in srgb, var(--tint) 34%, #fff) 0%,
+    color-mix(in srgb, var(--tint) 20%, #fff) 100%) !important;
+  border: 3px solid color-mix(in srgb, var(--tint) 78%, transparent) !important;
+  box-shadow:
+    0 4px 0 color-mix(in srgb, var(--tint) 55%, #6b4a10),
+    0 8px 18px rgba(120, 92, 32, 0.16) !important;
+  font-weight: 600;
+  transition: transform 0.08s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+/* A press that moves is a press a child believes happened. */
+.opt:hover:not(:disabled) { transform: translateY(-2px); filter: saturate(1.12); }
+.opt:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 color-mix(in srgb, var(--tint) 55%, #6b4a10) !important;
+}
+.opts > .opt:nth-child(1) { --tint: var(--g-5); }
+.opts > .opt:nth-child(2) { --tint: var(--g-3); }
+.opts > .opt:nth-child(3) { --tint: var(--g-1); }
+.opts > .opt:nth-child(4) { --tint: var(--plum); }
+
+.opt.chosen-right {
+  --tint: var(--leaf);
+  animation: rightpop 0.4s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+.opt.chosen-wrong {
+  --tint: var(--wrong);
+  animation: wrongshake 0.32s ease-in-out;
+}
+@keyframes rightpop {
+  0% { transform: scale(1); } 55% { transform: scale(1.06); } 100% { transform: scale(1); }
+}
+@keyframes wrongshake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); } 75% { transform: translateX(5px); }
+}
+
+/* ---- the question itself --------------------------------------------- */
+.card {
+  border: 3px solid var(--edge);
+  background:
+    radial-gradient(120% 140% at 50% -30%,
+      color-mix(in srgb, var(--glow) 16%, #fff) 0%, var(--card) 62%);
+  box-shadow: 0 6px 0 var(--edge), 0 14px 30px rgba(120, 92, 32, 0.13);
+}
+.prob { font-weight: 600; color: var(--ink); }
+
+/* ---- the primary action ---------------------------------------------- */
+.go:not(.quiet) {
+  background: linear-gradient(170deg, #ffd15c 0%, var(--glow) 100%) !important;
+  border: none !important;
+  box-shadow: 0 5px 0 #b3790a, 0 12px 24px rgba(120, 92, 32, 0.2) !important;
+  font-weight: 600;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+}
+.go:not(.quiet):hover { transform: translateY(-2px); }
+.go:not(.quiet):active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 #b3790a !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opt, .go:not(.quiet) { transition: none; }
+  .opt.chosen-right, .opt.chosen-wrong { animation: none; }
+}
+
+/* ---- session progress -------------------------------------------------
+   The loop has always had five named beats and never showed her one of them.
+   From inside, a descent is an unbounded stream of questions with no visible
+   end, which is what "why do I keep getting questions" actually feels like.
+   Not a percentage: the descent does not know how many questions it needs,
+   and inventing one would be a number we made up. */
+.sp { width: 100%; max-width: 560px; margin: 0 auto 18px; }
+.sp-track {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; align-items: flex-start; gap: 4px;
+}
+.sp-beat {
+  --bh: var(--glow);
+  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  position: relative;
+}
+/* the rail between the dots */
+.sp-beat::before {
+  content: ''; position: absolute; top: 13px; left: -50%;
+  width: 100%; height: 4px; border-radius: 2px;
+  background: var(--edge); z-index: 0;
+}
+.sp-beat:first-child::before { display: none; }
+.sp-beat.done::before, .sp-beat.now::before { background: var(--bh); }
+.sp-dot {
+  position: relative; z-index: 1;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 600;
+  background: var(--card); color: var(--ink-faint);
+  border: 3px solid var(--edge);
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+.sp-beat.done .sp-dot {
+  background: var(--bh); border-color: var(--bh); color: #fff;
+}
+.sp-beat.now .sp-dot {
+  background: var(--bh); border-color: var(--bh); color: #16233a;
+  transform: scale(1.22);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--bh) 26%, transparent);
+}
+.sp-label {
+  font-size: 10.5px; line-height: 1.2; text-align: center;
+  color: var(--ink-faint); max-width: 74px;
+}
+.sp-beat.now .sp-label { color: var(--ink); font-weight: 600; }
+.sp-count {
+  text-align: center; margin-top: 9px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+@media (prefers-reduced-motion: reduce) { .sp-dot { transition: none; } }
+
+/* The fixed chrome -- voice, learner, skin, grown-ups -- was laid out when
+   nothing else lived at the top of the play column. The progress bar does
+   now, and they were sitting on top of it. Give the bar room and pull the
+   chrome into a single row that cannot overlap it. */
+.board > .play { padding-top: 56px; }
+.grownup {
+  top: 12px !important;
+  right: 152px !important;
+  bottom: auto !important;
+  left: auto !important;
+}
+@media (max-width: 900px) {
+  .board > .play { padding-top: 92px; }
+  .grownup { top: 52px !important; right: 12px !important; }
+  .switch-learner { top: 52px; right: 130px; }
+  .voice-toggle { top: 12px; right: 62px; }
+}
