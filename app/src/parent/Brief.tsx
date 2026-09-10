@@ -21,6 +21,8 @@
 import type { Pack, PackNode } from '../game/pack'
 import { kidName } from '../game/pack'
 import { recommendation, skillKind } from '../game/pedagogy'
+import type { Progress } from '../game/progress'
+import { Overview } from './Overview'
 
 export interface BriefData {
   wall: PackNode | undefined
@@ -162,10 +164,13 @@ function ConfidenceRing({ pct, hue }: { pct: number; hue: string }) {
 export function Brief({
   pack,
   data,
+  progress,
   onBack,
-}: {
+  }: {
   pack: Pack
   data: BriefData
+  /** everything she has ever done, not just this session */
+  progress?: Progress
   onBack: () => void
 }) {
   const node = (id: string) => pack.nodes.find((n) => n.id === id)
@@ -415,6 +420,7 @@ export function Brief({
               )}
             </div>
           </section>
+          {progress && <Overview pack={pack} progress={progress} />}
         </aside>
       </div>
     </div>

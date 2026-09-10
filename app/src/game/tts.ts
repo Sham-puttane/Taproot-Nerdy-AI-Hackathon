@@ -15,8 +15,11 @@ export function speakable(text: string): string {
     .replace(/÷/g, ' divided by ')
     .replace(/\+/g, ' plus ')
     .replace(/(?<=\d)\s*-\s*(?=\d)/g, ' minus ')
+    // "= ?" read aloud as "equals" and then stopped, which sounds like the
+    // sentence was cut off. A child hearing a question needs to hear that it
+    // IS one.
+    .replace(/=\s*\?/g, ' equals what?')
     .replace(/=/g, ' equals ')
-    .replace(/\?/g, '?')
     .replace(/\s+/g, ' ')
     .trim()
 }

@@ -20,6 +20,7 @@ import {
 } from './game/learners'
 import { Who } from './game/Who'
 import { speak } from './game/tts'
+import { useSpeaker } from './game/useSpeaker'
 import { useOffline } from './game/useOffline'
 import { Cut } from './items/Cut'
 import { Place } from './items/Place'
@@ -36,6 +37,7 @@ export default function App() {
   // manipulative can be worked on without playing through to reach it.
   const preview = new URLSearchParams(location.search).get('preview')
   const offline = useOffline()
+  const voice = useSpeaker()
 
   const [progress, setProgress] = useState<Progress | null>(null)
 
@@ -113,6 +115,15 @@ export default function App() {
        the loading/error line still want the padded column. */
     <div className={`stage${pack && progress && !preview ? ' bleed' : ''}`}>
       <button
+        className={`voice-toggle${voice.on ? ' on' : ''}`}
+        onClick={voice.toggle}
+        aria-pressed={voice.on}
+        title={voice.on ? 'Reading aloud. Tap to mute.'
+          : 'Muted. Tap to have questions read aloud.'}
+      >
+        {voice.on ? '🔊' : '🔇'}
+      </button>
+      <button
         className="skin-toggle"
         onClick={() => setSkin(skin === 'meadow' ? 'soil' : 'meadow')}
       >
@@ -161,6 +172,7 @@ export default function App() {
       {pack && !preview && activeId && !switching && progress && showGrownup && !wall && (
         <Brief
           pack={pack}
+          progress={progress ?? undefined}
           data={{
             wall: undefined, best: null, runnersUp: [], path: [],
             asked: [], questionCount: 0,
@@ -198,6 +210,7 @@ export default function App() {
             setProgress(next)
             if (activeId) void saveFor(activeId, next)
           }}
+          voice={voice}
           onHome={() => setWall(null)}
         />
       )}
@@ -247,14 +260,16 @@ function Game({
   grownupOpen,
   onGrownupClose,
   onFinish,
+  voice,
   onHome,
-}: {
+  }: {
   pack: Pack
   wallCode: string
   progress: Progress
   grownupOpen: boolean
   onGrownupClose: () => void
   onFinish: (beliefs: Record<string, number>, k: Keystone | null) => void
+  voice: ReturnType<typeof useSpeaker>
   onHome: () => void
 }) {
   const g = useGame(pack, wallCode)
@@ -305,7 +320,45 @@ function Game({
 
   useEffect(() => setChosen(null), [g.item, g.phase])
 
+
+  // Read each new question aloud. The reading load went UP when 624
+
+  // bare sums became word problems, and the children furthest behind
+
+  // in maths are usually behind in reading too -- so without this the
+
+  // content improvement would be a step backwards for exactly the
+
+  // child this is built for.
+
+  useEffect(() => {
+
+    if (!g.item) return
+
+    const t = window.setTimeout(() => voice.say(g.item!.stem), 260)
+
+    return () => window.clearTimeout(t)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  }, [g.item, voice.on])
+
   const bedrockNode = g.bedrock ? g.nodeOf(g.bedrock.nodeId) : undefined
+  // The moment the whole descent exists for, said out loud.
+
+  useEffect(() => {
+
+    if (g.phase !== 'bedrock' || !bedrockNode) return
+
+    voice.say(
+
+      `It was never really about that. The tricky bit is ` +
+
+      `${kidName(bedrockNode)}.`, 0.9)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  }, [g.phase, bedrockNode, voice.on])
 
   function choose(i: number) {
     if (chosen !== null) return
@@ -321,6 +374,9 @@ function Game({
       nth: (v?.nth ?? 0) + 1,
     }))
 
+    voice.say(right ? 'Yes. That is the one.' : 'Not that one.', 1)
+
+
     // Long enough to see what happened, short enough not to feel punished.
     // A correct answer gets longer, because there is now something to watch.
     const pause = g.phase === 'descent' ? (right ? 760 : 460) : 900
@@ -331,6 +387,7 @@ function Game({
     return (
       <Brief
         pack={pack}
+        progress={progress ?? undefined}
         data={{ ...g.brief(), wall: g.wallNode }}
         onBack={() => {
           setShowBrief(false)
