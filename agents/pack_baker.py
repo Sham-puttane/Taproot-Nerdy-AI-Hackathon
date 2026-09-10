@@ -152,10 +152,11 @@ def bake(wall_codes, per_node: int = 8) -> dict:
                                per_node, n.get("text", ""))
             rejected += len(bad)
             got.extend(ok)
-        # Authored items sit ALONGSIDE the deterministic ones rather than
-        # replacing them. The deterministic generator is the floor -- it can
-        # always produce something, needs no key and no network -- so a bad
-        # authoring run can never leave a skill with nothing to ask.
+        # Authored and instrument items sit ALONGSIDE the deterministic ones:
+        # the deterministic generator is the FLOOR -- it always produces
+        # something, needs no key and no network -- so a failed authoring run
+        # can never leave a skill with nothing to ask.
+        better = []
         for it in authored_by_code.get(n["code"], []):
             copy = dict(it)
             copy["node_id"] = nid
@@ -164,10 +165,19 @@ def bake(wall_codes, per_node: int = 8) -> dict:
             # and Gate 1 is cheap.
             v = verify(copy)
             if v.ok:
-                got.append(copy)
+                better.append(copy)
                 authored_used += 1
             else:
                 rejected += 1
+
+        # A floor should behave like one. Where real subject-appropriate
+        # questions exist, the generic "a op b = ?" fallback keeps only a
+        # couple of slots rather than its full eight -- otherwise a measuring
+        # skill with five genuine measuring questions still looked 40%
+        # arithmetic, and the six topics on the home screen stayed a lie.
+        if better:
+            got = got[:2]
+        got.extend(better)
 
         if not got:
             uncovered.append(n["code"])

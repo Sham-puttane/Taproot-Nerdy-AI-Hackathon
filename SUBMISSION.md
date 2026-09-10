@@ -101,8 +101,9 @@ total?" = 3+2*, which SymPy passes and a child cannot answer.
 > The consequence is the design: **a weak model costs us questions, never
 > correctness.** The failure mode is degraded yield, and it is checkable.
 
-The shipped pack is **1,723 questions across 9 kinds**, 558 distinct stems,
-279 model-authored and verified, **425 hands-on**. The three manipulatives are
+The shipped pack is **1,052 questions across 9 kinds**, 279 model-authored
+and verified, **416 hands-on (40%)**, and only **15% bare arithmetic** -- down
+from 86% when the deterministic generator was the only source. The three manipulatives are
 the three representations the IES What Works Clearinghouse practice guides
 actually name — number line, arrays, strip diagrams — not the ones I found
 most fun to build.
@@ -138,11 +139,10 @@ it had been doing for three of nineteen offerings until I checked.
 
 ### What I'd do next
 
-1. **Close the content gap honestly.** 36% of questions are still bare
-   arithmetic from the deterministic fallback generator. The authoring
-   pipeline works and needs more passes; and only **3 of the 253 retrieved
-   misconceptions are currently executable as wrong algorithms**, which is the
-   single biggest lever on distractor quality left untouched.
+1. **Close the content gap honestly.** 15% of questions are still the generic
+   fallback, and only **3 of the 253 retrieved misconceptions are executable
+   as wrong algorithms** -- the single biggest untouched lever on distractor
+   quality. The pipeline exists; it needs passes, not new ideas.
 2. **Tutor-facing session intelligence.** The grown-up report already says
    what she was asked and *why* a wrong answer was wrong. The obvious next
    step for Nerdy specifically is a pre-session brief across a tutor's whole
