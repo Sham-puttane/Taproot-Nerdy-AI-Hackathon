@@ -13,10 +13,12 @@ import { VoiceAnswer } from './game/VoiceAnswer'
 import { Reward } from './game/Reward'
 import { Cascade } from './game/Cascade'
 import { Bedrock } from './game/Bedrock'
+import { fold, type Keystone, type Progress } from './game/progress'
 import {
-  fold, loadProgress, saveProgress,
-  type Keystone, type Progress,
-} from './game/progress'
+  addLearner, loadFor, loadRoster, removeLearner, saveFor, setActive,
+  type Learner,
+} from './game/learners'
+import { Who } from './game/Who'
 import { speak } from './game/tts'
 import { useOffline } from './game/useOffline'
 import { Cut } from './items/Cut'
@@ -36,16 +38,72 @@ export default function App() {
   const offline = useOffline()
 
   const [progress, setProgress] = useState<Progress | null>(null)
+
+  const [learners, setLearners] = useState<Learner[] | null>(null)
+
+  const [activeId, setActiveId] = useState<string | null>(null)
+
+  const [switching, setSwitching] = useState(false)
   const [wall, setWall] = useState<string | null>(null)
   const [showGrownup, setShowGrownup] = useState(false)
   const [picking, setPicking] = useState(false)
 
   useEffect(() => {
     loadPack().then(setPack).catch((e) => setErr(String(e)))
-    loadProgress().then(setProgress)
+    void loadRoster().then(async (r) => {
+      setLearners(r.learners)
+      if (r.activeId) {
+        setActiveId(r.activeId)
+        setProgress(await loadFor(r.activeId))
+      }
+    })
   }, [])
 
+  async function pickLearner(id: string) {
+
+    await setActive(id)
+
+    setActiveId(id)
+
+    setProgress(await loadFor(id))
+
+    setLearners((await loadRoster()).learners)
+
+    setWall(null)
+
+    setPicking(false)
+
+    setSwitching(false)
+
+  }
+
+
+  async function makeLearner(name: string) {
+
+    const l = await addLearner(name)
+
+    await pickLearner(l.id)
+
+  }
+
+
+  async function dropLearner(id: string) {
+
+    await removeLearner(id)
+
+    const r = await loadRoster()
+
+    setLearners(r.learners)
+
+    if (r.activeId) await pickLearner(r.activeId)
+
+    else { setActiveId(null); setProgress(null) }
+
+  }
+
+
   useEffect(() => {
+
     document.documentElement.setAttribute('data-skin', skin)
   }, [skin])
 
@@ -60,6 +118,15 @@ export default function App() {
       >
         {skin === 'meadow' ? 'soil' : 'meadow'}
       </button>
+      {pack && learners && learners.length > 0 && activeId && !switching && (
+        <button
+          className="switch-learner"
+          onClick={() => setSwitching(true)}
+          title="Someone else's turn"
+        >
+          {learners.find((l) => l.id === activeId)?.name ?? 'switch'}
+        </button>
+      )}
       {pack && progress && (
         <button
           className="grownup"
@@ -76,8 +143,22 @@ export default function App() {
       )}
       {err && <p className="lede">Could not load: {err}</p>}
       {!pack && !err && <p className="lede">Loading…</p>}
+      {/* Nobody chosen yet, or the grown-up asked to switch. One device,
+          several children is Nerdy's actual business -- a tutor with four
+          students in an afternoon, or siblings sharing a tablet -- and
+          every one of them used to write into the same grove. */}
+      {pack && !preview && learners && (!activeId || switching) && (
+        <Who
+          learners={learners}
+          onPick={(id) => void pickLearner(id)}
+          onAdd={(name) => void makeLearner(name)}
+          onRemove={(id) => void dropLearner(id)}
+          onClose={activeId ? () => setSwitching(false) : undefined}
+        />
+      )}
+
       {pack && preview && <Preview pack={pack} kind={preview} />}
-      {pack && !preview && progress && showGrownup && !wall && (
+      {pack && !preview && activeId && !switching && progress && showGrownup && !wall && (
         <Brief
           pack={pack}
           data={{
@@ -87,14 +168,14 @@ export default function App() {
           onBack={() => setShowGrownup(false)}
         />
       )}
-      {pack && !preview && progress && !showGrownup && !picking && !wall && (
+      {pack && !preview && activeId && !switching && progress && !showGrownup && !picking && !wall && (
         <GroveWide
           pack={pack}
           progress={progress}
           onStart={() => setPicking(true)}
         />
       )}
-      {pack && !preview && progress && picking && (
+      {pack && !preview && activeId && !switching && progress && picking && (
         <PickWide
           pack={pack}
           onPick={(code) => {
@@ -104,7 +185,7 @@ export default function App() {
           onBack={() => setPicking(false)}
         />
       )}
-      {pack && !preview && progress && wall && (
+      {pack && !preview && activeId && !switching && progress && wall && (
         <Game
           key={wall}
           pack={pack}
@@ -115,7 +196,7 @@ export default function App() {
           onFinish={(beliefs, keystone) => {
             const next = fold(progress, beliefs, keystone)
             setProgress(next)
-            void saveProgress(next)
+            if (activeId) void saveFor(activeId, next)
           }}
           onHome={() => setWall(null)}
         />
@@ -297,6 +378,11 @@ function Game({
             Nothing underneath looks broken, so there is nothing to dig for.
             Come back with a problem that beat you.
           </p>
+          {/* This screen had no way off it. A child who answers the very first
+              question correctly -- the good outcome -- was stranded, with the
+              only escape a browser refresh. */}
+          <div className="spacer" />
+          <button className="go" onClick={onHome}>Pick something else</button>
         </>
       )}
 
