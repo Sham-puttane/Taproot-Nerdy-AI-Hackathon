@@ -17,6 +17,7 @@ import {
   itemKey,
   nodeByCode,
   pickItem,
+  type Prefer,
   toGraph,
 } from './pack'
 
@@ -87,7 +88,7 @@ export function useGame(pack: Pack, wallCode?: string) {
   )
 
   const take = useCallback(
-    (nodeId: string, prefer: 'quick' | 'handsOn' = 'quick'): Item | null => {
+    (nodeId: string, prefer: Prefer = 'quick'): Item | null => {
       const next = pickItem(pack, nodeId, seen.current, prefer)
       if (next) seen.current.add(itemKey(next))
       return next
@@ -289,7 +290,8 @@ export function useGame(pack: Pack, wallCode?: string) {
               ? [...withBedrock, { nodeId: nextNode, correct: null }]
               : withBedrock
           })
-          setPendingClimbItem(nextNode ? take(nextNode) : null)
+          setPendingClimbItem(
+            nextNode ? take(nextNode, 'pictorial') : null)
           return
         }
         const again = take(bedrock.nodeId, 'handsOn')
@@ -326,7 +328,8 @@ export function useGame(pack: Pack, wallCode?: string) {
                   x.nodeId === upcoming ? { ...x, correct: null } : x)
               : [...t, { nodeId: upcoming, correct: null }],
           )
-          setItem(take(upcoming))
+          // the representational rung of the fade
+          setItem(take(upcoming, 'pictorial'))
         } else {
           setItem(wallItem)
           setPhase('return')

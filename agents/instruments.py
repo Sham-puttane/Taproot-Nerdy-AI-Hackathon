@@ -144,12 +144,73 @@ def balance_items(node: dict, want: int) -> list[dict]:
     return out
 
 
+def compare_items(node: dict, want: int) -> list[dict]:
+    """Two quantities against each other: the representational middle rung.
+
+    Deliberately not filler. Setting 3/4 beside 2/3 and asking which is bigger
+    is the thing symbols hide and the number line reveals, so it belongs
+    between handling a quantity and calculating with one.
+    """
+    grade = node["grade"]
+    allowed = GRADE_DENOMINATORS.get(grade)
+    out: list[dict] = []
+
+    if allowed:                      # fractions this grade actually meets
+        dens = sorted(allowed)[:4]
+        pairs = []
+        for d1 in dens:
+            for d2 in dens:
+                for n1 in range(1, d1):
+                    for n2 in range(1, d2):
+                        if (n1, d1) != (n2, d2):
+                            pairs.append((Fraction(n1, d1), Fraction(n2, d2)))
+        seen_pair = set()
+        for a, b in pairs:
+            key = (a, b)
+            if key in seen_pair:
+                continue
+            seen_pair.add(key)
+            left = f"{a.numerator}/{a.denominator}"
+            right = f"{b.numerator}/{b.denominator}"
+            out.append({
+                "kind": "compare",
+                "stem": f"Which sign belongs between {left} and {right}?",
+                "left": left, "right": right,
+                "options": ["<", ">", "="],
+                "answer_index": 0 if a < b else (1 if a > b else 2),
+                "grade": grade,
+                "node": node["code"], "node_id": node["id"],
+            })
+            if len(out) >= want:
+                return out
+
+    cap = {"K": 10, "1": 20, "2": 100, "3": 1000,
+           "4": 10000, "5": 10000}.get(grade, 100)
+    step = max(1, cap // 12)
+    for a in range(step, cap, step):
+        b = a + step
+        for lo, hi in ((a, b), (b, a), (a, a)):
+            out.append({
+                "kind": "compare",
+                "stem": f"Which sign belongs between {lo} and {hi}?",
+                "left": str(lo), "right": str(hi),
+                "options": ["<", ">", "="],
+                "answer_index": 0 if lo < hi else (1 if lo > hi else 2),
+                "grade": grade,
+                "node": node["code"], "node_id": node["id"],
+            })
+            if len(out) >= want:
+                return out
+    return out
+
+
 def main() -> int:
     pack = json.load(io.open(PACK, encoding="utf-8"))
     per = int(sys.argv[1]) if len(sys.argv) > 1 else 4
 
     made: list[dict] = []
-    stats = {"numberline": 0, "groups": 0, "balance": 0, "rejected": 0}
+    stats = {"numberline": 0, "groups": 0, "balance": 0, "compare": 0,
+             "rejected": 0}
     reasons: dict[str, int] = {}
     touched: set[str] = set()
 
@@ -165,6 +226,15 @@ def main() -> int:
         # blocks; past grade 2 the same idea is better served by the line.
         if BALANCE_RE.search(text) and gnum(node["grade"]) <= 2:
             wanted += balance_items(node, per)
+
+        # The Climb is the representational step, so every skill needs a
+
+        # pictorial item -- measured at 0 of 101 skills with all three tiers
+
+        # before this.
+
+        wanted += compare_items(node, 3)
+
 
         for item in wanted:
             v = verify(item)
@@ -185,6 +255,7 @@ def main() -> int:
     print(f"number line  {stats['numberline']:>4} items")
     print(f"arrays       {stats['groups']:>4} items")
     print(f"balance      {stats['balance']:>4} items")
+    print(f"compare      {stats['compare']:>4} items")
     print(f"rejected     {stats['rejected']:>4}")
     print(f"skills now hands-on: {len(touched)} of {len(pack['nodes'])}")
     if reasons:

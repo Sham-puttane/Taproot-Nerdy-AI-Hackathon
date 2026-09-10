@@ -130,6 +130,43 @@ export function kidName(n: PackNode | undefined): string {
 }
 
 /**
+ * Where in the concrete -> representational -> abstract ladder an item sits.
+ *
+ * CONCRETE items are manipulated: she drags, builds, balances. REPRESENTATIONAL
+ * items are pictures of the idea -- a shape cut into parts, two quantities set
+ * against each other. ABSTRACT items are symbols and words with no picture.
+ *
+ * The research is specific about this. Manipulatives show moderate-to-large
+ * effects on RETENTION but only small ones on transfer, and concrete
+ * representations can actively HINDER transfer by binding an idea to a single
+ * context. What improves transfer is the MOVEMENT between them. So the game
+ * uses each tier where it earns its keep, and then leaves.
+ */
+const CONCRETE = new Set<ItemKind>(
+  ['cut', 'place', 'numberline', 'groups', 'balance'])
+const PICTORIAL = new Set<ItemKind>(['partition', 'compare'])
+const ABSTRACT = new Set<ItemKind>(['arithmetic', 'word'])
+
+export type Prefer = 'quick' | 'handsOn' | 'pictorial' | 'abstract'
+
+/**
+ * Preference order per beat of the loop, most wanted first.
+ *
+ *   quick      the descent: eight fast reads. Dragging for every one would be
+ *              exhausting, and the descent is not where the learning happens.
+ *   handsOn    Repair: she stays with one skill, which is exactly where a
+ *              manipulative earns its time.
+ *   pictorial  the Climb: the same idea, drawn rather than handled.
+ *   abstract   the Return: symbols, because symbols are what beat her.
+ */
+const TIERS: Record<Prefer, Set<ItemKind>[]> = {
+  quick: [ABSTRACT, PICTORIAL, CONCRETE],
+  handsOn: [CONCRETE, PICTORIAL, ABSTRACT],
+  pictorial: [PICTORIAL, CONCRETE, ABSTRACT],
+  abstract: [ABSTRACT, PICTORIAL, CONCRETE],
+}
+
+/**
  * Pick an unseen item for a node.
  *
  * `prefer` matters more than it looks. A diagnostic descent wants eight quick
@@ -143,15 +180,21 @@ export function pickItem(
   pack: Pack,
   nodeId: string,
   seen: Set<string>,
-  prefer: 'quick' | 'handsOn' = 'quick',
+  prefer: Prefer = 'quick',
 ): Item | null {
   const pool = pack.items.filter((i) => i.node_id === nodeId)
   if (!pool.length) return null
   const fresh = pool.filter((i) => !seen.has(itemKey(i)))
   const usable = fresh.length ? fresh : pool
-  const wanted = usable.filter((i) =>
-    prefer === 'handsOn' ? isHandsOn(i) : !isHandsOn(i))
-  return (wanted.length ? wanted : usable)[0] ?? null
+
+  // Take the first tier that has anything. Falling through rather than
+  // insisting means a node holding only bare sums still works -- the fade is
+  // a preference, not a precondition.
+  for (const tier of TIERS[prefer]) {
+    const got = usable.filter((i) => tier.has(i.kind))
+    if (got.length) return got[0]
+  }
+  return usable[0] ?? null
 }
 
 export function itemKey(i: Item): string {
