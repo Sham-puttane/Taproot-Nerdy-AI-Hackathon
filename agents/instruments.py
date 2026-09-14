@@ -64,6 +64,24 @@ LINES = {
 }
 
 
+def _offset(code: str, n: int) -> int:
+    """A stable, node-specific place to start reading a candidate list.
+
+    Without this every skill at a grade gets the same first N items, because
+    each generator enumerates in a fixed order and slices the front. Derived
+    from the code so it is deterministic: the same skill always produces the
+    same questions, and two skills almost never produce the same ones.
+    """
+    if n <= 0:
+        return 0
+    h = sum(ord(c) * (i + 1) for i, c in enumerate(code))
+    return h % n
+
+
+def _rotate(items: list, code: str) -> list:
+    off = _offset(code, len(items))
+    return items[off:] + items[:off]
+
 def gnum(g: str) -> int:
     return 0 if g == "K" else int(g)
 
@@ -92,9 +110,7 @@ def line_items(node: dict, want: int) -> list[dict]:
                 "node": node["code"], "node_id": node["id"],
                 "options": [], "answer_index": 0,
             })
-            if len(out) >= want:
-                return out
-    return out
+    return _rotate(out, node["code"])[:want]
 
 
 def array_items(node: dict, want: int) -> list[dict]:
@@ -114,9 +130,7 @@ def array_items(node: dict, want: int) -> list[dict]:
                 "node": node["code"], "node_id": node["id"],
                 "options": [], "answer_index": 0,
             })
-            if len(out) >= want:
-                return out
-    return out
+    return _rotate(out, node["code"])[:want]
 
 
 def balance_items(node: dict, want: int) -> list[dict]:
@@ -124,9 +138,7 @@ def balance_items(node: dict, want: int) -> list[dict]:
 
     `given` is the whole point: with an empty pan she can count the other side
     and copy the total, which tests counting. With something already there,
-    matching requires reasoning about a difference -- the shape that separates
-    a child who reads "=" as "here comes the answer" from one who reads it as
-    "these are the same".
+    matching requires reasoning about a difference.
     """
     grade = node["grade"]
     cap = {"K": 10, "1": 20, "2": 20}.get(grade, 20)
@@ -136,8 +148,6 @@ def balance_items(node: dict, want: int) -> list[dict]:
             b = total - a
             if a < b:
                 continue                # a+b and b+a are the same picture
-            # Leave a real gap. Too small and she can see it at a glance; too
-            # large and it is the old copy-the-total task again.
             for given in (total // 2, total // 2 + 1, total - 2):
                 need = total - given
                 if given < 1 or need < 1:
@@ -150,17 +160,15 @@ def balance_items(node: dict, want: int) -> list[dict]:
                     "node": node["code"], "node_id": node["id"],
                     "options": [], "answer_index": 0,
                 })
-                if len(out) >= want:
-                    return out
-    return out
+    return _rotate(out, node["code"])[:want]
 
 
 def compare_items(node: dict, want: int) -> list[dict]:
     """Two quantities against each other: the representational middle rung.
 
-    Deliberately not filler. Setting 3/4 beside 2/3 and asking which is bigger
-    is the thing symbols hide and the number line reveals, so it belongs
-    between handling a quantity and calculating with one.
+    Setting 3/4 beside 2/3 and asking which is bigger is the thing symbols
+    hide and the number line reveals, so it belongs between handling a
+    quantity and calculating with one.
     """
     grade = node["grade"]
     allowed = GRADE_DENOMINATORS.get(grade)
@@ -168,32 +176,26 @@ def compare_items(node: dict, want: int) -> list[dict]:
 
     if allowed:                      # fractions this grade actually meets
         dens = sorted(allowed)[:4]
-        pairs = []
+        seen_pair = set()
         for d1 in dens:
             for d2 in dens:
                 for n1 in range(1, d1):
                     for n2 in range(1, d2):
-                        if (n1, d1) != (n2, d2):
-                            pairs.append((Fraction(n1, d1), Fraction(n2, d2)))
-        seen_pair = set()
-        for a, b in pairs:
-            key = (a, b)
-            if key in seen_pair:
-                continue
-            seen_pair.add(key)
-            left = f"{a.numerator}/{a.denominator}"
-            right = f"{b.numerator}/{b.denominator}"
-            out.append({
-                "kind": "compare",
-                "stem": f"Which sign belongs between {left} and {right}?",
-                "left": left, "right": right,
-                "options": ["<", ">", "="],
-                "answer_index": 0 if a < b else (1 if a > b else 2),
-                "grade": grade,
-                "node": node["code"], "node_id": node["id"],
-            })
-            if len(out) >= want:
-                return out
+                        a, b = Fraction(n1, d1), Fraction(n2, d2)
+                        if (a, b) in seen_pair:
+                            continue
+                        seen_pair.add((a, b))
+                        left = f"{n1}/{d1}"
+                        right = f"{n2}/{d2}"
+                        out.append({
+                            "kind": "compare",
+                            "stem": f"Which sign belongs between {left} and {right}?",
+                            "left": left, "right": right,
+                            "options": ["<", ">", "="],
+                            "answer_index": 0 if a < b else (1 if a > b else 2),
+                            "grade": grade,
+                            "node": node["code"], "node_id": node["id"],
+                        })
 
     cap = {"K": 10, "1": 20, "2": 100, "3": 1000,
            "4": 10000, "5": 10000}.get(grade, 100)
@@ -210,9 +212,7 @@ def compare_items(node: dict, want: int) -> list[dict]:
                 "grade": grade,
                 "node": node["code"], "node_id": node["id"],
             })
-            if len(out) >= want:
-                return out
-    return out
+    return _rotate(out, node["code"])[:want]
 
 
 def main() -> int:
