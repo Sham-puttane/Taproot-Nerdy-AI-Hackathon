@@ -14,7 +14,9 @@ import { Reward } from './game/Reward'
 import { Cascade } from './game/Cascade'
 import { Bedrock } from './game/Bedrock'
 import { SessionProgress } from './game/SessionProgress'
-import { fold, type Keystone, type Progress } from './game/progress'
+import {
+  fold, type Keystone, type Progress, type SavedSession,
+} from './game/progress'
 import {
   addLearner, loadFor, loadRoster, removeLearner, saveFor, setActive,
   type Learner,
@@ -177,10 +179,14 @@ export default function App() {
         <Brief
           pack={pack}
           progress={progress ?? undefined}
-          data={{
-            wall: undefined, best: null, runnersUp: [], path: [],
-            asked: [], questionCount: 0,
-          }}
+          data={
+            // The report she would have seen at the end of her last session,
+            // rather than an empty page the moment she leaves it.
+            progress.lastSession ?? {
+              wall: undefined, best: null, runnersUp: [], path: [],
+              asked: [], questionCount: 0,
+            }
+          }
           onBack={() => setShowGrownup(false)}
         />
       )}
@@ -209,8 +215,8 @@ export default function App() {
           progress={progress}
           grownupOpen={showGrownup}
           onGrownupClose={() => setShowGrownup(false)}
-          onFinish={(beliefs, keystone) => {
-            const next = fold(progress, beliefs, keystone)
+          onFinish={(beliefs, keystone, session) => {
+            const next = fold(progress, beliefs, keystone, session)
             setProgress(next)
             if (activeId) void saveFor(activeId, next)
           }}
@@ -294,7 +300,11 @@ function Game({
   progress: Progress
   grownupOpen: boolean
   onGrownupClose: () => void
-  onFinish: (beliefs: Record<string, number>, k: Keystone | null) => void
+  onFinish: (
+    beliefs: Record<string, number>,
+    k: Keystone | null,
+    session: SavedSession,
+  ) => void
   voice: ReturnType<typeof useSpeaker>
   onHome: () => void
 }) {
@@ -335,7 +345,9 @@ function Game({
         }
       : null
     setLastKeystone(keystone)
-    onFinish(g.beliefs, keystone)
+    onFinish(g.beliefs, keystone, {
+      ...g.brief(), wall: g.wallNode, endedAt: Date.now(),
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [g.phase])
 

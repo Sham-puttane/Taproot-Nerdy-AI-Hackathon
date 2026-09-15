@@ -2042,3 +2042,9 @@ button.opt:disabled {
   .switch-learner { top: 52px; right: 130px; }
   .voice-toggle { top: 12px; right: 62px; }
 }
+.pr-when {
+  display: block;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #9db1cf; font-weight: 400; margin-top: 3px;
+}

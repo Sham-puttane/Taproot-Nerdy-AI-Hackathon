@@ -11,6 +11,7 @@
  */
 
 import { get as dbGet, put as dbPut } from './db'
+import type { PackNode } from './pack'
 
 const STORE = 'progress' as const
 const KEY = 'default'
@@ -37,6 +38,31 @@ export interface Progress {
   /** Deepest repair, in grades below the wall. The record worth beating. */
   deepest: number
   lastPlayed: number
+  /**
+   * The report from her most recent session, kept after it ends.
+   *
+   * The per-question detail used to live only in the live engine, so a
+   * parent opening the report after her child finished -- which is when a
+   * parent opens it -- got "No session open right now" and nothing else.
+   */
+  lastSession?: SavedSession
+}
+
+/** The shape the grown-up report reads, frozen at the end of a session. */
+export interface SavedSession {
+  wall: PackNode | undefined
+  best: { nodeId: string; confidence: number } | null
+  runnersUp: { nodeId: string; confidence: number }[]
+  path: string[]
+  asked: {
+    nodeId: string
+    correct: boolean
+    stem?: string
+    chosen?: number
+    becauseOf?: string
+  }[]
+  questionCount: number
+  endedAt?: number
 }
 
 export const EMPTY: Progress = {
@@ -68,6 +94,7 @@ export function fold(
   prev: Progress,
   beliefs: Record<string, number>,
   keystone: Keystone | null,
+  session?: SavedSession,
 ): Progress {
   const mastery = { ...prev.mastery }
   for (const [id, v] of Object.entries(beliefs)) {
@@ -82,6 +109,9 @@ export function fold(
     sessions: prev.sessions + 1,
     deepest: Math.max(prev.deepest, keystone?.depth ?? 0),
     lastPlayed: Date.now(),
+    // fold rebuilds Progress field by field, so anything not named here is
+    // dropped on every save. Carried explicitly, not assumed.
+    lastSession: session ?? prev.lastSession,
   }
 }
 

@@ -40,6 +40,8 @@ export interface BriefData {
     becauseOf?: string
   }[]
   questionCount: number
+  /** set when this is a saved session rather than a live one */
+  endedAt?: number
 }
 
 /** Same grade colours as the Grove and the trail, so the three screens agree. */
@@ -205,6 +207,13 @@ export function Brief({
           </div>
           <div className="pr-top-title">
             {data.wall ? `Session on ${topicOf(data.wall)}` : 'No session yet'}
+            {data.endedAt && (
+              <span className="pr-when">
+                last session &middot;{' '}
+                {new Date(data.endedAt).toLocaleDateString(undefined,
+                  { month: 'short', day: 'numeric' })}
+              </span>
+            )}
 
           </div>
         </div>
