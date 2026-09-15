@@ -22,15 +22,21 @@ export function Who({
   onAdd,
   onRemove,
   onClose,
+  activeId,
+  midDig,
 }: {
   learners: Learner[]
   onPick: (id: string) => void
   onAdd: (name: string) => void
   onRemove: (id: string) => void
   onClose?: () => void
+  activeId?: string | null
+  /** a session is under way for the active learner */
+  midDig?: boolean
 }) {
   const [adding, setAdding] = useState(learners.length === 0)
   const [name, setName] = useState('')
+  const current = learners.find((l) => l.id === activeId)
 
   function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -57,13 +63,21 @@ export function Who({
           </p>
         )}
 
+        {midDig && current && (
+          <p className="who-busy" role="status">
+            {current.name} is in the middle of a dig. Tap {current.name} or
+            Back to carry on. Picking someone else ends it.
+          </p>
+        )}
+
         {learners.length > 0 && (
           <div className="who-grid">
             {learners.map((l) => (
               <div key={l.id} className="who-slot">
                 <button
-                  className="who-pick"
+                  className={`who-pick${l.id === activeId ? ' current' : ''}`}
                   style={{ background: l.colour }}
+                  aria-current={l.id === activeId ? 'true' : undefined}
                   onClick={() => onPick(l.id)}
                 >
                   <span className="who-initial">

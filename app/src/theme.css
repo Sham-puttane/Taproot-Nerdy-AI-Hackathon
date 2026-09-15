@@ -1346,6 +1346,12 @@ button.opt:disabled {
     radial-gradient(120% 180% at 12% -40%, #23405f 0%, transparent 60%),
     #16233a;
   border-bottom: 4px solid #ffc94a;
+  /* clear the fixed corner buttons (grown-ups, learner, voice), which
+     otherwise sit on top of this row */
+  padding-top: 64px;
+}
+@media (max-width: 900px) {
+  .pr-top { padding-top: 100px; }
 }
 .pr-fact b { font-variant-numeric: tabular-nums; }
 .pr-fact + .pr-fact { border-left: 1px solid rgba(127,147,180,.3); padding-left: 34px; }
@@ -1691,6 +1697,12 @@ button.opt:disabled {
   transition: transform 0.1s ease, box-shadow 0.15s ease;
 }
 .who-pick:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
+.who-pick.current { outline: 4px solid #14324a; outline-offset: 4px; }
+.who-busy {
+  font-size: 15px; line-height: 1.45; margin: -8px 0 20px;
+  padding: 10px 14px; border-radius: 12px;
+  background: #fff3cf; color: #5a4210;
+}
 .who-pick:active { transform: scale(0.96); }
 .who-pick:focus-visible { outline: 3px solid #14324a; outline-offset: 3px; }
 .who-new {
@@ -2047,4 +2059,17 @@ button.opt:disabled {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
   color: #9db1cf; font-weight: 400; margin-top: 3px;
+}
+
+/* The grown-ups button and the learner chip share one fixed row, left of the
+   voice switch, so a long name pushes the other button over instead of
+   sliding underneath it. */
+.corner {
+  position: fixed; top: 12px; right: 108px; z-index: 30;
+  display: flex; align-items: center; gap: 8px;
+}
+.corner > .grownup,
+.corner > .switch-learner { position: static !important; }
+@media (max-width: 900px) {
+  .corner { top: 56px; right: 12px; }
 }

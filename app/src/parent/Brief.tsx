@@ -201,6 +201,13 @@ export function Brief({
   return (
     <div className="pr">
       <header className="pr-top">
+        {/* First, on the left. At the right end of this row it sat directly
+            under the fixed learner chip, so "back to the game" opened the
+            roster instead. */}
+        <button className="pr-back" onClick={onBack}>
+          ← back to the game
+        </button>
+
         <div>
           <div className="kicker" style={{ color: '#7f93b4', marginBottom: 4 }}>
             for a grown-up
@@ -230,10 +237,6 @@ export function Brief({
             <b>{data.best ? `${confidence}%` : '—'}</b><span>confidence</span>
           </div>
         </div>
-
-        <button className="pr-back" onClick={onBack}>
-          ← back to the game
-        </button>
       </header>
 
       <div className="pr-body">

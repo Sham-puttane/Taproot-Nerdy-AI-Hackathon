@@ -66,6 +66,11 @@ export default function App() {
 
   async function pickLearner(id: string) {
 
+    // Tapping your own face again is "never mind", not "start over". This
+    // used to reset the wall, so a child who opened the roster mid-dig and
+    // tapped herself lost the whole descent.
+    if (id === activeId) { setSwitching(false); return }
+
     await setActive(id)
 
     setActiveId(id)
@@ -132,24 +137,28 @@ export default function App() {
       >
         {skin === 'meadow' ? 'soil' : 'meadow'}
       </button>
-      {pack && learners && learners.length > 0 && activeId && !switching && (
-        <button
-          className="switch-learner"
-          onClick={() => setSwitching(true)}
-          title="Someone else's turn"
-        >
-          {learners.find((l) => l.id === activeId)?.name ?? 'switch'}
-        </button>
-      )}
-      {pack && progress && (
-        <button
-          className="grownup"
-          onClick={() => setShowGrownup(true)}
-          title="A report for a parent or tutor"
-        >
-          For grown-ups
-        </button>
-      )}
+      {/* One row, laid out by flex. Two separately fixed buttons overlapped
+          whenever a name was longer than about four letters. */}
+      <div className="corner">
+        {pack && progress && (
+          <button
+            className="grownup"
+            onClick={() => setShowGrownup(true)}
+            title="A report for a parent or tutor"
+          >
+            For grown-ups
+          </button>
+        )}
+        {pack && learners && learners.length > 0 && activeId && !switching && (
+          <button
+            className="switch-learner"
+            onClick={() => setSwitching(true)}
+            title="Someone else's turn"
+          >
+            {learners.find((l) => l.id === activeId)?.name ?? 'switch'}
+          </button>
+        )}
+      </div>
       {/* Which build this is. Reading it beats guessing: a stale service
           worker or a cached pack looks exactly like a missing feature. */}
       <span className="build-stamp" title="build time">{__BUILD__}</span>
@@ -171,6 +180,8 @@ export default function App() {
           onAdd={(name) => void makeLearner(name)}
           onRemove={(id) => void dropLearner(id)}
           onClose={activeId ? () => setSwitching(false) : undefined}
+          activeId={activeId}
+          midDig={!!wall}
         />
       )}
 
@@ -207,7 +218,11 @@ export default function App() {
           onBack={() => setPicking(false)}
         />
       )}
-      {pack && !preview && activeId && !switching && progress && wall && (
+      {/* Deliberately NOT gated on `switching`. The roster is a fixed overlay,
+          and unmounting the game underneath it threw away useGame's state:
+          every answer, the posterior, the trail. Only picking a different
+          child ends the session, and pickLearner clears the wall for that. */}
+      {pack && !preview && activeId && progress && wall && (
         <Game
           key={wall}
           pack={pack}
