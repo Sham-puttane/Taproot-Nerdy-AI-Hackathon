@@ -1,224 +1,213 @@
-# Demo script
+# Demo script: the pitch
 
-Walked end to end on the live site, not written from the code. Every question,
-number and screen below is what actually appeared.
+One continuous take, about 2:50. Every question, explanation and screen below
+was walked on the live site on 14 Sept and is a transcript of what appeared,
+not a description of what the code should do.
 
-Routes recomputed with `engine/eval/demo_script.ts` after the last rebake.
-**Re-run it if you rebake again; the routes move when the content moves.**
+It shows four things in one flow:
+
+| | shown at |
+|---|---|
+| **The game loop** mapped to the prompt's own words: steady progression, reward mastery | 0:15, 2:05, 2:15 |
+| **Speaking and hearing**: reads questions aloud, answers by voice | 0:35 |
+| **The AI and the engineering**: graph, Bayesian search, LLM behind a symbolic gate | 1:00, 2:25 |
+| **Multi-user**: separate groves on one device | 2:40 |
 
 ---
 
 ## Before you press record
 
-1. **Clear the browser for this site.** F12 → Application → Clear site data,
-   or use a fresh InPrivate window. A clean browser opens on *"What should we
-   call you?"*, which is where the recording should begin.
-2. Type a name (**Maya** works) and press **Start a grove**. Now you are on
-   the Grove with six seeds, which is where the cold open belongs.
-   *Do this before recording, or the first ten seconds are you typing.*
-3. Check the **build stamp** bottom left is today's.
-4. Leave the voice on. It reads every question aloud.
+Do all of this off camera. Each step exists because skipping it breaks a beat.
+
+1. **Use Chrome.** Voice answers use Chrome's speech recogniser, which sends
+   audio to Google and needs a network. Read-aloud works in Edge too, but the
+   microphone beat is safest in Chrome.
+2. **Clear site data** for the page (F12, Application, Clear site data).
+3. Type **Leo**, press **Start a grove**.
+4. Tap the **Leo** chip top right, **Someone else**, type **Maya**, **Start a
+   grove**. You are now on Maya's empty Grove, with Leo waiting in the roster.
+   *This is what lets you show a second learner at the end without typing on
+   camera.*
+5. **Grant the microphone once.** Start digging, tap 🎤 Say it instead, allow
+   the permission, then reload. Otherwise the browser's permission prompt
+   appears in the middle of your take.
+6. Check the **build stamp** bottom left is from today.
+7. **Record system audio as well as your voice.** The read-aloud beat is
+   silent otherwise.
+8. **Rehearse the 🎤 beat once.** I could not test speech input from here, only
+   the matching. If it mishears, tapping the button is the fallback and looks
+   identical.
 
 ---
 
-## Which route to record
+## The take
 
-There are two, and they show different things. Neither shows everything.
+Spoken words are counted so the timing is checked, not hoped for. **351 words
+at 150 a minute is 2:20 of speech**, plus about 30 seconds of the app speaking,
+the Cascade animating and clicks. Lands around 2:50.
 
-| | **A. Grade 5 → Fractions** | **B. Grade 2 → Times tables** |
-|---|---|---|
-| The drop | **5 grades**, grade 5 to kindergarten | 2 grades |
-| Bedrock line | "It was never about fractions." | "It was never about times tables." |
-| Repair shows | multiple choice, **no manipulative** | **the Balance instrument** |
-| Questions | 6 | 5 |
+### 0:00 · Cold open, over Maya's empty Grove *(41 words)*
 
-**Record B as the main take.** It is the only one that reaches a manipulative,
-and it shows the authored word problems. Then record A separately and cut in
-just the bedrock screen at 1:19, because "five grades further down" is the
-stronger line and it is worth twelve seconds.
+**Do not click.** Six seeds on screen.
 
-If you only have one take in you, record B and say the five-grades line about
-the general case rather than pointing at the screen.
+> "This is Taproot. When a fifth grader gets fractions wrong, most maths apps
+> give her more fractions. But she is rarely failing fractions. She is missing
+> something years earlier that they are built on. Taproot is a game about
+> finding it."
 
----
+### 0:15 · The game, in the prompt's own words *(36 words)*
 
-## Take B, verified click by click
+Click **Start digging → Grade 2 → Times tables & word problems**.
 
-Everything in quotes below is what appeared on screen.
+> "The prompt asks for mechanics that reward mastery and steady progression.
+> Here, progression is depth: you dig under the problem you got wrong until you
+> hit the real gap. The reward is what fixing it unlocks."
 
-**Start digging → Grade 2 → Times tables & word problems**
+### 0:35 · It speaks, and it listens *(23 + 11 words)*
 
-| Q | on screen | do |
-|---|---|---|
-| 1 | "Sam has 45 marbles, gives 12, then finds 20 more" | any **wrong** option |
-| 2 | "What is ten more than 34?" | **wrong** |
-| 3 | "What is ten plus five?" | **wrong** |
-| 4 | "Sam has 7 apples. He gets 4 more." | **wrong** |
-| 5 | "Mia had 5 stickers, gave 2 away." | **wrong** |
+The first question appears: **"Sam has 45 marbles, gives 12, then finds 20
+more."** **Stay silent** and let the app read it aloud. About four seconds.
 
-Then: **"It was never about times tables."** · 5 questions · 84% sure ·
-kindergarten.
+> "It reads each question aloud, because a child behind in maths is often
+> behind in reading too. And she can answer out loud."
 
-Press **Fix it**. The **Balance** appears: *"Make both sides weigh the same."*
+Tap **🎤 Say it instead** and say **"thirty three"**. It picks 33 and says
+*"Not that one."*
 
-Note the first four questions are real word problems. That is worth pointing
-at, because it is the part that took the longest to build.
+Tap **🔊** top right to mute it.
 
----
+> "Browser speech, no API key, and a teacher can mute it."
 
-## Take A, for the bedrock insert
+*Muting here also stops the app talking over the rest of your narration.*
 
-**Start digging → Grade 5 → Fractions**
+### 1:00 · How it works, while it digs *(46 words)*
 
-First question is **"Add 1/2 and 1/3."** with options `5/6`, `2/5`, `1`, `1/5`.
+On **"What is ten more than 34?"** tap **45**.
+On **"What is ten plus five?"** tap **16**.
 
-**Click 2/5.** Not a random wrong answer: it is what a child gets by adding
-the numerators and the denominators, and it is the named misconception the
-parent report will quote back.
+> "Underneath is a real prerequisite graph: the Coherence Map, two hundred and
+> ninety thousand nodes reduced to a hundred and fifty-nine K to 5 skills. Each
+> question is the one that tells it most about where the gap is, and every
+> answer updates a Bayesian estimate."
 
-Then answer wrong five more times. You will pass through:
+### 1:20 · It explains itself *(29 words)*
 
-- "Which sign belongs between 1/2 and 1/3?"
-- "One slice of a cake cut into 3 equal pieces?"
-- "A rectangle is cut into 3 equal sections; each section fraction?"
-- "This chocolate bar was cut into 3 pieces that are NOT the same size..."
+On the rail at left, **tap the bead labelled "Ten more, ten less"** in the
+Grade 1 band. The panel reads *"Adding tens is really about place value, so we
+check that first."*
 
-Lands on **"It was never about fractions."** · *You got stuck grade 5. The
-thing that is actually broken is 5 grades further down.* · 6 questions · 67%
-sure · kindergarten.
+> "And it explains itself. Tap the root and it says why it left times tables:
+> adding tens is really about place value. It crosses subjects because the
+> maths does."
 
----
+Then on **"Sam has 7 apples. He gets 4 more."** tap **3**, and on **"Mia had 5
+stickers, gave 2 away."** tap **7**.
 
-## The words
+### 1:35 · Bedrock *(37 words)*
 
-Read aloud at about 150 words a minute. Word counts so you can check timing
-rather than hope. **380 words, about 2:32.**
+**"It was never about times tables."** appears with the drop drawn, and
+*5 questions · 84% sure · kindergarten*.
 
-### 0:00 Cold open, over the Grove *(38 words)*
+> "Five questions, and it was never about times tables. The gap is a
+> kindergarten idea two grades down, and it says how sure it is. In simulation
+> it names the exact skill seventy-three percent of the time."
 
-> "This is Taproot. A fifth grader gets a fractions question wrong.
->
-> Every maths app I have used answers that by giving her more fractions. But
-> she is usually not failing fractions. She is missing something from three
-> grades earlier that fractions are built on."
+### 1:52 · Repair, hands-on *(24 words)*
 
-*Do not click. Let the six trees sit there.*
+Tap **Fix it**. The Balance: *"Make both sides weigh the same."*
 
-### 0:15 What it does *(34 words)*
+- **"3 and 1 on one side. 2 and what?"** tap **+** twice, **That's balanced**
+- **"3 and 1 on one side. 3 and what?"** tap **+** once, **That's balanced**
 
-Click **Start digging → Grade 2 → Times tables**.
+> "Fixing it is hands-on. The beam only levels when both sides are equal, which
+> is what the equals sign really means. Two balances, repaired."
 
-> "So instead of drilling the thing she got wrong, it treats it as a symptom
-> and goes looking for the cause. It asks about five questions, each one
-> chosen to narrow down where the break actually is."
+### 2:05 · The reward *(18 words)*
 
-### 0:29 The first question *(24 words)*
+The Cascade runs on its own and ends on **"14 of 14 just woke up."**
 
-> "A word problem, and she gets it wrong. Nothing is scored and nothing is
-> lost. It just says: okay, let's find out why."
+> "And this is the reward. Not points: fourteen skills that were standing on
+> that one idea, lighting up."
 
-*Point at "no score, no timer" under the progress bar.*
+**Cut here.** Tap Climb back up and click through the climb off camera, or trim
+it in the edit. It is about 25 seconds of answering that adds nothing.
 
-### 0:38 How it works, while it happens *(56 words)*
+### 2:15 · Progression *(17 words)*
 
-Answer wrong each time.
+Resume on the Grove: **"4 trees. 4 roots lit."**
 
-> "Underneath is a real prerequisite graph, Common Core from the Coherence
-> Map, two hundred and ninety thousand nodes reduced to a hundred and
-> fifty-nine K to 5 skills. Each question is picked for maximum information
-> about which skill is broken. Watch the root going down through the grades,
-> and the line underneath saying why each move happened."
+> "Back in the grove, one repair fed four trees, because four topics rest on
+> the same idea."
 
-### 1:00 The crossing, do not cut this *(48 words)*
+### 2:25 · The grown-up view, and the AI *(42 words)*
 
-**Tap a bead** on the rail that changed subject.
+Tap **For grown-ups**. It shows **"LAST SESSION · SEP 14"**, *"She isn't behind
+on times tables"*, and under **what she was asked**, lines like
+**"What is ten more than 34? WHY: Adds one to each digit instead of ten."**
 
-> "It has crossed from one subject into another. That looked like a bug until
-> I measured it. Grade five decimals have sixteen fraction skills underneath,
-> because a decimal is a fraction. It crosses a hundred percent of the time.
-> The graph was right and the product used to say nothing."
+> "For a parent or tutor, the report stays after the session: what she was
+> asked, and why each wrong answer was wrong. A language model wrote those, and
+> a symbolic engine checked every answer, so a weak model costs questions,
+> never correctness."
 
-### 1:19 Bedrock *(41 words)*
+### 2:40 · One tablet, several children *(19 words)*
 
-*Cut to take A here if you recorded it.*
+Tap **back**, tap the **Maya** chip, tap **Leo**. His grove reads **"Nothing
+planted yet."**
 
-> "It was never about times tables. It names the broken idea in words a child
-> can read, says which grade it lives in, and tells her how sure it is. Seven
-> times in ten it is exactly right."
+> "One tablet, a whole family or a tutor's afternoon: Leo's grove is his own,
+> and nothing leaves the device."
 
-### 1:35 Repair *(52 words)*
+### 2:48 · Close *(8 words)*
 
-Press **Fix it**. Drag blocks onto the balance.
+Cut to the numbers card and hold it for five seconds.
 
-> "This is the only place it asks her to drag something. Manipulatives help
-> memory more than transfer, so they belong where she stays with one skill.
-> The beam only levels when both sides are the same, which is what the equals
-> sign actually means and what most children never get told."
-
-### 1:56 The Cascade *(35 words)*
-
-> "And this is the reward. One kindergarten idea fixed, and everything
-> standing on it wakes up. Real skills from the real graph. No points, no
-> streak, no timer. The reward is evidence."
-
-### 2:10 The Grove *(24 words)*
-
-> "Back at the grove, one repair has fed several topics, because these
-> subjects genuinely rest on each other."
-
-### 2:20 The grown-up view *(30 words)*
-
-**For grown-ups.**
-
-> "For a parent or tutor: what she was asked, and why the wrong answer was
-> wrong, the named misconception rather than a tick. Plus where she stands
-> across the whole subject."
-
-### 2:32 Numbers, silent on screen
+> "No model calls at runtime. It works offline."
 
 ```
-73.2% exact   ·   84.1% within one hop   ·   10.9 questions
-across all 16 topic/grade combinations
-worksheet baseline: 0%
-zero model calls at runtime, works offline
+73.2% exact  ·  84.1% within one hop  ·  10.9 questions
+16 topic and grade combinations, simulated learners
+worksheet baseline 0%
+zero model calls at runtime
 ```
 
 ---
 
-## Other instrument routes, recomputed
+## Why each spoken claim is true
 
-**Number line** · Grade 2 → Times tables · wrong, WRONG, WRONG, RIGHT, WRONG,
-RIGHT → *"Breaking numbers apart"* → Fix it
+So you can say it with confidence, and defend it if asked.
 
-**Arrays** · Grade 2 → Times tables · wrong, RIGHT, RIGHT, WRONG, RIGHT, RIGHT
-→ *"Taking away tens"* → Fix it
+| Claim | Where it comes from |
+|---|---|
+| 290,000 nodes to 159 K–5 skills | CZI Learning Commons graph, 290,718 nodes; `data/processed/graph_k5.json` holds 159 |
+| "the one that tells it most" | items chosen by mutual information over the gap posterior, `engine/src/diagnosis.ts` |
+| "a Bayesian estimate" | exact categorical posterior over which skill is the gap |
+| 73% exact | `engine/eval/sections.ts`, mean across all 16 walls, **simulated** learners, which is why the script says "in simulation" |
+| "a language model wrote those" | all five questions on this route are `kind: word, authored: true`, each with its own reason per wrong option |
+| "a symbolic engine checked every answer" | `agents/verifier.py` executes each authored item's working with SymPy and rejects any whose arithmetic disagrees |
+| fourteen skills | the Cascade on this route, verified live |
+| four trees | Grove after this session, verified live |
+| nothing leaves the device | progress and names are in the browser's IndexedDB; the only network request is fetching the question pack |
+| no model calls at runtime | generation happens at build time; the shipped app contains no model client |
 
-**Slicer** · 11 questions, too long. Use `?preview=cut`.
-
-Direct URLs if a route drifts, no session needed:
-
-```
-?preview=balance   ?preview=numberline   ?preview=groups   ?preview=cut
-?preview=word      ?preview=partition    ?preview=compare
-```
-
-Use these for pickups only. The point of the product is that the engine chose
-the instrument.
+One claim to **avoid** adding: that the fourteen skills are now mastered. The
+Cascade shows what was *unblocked*. The Grove only lights skills she has
+actually shown she holds, which is why it says four roots rather than
+fourteen. The script is worded to match that.
 
 ---
 
-## Spare lines if a beat runs short
+## If something goes wrong mid-take
 
-Say at most one; the script is already 2:32.
+| Symptom | What to do |
+|---|---|
+| 🎤 mishears | Tap **33**. It looks the same on screen. |
+| A different question than listed | The browser is not clean or the pack changed. Stop, clear site data, redo setup. |
+| Old screens, no build stamp | A stale cache. Clear site data. |
+| Grown-up view says "No session open right now" | That build predates the saved-session fix. Check the build stamp. |
 
-- "It makes no model calls while a child is using it. Everything is generated
-  and verified before it ships, so there is no key in the browser, nothing to
-  rate limit, and no outage that can take a lesson down."
-- "A language model writes the questions and a symbolic engine executes them.
-  If the maths does not check out the question is thrown away, so a weak model
-  costs me questions, never correctness."
-- "One tablet, several children, each with their own grove. For a tutoring
-  company that is not an edge case, it is Tuesday afternoon."
+Direct instrument pages for pickup shots, no session needed:
+`?preview=balance`, `?preview=groups`, `?preview=numberline`.
 
 ---
 
@@ -229,11 +218,15 @@ stopping rule: curriculum order 9.5%, random adaptive 2%, a worksheet 0%,
 because a worksheet cannot name a cause at all.
 
 **"Have real children used it?"** No. Every number is against simulated
-learners with slip and guess noise. That is honest and it is not the same as
-evidence, and validating on real learners is the first thing I would do next.
+learners with slip and guess noise. That is honest and it is not evidence, and
+validating on real learners is the first thing I would do next.
 
-**"Where is the AI?"** Three places. Embedding retrieval maps 253
-expert-authored misconceptions onto the standards. A language model writes the
-questions behind a symbolic gate. The live loop is Bayesian inference over the
-graph, deliberately not an LLM, because it has to be fast, deterministic and
-explainable to a parent.
+**"Why not an LLM at runtime?"** The live loop has to be fast, deterministic,
+explainable to a parent, and working on a plane. The language model is used
+where it is safe: writing questions at build time, behind a gate that executes
+the maths.
+
+**"How does voice work without a key?"** It is the browser's own Web Speech
+API. Read-aloud uses the voices installed on the device. Speech recognition in
+Chrome does go to Google's servers, so the microphone needs a connection; the
+game never depends on it, and every question stays answerable by tapping.
