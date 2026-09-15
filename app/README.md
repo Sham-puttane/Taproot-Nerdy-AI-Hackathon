@@ -1,32 +1,40 @@
-# React + TypeScript + Vite
+# Taproot app
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The game, the grown-up report and the learner roster. React, TypeScript and
+Vite, installable as a PWA and playable offline from the cached question pack.
 
-Currently, two official plugins are available:
+See the [project README](../README.md) for what Taproot is and how it works.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # runs scripts/check-walls.mjs, then tsc and vite build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Where things are
+
+```
+src/App.tsx               screen routing and the game loop's UI
+src/game/useGame.ts       drives the engine through each beat of a session
+src/game/pack.ts          question pack loading and item selection
+src/game/walls.ts         which problem each grade and topic starts from
+src/game/learners.ts      per-learner progress, stored in IndexedDB
+src/game/useSpeaker.ts    read-aloud;  useVoice.ts  spoken answers
+src/game/Trail.tsx        the root, drawn as she digs
+src/game/Cascade.tsx      the reward after a repair
+src/grove/                the persistent home screen
+src/items/                manipulatives: NumberLine, Groups, Balance, Cut, Place
+src/parent/               the grown-up report
+public/pack.json          the question pack, built by ../agents/pack_baker.py
+```
+
+The diagnostic engine is imported as source from `../engine/src` through the
+`@engine` alias, so the browser runs exactly the code the evaluations measure.
+
+## Deploying
+
+`vite.config.ts` sets the base path from the host: GitHub Pages serves from
+`/Taproot-Nerdy-AI-Hackathon/`, and a build with `VERCEL=1` serves from `/`. The
+service worker is registered in `src/sw-update.ts`, not by the plugin, so a new
+deploy reaches returning visitors. The build time is shown in the corner of
+every screen.

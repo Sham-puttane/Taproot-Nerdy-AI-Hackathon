@@ -10,3 +10,12 @@ dist/
 .chroma/
 app/node_modules/
 app/dist/
+
+# Recording script and pitch notes: working documents for the presenter, not
+# part of the product. Kept locally, deliberately out of the public repo.
+DEMO.md
+PITCH.md
+
+# stderr captures and one-off comparison copies from eval runs
+engine/eval/*.err
+engine/eval/*_new.json

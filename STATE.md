@@ -1,211 +1,135 @@
-# Taproot — where things stand
+# Taproot: where things stand
 
-Working record for picking this up cold. Last updated at commit 33.
+Working record for picking this up cold. Last updated 14 Sept 2026, at
+submission.
 
 **Live:** https://sham-puttane.github.io/Taproot-Nerdy-AI-Hackathon/
 **Repo:** https://github.com/Sham-puttane/Taproot-Nerdy-AI-Hackathon
-**Design canvas:** https://claude.ai/code/artifact/0626a3e5-6654-4699-b0e8-dfd5bde73208
-**Everything lives on `D:\taproot`** — code, data and caches. C: had 9 GB free.
+**Everything lives on `D:\taproot`**: code, data and caches.
 
 ## What this is
 
-Nerdy AI Hackathon, **Prompt 01 (K–5 math game)**. Submissions close
-**Fri 18 Sept 2026, 11:59pm CDT**. Deliverable is a 2–3 min video plus
-optional repo and live link.
+Nerdy AI Hackathon, **Prompt 01 (K–5 maths game)**. Submissions close
+**Fri 18 Sept 2026, 11:59pm CDT**.
 
-A K–5 math game that finds the gap *underneath* the one she's stuck on. She
-fails a problem; instead of drilling it, the engine descends the prerequisite
-graph, names the real broken skill, repairs that, and climbs back.
+A K–5 maths game that finds the gap *underneath* the problem a child is stuck
+on. She fails a problem; instead of drilling it, the engine descends the
+prerequisite graph, names the real broken skill, repairs it hands-on, and
+climbs back. See `README.md` for the product and architecture.
 
-## The four things that make it defensible
+## What makes it defensible
 
-1. **Real prerequisite structure** — Student Achievement Partners' Coherence
-   Map via CZI Learning Commons (CC BY-4.0), not an LLM's guess at what comes
-   before what.
-2. **Real misconceptions** — the Eedi corpus, expert-authored distractors.
-3. **Nothing unverified reaches a child** — SymPy *executes* the maths.
-4. **Measured, not asserted** — 200 simulated learners against three baselines.
+1. **Real prerequisite structure.** Student Achievement Partners' Coherence
+   Map via CZI Learning Commons, not a model's guess at what comes before what.
+2. **Real misconceptions.** The Eedi corpus, expert-authored distractors.
+3. **Nothing unverified reaches a child.** SymPy executes the maths.
+4. **Measured, not asserted.** Simulated learners against three baselines, and
+   every section the game offers measured separately.
 
-## Numbers as of commit 25
+## Numbers
 
 | | |
 |---|---|
-| Skills in the K–5 graph | 159, **all named for children** |
-| Prerequisite links | 277 |
-| Pack | 101 nodes, 729 verified items, 17 walls, ~267 KB |
-| Item kinds | arithmetic 624, partition 68, compare 24, place 8, cut 5 |
-| Topic families | 6 (Measuring 41, Times tables 34, Big numbers 32, Fractions 23, Shapes 21, Counting 8) |
-| Tests | 23 engine (vitest) + 35 verifier (pytest) |
+| K–5 graph | 159 skills, all named for children, 277 prerequisite edges |
+| Pack | 101 skills, 17 walls, **1,331 items**, 838 distinct stems, ~400 KB |
+| Item kinds | word 325, compare 312, arithmetic 234, numberline 160, groups 140, balance 112, partition 42, place 3, cut 3 |
+| Model-authored, verified | 325 |
+| Hands-on | 418 |
+| Bare arithmetic | 18% (was 86% when the deterministic generator was the only source) |
+| Tests | 23 engine (vitest), 48 verifier (pytest) |
 
-### Diagnostic accuracy (200 learners, 51 candidates, noisy answers)
+### Diagnostic accuracy, simulated learners
 
-| | Questions | Exact gap | Within 1 hop | Diagnosed |
-|---|---|---|---|---|
-| **Taproot** | 13.5 | **71.5%** | **88.0%** | 95.0% |
-| Curriculum order | 22.8 | 9.5% | 9.5% | 12.0% |
-| Random adaptive | 23.7 | 2.0% | 2.5% | 3.0% |
-| Worksheet | 20.0 | 0% | 0% | 0% |
+Every section the game offers (16 walls, 150 trials each), `eval/sections.md`:
 
-Regenerate: `cd engine && npx tsx eval/sweep.ts 200 > eval/results.json &&
-python eval/report.py > eval/results.md`
+| exact | within 1 | diagnosed | questions |
+|---|---|---|---|
+| **73.2%** | **84.1%** | 96% | 10.9 |
+
+Against baselines on `5.NF.A.1` (200 learners, same belief model and stopping
+rule), `eval/results.md`:
+
+| | Questions | Exact | Within 1 |
+|---|---|---|---|
+| **Taproot** | 13.5 | **71.5%** | **88.0%** |
+| Curriculum order | 22.8 | 9.5% | 9.5% |
+| Random adaptive | 23.7 | 2.0% | 2.5% |
+| Worksheet | 20.0 | 0% | 0% |
 
 ## Layout
 
 ```
-data/naming.json          three registers per skill: kid / teacher / reteach
-data/naming_batch.py      the 104-name authoring pass
-ingest/                   Learning Commons + Eedi -> graph, cone, viz
-agents/verifier.py        SymPy gate. NO model. 35 adversarial tests
-agents/generator.py       deterministic items; misconception = wrong algorithm
-agents/pack_baker.py      ALL_WALLS -> one pack covering every offered topic
-engine/src/               mastery engine, TS, ONE implementation
-  diagnosis.ts            exact posterior over gap identity  <- the good bit
-engine/eval/              200-learner sweep + report
-app/                      React + Vite game
-  src/grove/GroveWide.tsx six trees over the ground they grow in
-  src/game/Trail.tsx      the descent as a path
-  src/parent/Brief.tsx    parent/tutor report
-design/                   .dc.html artboards for the design canvas
+data/naming.json        kid / teacher / reteach wording per skill
+ingest/                 Learning Commons + Eedi -> graph, cone, naming
+agents/llm.py           Groq first, OpenRouter fallback, one code path
+agents/authored.py      LLM proposes questions, SymPy judges; merges, never overwrites
+agents/instruments.py   deterministic manipulative items, rotated per skill
+agents/generator.py     deterministic fallback items
+agents/verifier.py      the SymPy gate. No model. 48 tests
+agents/pack_baker.py    merges everything into one verified pack
+engine/src/             diagnostic engine, one implementation for browser and eval
+engine/eval/            sections, sweep, trace, demo_path, demo_script
+app/                    React game, grown-up report, learner roster
+app/scripts/check-walls.mjs  build gate: no wall above the child's grade
+design/                 .dc.html artboards
 ```
 
 ## Decisions worth not relitigating
 
-- **One engine, two runtimes.** `engine/src` is imported as *source* by both
-  the browser and the eval harness. No second implementation, no drift.
-- **The posterior, not diffusion.** Knowledge is monotone along the DAG, so a
-  question at N is a noisy test of "is the gap in {N} ∪ ancestors(N)?" — a
-  plain categorical, updatable in closed form. Replacing damped diffusion with
-  it moved accuracy 39% → 71.5%. Diffusion needed damping constants, hop caps
-  and anchors purely to patch the approximation.
-- **Re-testing a skill is allowed** and worth half that gain. One answer is
-  weak evidence against a 25% guess rate.
-- **A recency prior was tried and rejected.** Plausible (a fifth grader has
-  been in school six years) and measurably worse — 71.5% → 65.5%, still worse
-  under realistic planting. Code kept, switched off, measurement recorded in
-  `diagnosis.ts`.
-- **Manipulatives in Repair, quick items in Descent.** A diagnostic wants
-  eight fast reads; dragging for each is exhausting. Repair is where she stays.
-- **No score, no timer, no streak.** A countdown measures anxiety. Progression
-  is the tree and the keystones.
-- **Zero model calls at runtime.** Generation is build-time; the child's loop
-  is local engine + cached pack. Offline is therefore literally true.
+- **One engine, two runtimes.** `engine/src` is imported as source by the
+  browser and the eval harness. No drift.
+- **The posterior, not diffusion.** A question at N is a noisy test of "is the
+  gap at or above N", a plain categorical updated in closed form. Replacing
+  diffusion with it moved accuracy 39% to 71.5%.
+- **Re-testing a skill is allowed**, and worth half that gain.
+- **A recency prior was tried and rejected**: 71.5% to 65.5%. Code kept,
+  switched off, measurement in `diagnosis.ts`.
+- **Zero model calls at runtime.** Generation is build-time.
+- **Concreteness fading as a selection rule.** Descent prefers quick abstract
+  items, Repair prefers manipulatives, Climb prefers pictorial. A preference,
+  not a precondition: a skill with only one tier still works.
+- **No score, no timer, no streak.** The reward is the Cascade and the Grove.
+- **The deterministic generator is a floor.** Where real content exists it keeps
+  three slots, not eight.
+- **Voice uses the browser's Web Speech API.** No key, no vendor. Recognition
+  in Chrome needs a network; the mic hides itself when it cannot work.
+- **Learners are local.** Per-learner IndexedDB keys, no accounts, names never
+  sent. Removing a learner keeps their history.
 
 ## Traps that cost real time
 
-- **`npx tsc --noEmit` checks NOTHING here** — root tsconfig is `"files": []`
-  with project references. Use `npm run build` (`tsc -b`).
-- **Bash heredocs eat backslashes.** `\\b` became a literal 0x08 backspace and
-  a regex silently matched nothing. Use the Write tool for anything with
-  escapes.
-- **A `str.replace` that doesn't match fails silently** — twice it left
-  computed code unused. Verify the effect, not the exit code.
-- **Two modules opening the same IndexedDB at the same version**: whichever
-  ran first won, the other's store never existed, writes threw into a silent
-  catch. All progress vanished on reload while looking fine all session.
-  `app/src/game/db.ts` owns the database now.
-- **The Pages workflow cancels in-flight runs** (concurrency group), so a
-  quick follow-up push can cancel the previous deploy. Check `gh run list`.
-- **The service worker used to serve a stale bundle forever.** Without
-  `skipWaiting`/`clientsClaim` a new worker sat in "waiting" until every tab
-  on the origin closed, and a hard reload did NOT help because the OLD worker
-  answered the request. Three shipped commits were invisible on the live site
-  while every push reported success. Fixed in `app/vite.config.ts`; a
-  returning visitor now needs one reload, then never again.
-- **Identical question stems across nodes read as a frozen app.** One stem
-  appeared verbatim on ten skills.
-
-## Every section measured, not just the fraction wall
-
-`cd engine && npx tsx eval/sections.ts 150 > eval/sections.json`, written up in
-`eval/sections.md`. All 16 offerable walls, 150 trials each:
-
-| | exact | within 1 | diagnosed | questions |
-|---|---|---|---|---|
-| mean across sections | **73.2%** | **84.1%** | 96% | 10.9 |
-| range | 69–78% | 79–88% | 91–100% | 7.0–14.7 |
-
-No section is carried by another. **Crossings are the demo:** Big numbers gr5
-enters Fractions 100% of the time (5.NBT.B.7 is decimals, and a decimal IS a
-fraction — 4.NF.C.6); Fractions gr3 enters Shapes 100%; Measuring gr5 enters
-Fractions 100%. **Shapes gr5 crosses into nothing (0%)** — that is the control
-proving the crossings are structure, not an artefact of the search.
-`game/crossing.ts` names the reason at the moment it happens.
-
-## Why the game is built the way it is
-
-The evidence is unkind to the obvious moves. A systematic review of K-12 maths
-games finds they beat conventional instruction on learning but shows **no
-evidence they are more motivating**; a gamification meta-analysis finds lifts
-to autonomy and relatedness and **minimal impact on competence**; Ryan & Deci
-show extrinsic rewards shift the locus of causality outward and can undermine
-intrinsic motivation.
-
-Competence is the need everyone else misses and the one an adaptive
-diagnostic can actually serve, because competence is met by **optimal
-challenge** — which is precisely what the engine computes. Hence: no points,
-no XP, no streak, no timer, no shop. The rewards are a fruit that persists on
-the Grove, and the Cascade, whose content is real graph structure.
+- **`npx tsc --noEmit` checks nothing here.** Use `npm run build` (`tsc -b`).
+- **Bash heredocs eat backslashes.** Twice a `\b` regex silently lost its word
+  boundaries. Anything with escapes goes through a file tool.
+- **Literal `\n` anchors do not match CRLF files** and the patch reports
+  success. Use `\r?\n` in regexes, and verify the effect.
+- **Case-insensitive filesystem.** `Progress.tsx` resolved to `progress.ts`.
+- **Three caches froze the live build**, each looking like a missing feature:
+  a service worker registered without `updateViaCache`, a pack.json served
+  stale-while-revalidate, and an IndexedDB pack cached forever with no
+  revalidation. All fixed. The build time is now in the corner of every screen;
+  read it before debugging anything.
+- **`authored.py` used to overwrite its output**, so a run for one family
+  deleted every other family's questions. It merges now and prints before and
+  after counts.
+- **Instrument generators sliced a fixed list**, so every skill at a grade got
+  identical questions ("Which sign belongs between 1/2 and 1/4?" on 77 skills).
+  They rotate per skill now.
+- **`fold()` rebuilds Progress field by field**, so any new field is dropped on
+  every save unless named there.
+- **Answering everything wrong never reaches arrays.** It drives the descent to
+  counting and shapes. `eval/demo_script.ts` computes exact answer sequences.
+- **Vercel** (`taprrot.vercel.app`) has never picked up a push and still serves
+  a pre-fix bundle that renders blank. The code is correct for Vercel
+  (`VERCEL=1` sets the base path); the project setting is not. GitHub Pages is
+  the live link.
 
 ## Open, in the order I'd do them
 
-**The submission itself is the risk now, not the product.** Everything below
-item 2 is polish; items 1 and 2 are the deliverable.
-
-1. **Demo video (2-3 min) + README refresh.** UNSTARTED and it is the only
-   required artefact. The README predates the Cascade, the crossing notes,
-   the per-section eval and all four rebuilt screens, so it undersells what
-   exists. Suggested 2:30 cut:
-   - 0:00 a real 5th-grade fraction problem she gets wrong
-   - 0:20 the descent, with the rail's root going down and the WHY line
-   - 0:50 the crossing: "decimals ARE fractions" (this is the moment)
-   - 1:15 bedrock named in kid language, then repair on a manipulative
-   - 1:40 **the Cascade** -- one kindergarten fix, N skills wake up
-   - 2:00 the Grove: four trees lit from one repair
-   - 2:15 the parent report, and the numbers (73.2% exact over 16 sections)
-2. **A real measuring instrument.** MD skills currently serve whole-number
-   arithmetic as a placeholder — reachable, not right. `2.MD.A.2` deserves it
-   most: "bigger unit, smaller number" is the denominator idea three years
-   early.
-3. **More instruments** — Fold (equivalence), Groups, Balance, Blocks.
-   **716 of 729 items are still multiple choice; only 13 are hands-on
-   (1.8%).** This is why a casual play-through never meets the slicer.
-4. **The Dig gesture** — drag down through the soil to reveal the next
-   question instead of tapping. Makes the metaphor kinetic and hands her the
-   pacing; roughly one gesture handler.
-5. **Tap a bead -> "why are we here?"** — surfaces `crossing.ts` on demand
-   instead of only at the moment of the jump.
-6. **The bedrock screen** — the emotional payoff of the descent, still a
-   plain card in a wide empty column.
-
-## Done since the last update
-
-- Service worker + deploy concurrency: three commits had shipped invisibly.
-- All four screens rebuilt full-bleed in one visual language.
-- Trail redrawn as one SVG: strata, a single root, beads on it.
-- Rewards on every answer; the climb now happens ON the trail.
-- **The Cascade** — one repair, everything standing on it lights in sequence.
-- Topic crossings narrated (`crossing.ts`).
-- Trees own their CORRIDOR, so one repair can light four trees.
-- 3 walls that sat ABOVE the child's grade, now gated by
-  `app/scripts/check-walls.mjs` on every build (verified it fails on the bug).
-- `engine/eval/sections.ts` — all 16 offerable walls measured.
-
-## The four screens, all now full-bleed and in one visual language
-
-| | |
-|---|---|
-| `grove/GroveWide.tsx` | six trees over the ground they grow in |
-| `game/PickWide.tsx` | grade = the soil layer you tap; topic = the tree |
-| `game/Trail.tsx` | ONE svg: strata, a single root path, beads on it |
-| `game/Cascade.tsx` | what one repair was holding up, lit bottom-up |
-| `parent/Brief.tsx` | a document, not a garden — dark header, two columns |
-
-`game/Reward.tsx` fires on every answer: a fruit in the colour of the grade it
-was earned in, never points and never a streak, because the same fruit is in
-the canopy and on the Grove tomorrow. A miss is acknowledged, never penalised.
-
-## Feedback still unaddressed
-
-- The slicer only appears at Repair, so a casual play-through never sees it.
-- The bedrock screen ("Here's the tricky bit") is the emotional payoff of the
-  whole descent and is still a plain card in a wide empty column.
+1. **Validate on real learners.** Every number is simulation.
+2. **Executable misconceptions.** 3 of 253 are wrong algorithms; the biggest
+   untouched lever on distractor quality.
+3. **Close the fallback gap.** 18% of items are still generic arithmetic.
+4. **Tutor pre-session brief** across a roster, built on the saved reports.
+5. **Spanish.** Translate skill names and templates, switch recogniser language.
+6. **The Dig gesture.** Drag through the soil to reveal the next question.

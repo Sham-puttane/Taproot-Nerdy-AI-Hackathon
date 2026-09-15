@@ -1,3 +1,10 @@
+> **Status, 14 Sept 2026.** This is the plan as written on 9 Sept, kept as a
+> record of how each problem was traced to its cause. Everything in the
+> schedule below has shipped: authored word problems behind the SymPy gate,
+> the reading-load budget, the grown-up report that explains wrong answers,
+> number line, arrays and balance, concreteness fading, and the UI pass.
+> Current numbers and what is still open are in `STATE.md`.
+
 # The plan that solves all of it
 
 Written 9 Sept 2026. Deadline **Fri 18 Sept, 11:59pm CDT** — 9 days.
